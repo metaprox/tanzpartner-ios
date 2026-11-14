@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+# HTML pages request noindex; crawling is allowed so this instruction can be read.
