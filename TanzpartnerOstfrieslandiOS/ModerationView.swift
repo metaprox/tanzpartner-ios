@@ -11,9 +11,9 @@ struct ModerationView: View {
     @State private var moderationItems: [ModerationItem] = [
         ModerationItem(id: 1, profileName: "Mara", status: .approved, date: Date(), note: nil),
         ModerationItem(id: 2, profileName: "Jan", status: .approved, date: Date(), note: "Sehr engagiert"),
-        ModerationItem(id: 3, profileName: "Alva", status: .approved, date: Date(), note: null),
-        ModerationItem(id: 4, profileName: "Timo", status: .pending, date: Date(), note: null),
-        ModerationItem(id: 5, profileName: "Jule", status: .approved, date: Date(), note: null)
+        ModerationItem(id: 3, profileName: "Alva", status: .approved, date: Date(), note: nil),
+        ModerationItem(id: 4, profileName: "Timo", status: .pending, date: Date(), note: nil),
+        ModerationItem(id: 5, profileName: "Jule", status: .approved, date: Date(), note: nil)
     ]
     
     var body: some View {

@@ -1,210 +1,328 @@
-// !$*UTF8*!
+// !$*UTF8*$!
 {
-    archiveVersion = 1;
-    classes = {
-    };
-    objectVersion = 56;
-    objects = {
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
 
 /* Begin PBXBuildFile section */
-        04F3A2B22AD1C1D8003E9D8F /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A2B12AD1C1D8003E9D8F /* App.swift */; };
-        04F3A2B52AD1C1D8003E9D8F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A2B42AD1C1D8003E9D8F /* ContentView.swift */; };
-        04F3A2B72AD1C1D8003E9D8F /* ProfileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A2B62AD1C1D8003E9D8F /* ProfileListView.swift */; };
-        04F3A2B92AD1C1D8003E9D8F /* ModerationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A2B82AD1C1D8003E9D8F /* ModerationView.swift */; };
-        04F3A2BC2AD1C1D8003E9D8F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F3A2BB2AD1C1D8003E9D8F /* Assets.xcassets */; };
-        04F3A2BF2AD1C1D8003E9D8F /* Preview Content in Resources */ = {isa = PBXBuildFile; fileRef = 04F3A2BE2AD1C1D8003E9D8F /* Preview Content */; };
+		04F3A2B22AD1C1D8003E9D8F /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A2B12AD1C1D8003E9D8F /* App.swift */; };
+		04F3A2B52AD1C1D8003E9D8F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A2B42AD1C1D8003E9D8F /* ContentView.swift */; };
+		04F3A2B72AD1C1D8003E9D8F /* ProfileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A2C52AD1C1D8003E9D8F /* ProfileListView.swift */; };
+		04F3A2B92AD1C1D8003E9D8F /* ModerationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A2B82AD1C1D8003E9D8F /* ModerationView.swift */; };
+		04F3A2BC2AD1C1D8003E9D8F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F3A2BB2AD1C1D8003E9D8F /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-        04F3A2B02AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS.app */ = {isa = PBXFileReference; explicitFileType = "wrapper.application"; includeInIndex = 0; path = TanzpartnerOstfrieslandiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-        04F3A2B12AD1C1D8003E9D8F /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
-        04F3A2B22AD1C1D8003E9D8F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-        04F3A2B32AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanzpartnerOstfrieslandiOSApp.swift; sourceTree = "<group>"; };
-        04F3A2B42AD1C1D8003E9D8F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-        04F3A2B52AD1C1D8003E9D8F /* ProfileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListView.swift; sourceTree = "<group>"; };
-        04F3A2B62AD1C1D8003E9D8F /* ModerationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModerationView.swift; sourceTree = "<group>"; };
-        04F3A2B72AD1C1D8003E9D8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml.plist; path = Info.plist; sourceTree = "<group>"; };
-        04F3A2BB2AD1C1D8003E9D8F /* Assets.xcassets */ = {isa = PBXFileReference; explicitFileType = "wrapper.assetcatalog"; includeInIndex = 0; path = Assets.xcassets; sourceTree = "<group>"; };
-        04F3A2BE2AD1C1D8003E9D8F /* Preview Content */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Preview Content"; sourceTree = "<group>"; };
+		04F3A2B02AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TanzpartnerOstfrieslandiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04F3A2B12AD1C1D8003E9D8F /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		04F3A2B42AD1C1D8003E9D8F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		04F3A2B82AD1C1D8003E9D8F /* ModerationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModerationView.swift; sourceTree = "<group>"; };
+		04F3A2BB2AD1C1D8003E9D8F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		04F3A2C52AD1C1D8003E9D8F /* ProfileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListView.swift; sourceTree = "<group>"; };
+		04F3A2C62AD1C1D8003E9D8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		04F3A2AE2AD1C1D8003E9D8F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
-        04F3A2A52AD1C1D8003E9D8F /* Project */ = {
-            isa = PBXGroup;
-            children = (
-                04F3A2B02AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS.app */,
-                04F3A2B32AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOSApp.swift */,
-                04F3A2B12AD1C1D8003E9D8F /* App.swift */,
-                04F3A2B42AD1C1D8003E9D8F /* ContentView.swift */,
-                04F3A2B52AD1C1D8003E9D8F /* ProfileListView.swift */,
-                04F3A2B62AD1C1D8003E9D8F /* ModerationView.swift */,
-                04F3A2B72AD1C1D8003E9D8F /* Info.plist */,
-                04F3A2BA2AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS */,
-                04F3A2BB2AD1C1D8003E9D8F /* Assets.xcassets */,
-                04F3A2BE2AD1C1D8003E9D8F /* Preview Content */,
-            );
-            sourceTree = "<group>";
-        };
-        04F3A2BA2AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS */ = {
-            isa = PBXGroup;
-            children = (
-                04F3A2B12AD1C1D8003E9D8F /* App.swift */,
-                04F3A2B42AD1C1D8003E9D8F /* ContentView.swift */,
-                04F3A2B52AD1C1D8003E9D8F /* ProfileListView.swift */,
-                04F3A2B62AD1C1D8003E9D8F /* ModerationView.swift */,
-                04F3A2B72AD1C1D8003E9D8F /* Info.plist */,
-            );
-            path = TanzpartnerOstfrieslandiOS;
-            sourceTree = "<group>";
-        };
+		04F3A2A52AD1C1D8003E9D8F = {
+			isa = PBXGroup;
+			children = (
+				04F3A2BA2AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS */,
+				04F3A2A62AD1C1D8003E9D8F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		04F3A2A62AD1C1D8003E9D8F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04F3A2B02AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		04F3A2BA2AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS */ = {
+			isa = PBXGroup;
+			children = (
+				04F3A2B12AD1C1D8003E9D8F /* App.swift */,
+				04F3A2B42AD1C1D8003E9D8F /* ContentView.swift */,
+				04F3A2C52AD1C1D8003E9D8F /* ProfileListView.swift */,
+				04F3A2B82AD1C1D8003E9D8F /* ModerationView.swift */,
+				04F3A2C62AD1C1D8003E9D8F /* Info.plist */,
+				04F3A2BB2AD1C1D8003E9D8F /* Assets.xcassets */,
+			);
+			path = TanzpartnerOstfrieslandiOS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-        04F3A2AF2AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS */ = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = 04F3A2B82AD1C1D8003E9D8F /* Build configuration list for PBXNativeTarget TanzpartnerOstfrieslandiOS */;
-            buildPhases = (
-                04F3A2AC2AD1C1D8003E9D8F /* Resources */,
-                04F3A2AD2AD1C1D8003E9D8F /* Sources */,
-            );
-            buildRules = (
-            );
-            dependencies = (
-            );
-            name = TanzpartnerOstfrieslandiOS;
-            packageReferences = (
-            );
-            productName = TanzpartnerOstfrieslandiOS;
-            productReference = 04F3A2B02AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS.app */;
-            productType = "com.apple.product-type.application";
-        };
+		04F3A2AF2AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04F3A2C12AD1C1D8003E9D8F /* Build configuration list for PBXNativeTarget "TanzpartnerOstfrieslandiOS" */;
+			buildPhases = (
+				04F3A2AE2AD1C1D8003E9D8F /* Frameworks */,
+				04F3A2AD2AD1C1D8003E9D8F /* Sources */,
+				04F3A2AC2AD1C1D8003E9D8F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TanzpartnerOstfrieslandiOS;
+			productName = TanzpartnerOstfrieslandiOS;
+			productReference = 04F3A2B02AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-        04F3A2A72AD1C1D8003E9D8F /* Project object */ = {
-            isa = PBXProject;
-            attributes = {
-                LastSwiftUpdateCheck = "1600";
-                MainComponents = {
-                    MainComponent = {
-                        Ref = "04F3A2B02AD1C1D8003E9D8F";
-                    };
-                };
-                TargetAttributes = {
-                    04F3A2AF2AD1C1D8003E9D8F = {
-                        CreatedOnToolsVersion = "16.0";
-                    };
-                };
-            };
-            buildConfigurationList = 04F3A2A92AD1C1D8003E9D8F /* Build configuration list for PBXProject "TanzpartnerOstfrieslandiOS" */;
-            compatibilityVersion = "Xcode 16.0";
-            developmentRegion = en;
-            hasScannedForEncodings = 1;
-            knownRegions = (
-                en,
-                Base,
-            );
-            mainGroup = 04F3A2A52AD1C1D8003E9D8F /* Project */;
-            productRefGroup = 04F3A2A52AD1C1D8003E9D8F /* Project */;
-            projectDirPath = "";
-            projectRoot = "";
-            targets = (
-                04F3A2AF2AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS */,
-            );
-        };
+		04F3A2A72AD1C1D8003E9D8F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 2720;
+				TargetAttributes = {
+					04F3A2AF2AD1C1D8003E9D8F = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = 04F3A2A92AD1C1D8003E9D8F /* Build configuration list for PBXProject "TanzpartnerOstfrieslandiOS" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 04F3A2A52AD1C1D8003E9D8F;
+			productRefGroup = 04F3A2A62AD1C1D8003E9D8F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				04F3A2AF2AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS */,
+			);
+		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-        04F3A2AC2AD1C1D8003E9D8F /* Resources */ = {
-            isa = PBXResourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                04F3A2BC2AD1C1D8003E9D8F /* Assets.xcassets in Resources */,
-                04F3A2BF2AD1C1D8003E9D8F /* Preview Content in Resources */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
+		04F3A2AC2AD1C1D8003E9D8F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04F3A2BC2AD1C1D8003E9D8F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-        04F3A2AD2AD1C1D8003E9D8F /* Sources */ = {
-            isa = PBXSourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                04F3A2B22AD1C1D8003E9D8F /* App.swift in Sources */,
-                04F3A2B52AD1C1D8003E9D8F /* ContentView.swift in Sources */,
-                04F3A2B72AD1C1D8003E9D8F /* ProfileListView.swift in Sources */,
-                04F3A2B92AD1C1D8003E9D8F /* ModerationView.swift in Sources */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
+		04F3A2AD2AD1C1D8003E9D8F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04F3A2B22AD1C1D8003E9D8F /* App.swift in Sources */,
+				04F3A2B52AD1C1D8003E9D8F /* ContentView.swift in Sources */,
+				04F3A2B72AD1C1D8003E9D8F /* ProfileListView.swift in Sources */,
+				04F3A2B92AD1C1D8003E9D8F /* ModerationView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin XCConfigurationList section */
-        04F3A2A92AD1C1D8003E9D8F /* Build configuration list for PBXProject "TanzpartnerOstfrieslandiOS" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                04F3A2AA2AD1C1D8003E9D8F /* Debug */,
-                04F3A2AB2AD1C1D8003E9D8F /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Debug;
-        };
-        04F3A2B82AD1C1D8003E9D8F /* Build configuration list for PBXNativeTarget TanzpartnerOstfrieslandiOS */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                04F3A2B92AD1C1D8003E9D8F /* Debug */,
-                04F3A2BA2AD1C1D8003E9D8F /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Debug;
-        };
-/* End XCConfigurationList section */
-
 /* Begin XCBuildConfiguration section */
-        04F3A2AA2AD1C1D8003E9D8F /* Debug */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-                DEVELOPMENT_TEAM = "";
-                INFOPLIST_FILE = TanzpartnerOstfrieslandiOS/Info.plist;
-                INSTALL_DIR = "$(LOCAL_APPS_DIR)";
-                PRODUCT_BUNDLE_IDENTIFIER = com.svenschley.tanzpartnerostfrieslandios;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-            };
-            name = Debug;
-        };
-        04F3A2AB2AD1C1D8003E9D8F /* Release */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-                DEVELOPMENT_TEAM = "";
-                INFOPLIST_FILE = TanzpartnerOstfrieslandiOS/Info.plist;
-                INSTALL_DIR = "$(LOCAL_APPS_DIR)";
-                PRODUCT_BUNDLE_IDENTIFIER = com.svenschley.tanzpartnerostfrieslandios;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-            };
-            name = Release;
-        };
+		04F3A2AA2AD1C1D8003E9D8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		04F3A2AB2AD1C1D8003E9D8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		04F3A2C22AD1C1D8003E9D8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TanzpartnerOstfrieslandiOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.svenschley.tanzpartnerostfrieslandios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		04F3A2C32AD1C1D8003E9D8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TanzpartnerOstfrieslandiOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.svenschley.tanzpartnerostfrieslandios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
-/* Begin XCScheme section */
-        04F3A2B12AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS.xcscheme */ = {
-            isa = XCScheme;
-            lastUpgradeVersion = "16.0";
-            schemeName = TanzpartnerOstfrieslandiOS;
-        };
-/* End XCScheme section */
-
-/* Begin XCWorkspaceData section */
-        04F3A2A52AD1C1D8003E9D8F /* Workspace data */ = {
-            isa = XCWorkspaceData;
-            Path = "TanzpartnerOstfrieslandiOS.xcodeproj";
-        };
-/* End XCWorkspaceData section */
-
-    };
-    rootObject = 04F3A2A72AD1C1D8003E9D8F /* Project object */;
+/* Begin XCConfigurationList section */
+		04F3A2A92AD1C1D8003E9D8F /* Build configuration list for PBXProject "TanzpartnerOstfrieslandiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04F3A2AA2AD1C1D8003E9D8F /* Debug */,
+				04F3A2AB2AD1C1D8003E9D8F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		04F3A2C12AD1C1D8003E9D8F /* Build configuration list for PBXNativeTarget "TanzpartnerOstfrieslandiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04F3A2C22AD1C1D8003E9D8F /* Debug */,
+				04F3A2C32AD1C1D8003E9D8F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 04F3A2A72AD1C1D8003E9D8F /* Project object */;
 }
