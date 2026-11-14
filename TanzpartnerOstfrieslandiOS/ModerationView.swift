@@ -8,59 +8,127 @@
 import SwiftUI
 
 struct ModerationView: View {
-    @State private var moderationItems: [ModerationItem] = [
-        ModerationItem(id: 1, profileName: "Mara", status: .approved, date: Date(), note: nil),
-        ModerationItem(id: 2, profileName: "Jan", status: .approved, date: Date(), note: "Sehr engagiert"),
-        ModerationItem(id: 3, profileName: "Alva", status: .approved, date: Date(), note: nil),
-        ModerationItem(id: 4, profileName: "Timo", status: .pending, date: Date(), note: nil),
-        ModerationItem(id: 5, profileName: "Jule", status: .approved, date: Date(), note: nil)
-    ]
-    
+    @EnvironmentObject private var store: ProfileStore
+
+    /// nil = alle Status anzeigen
+    @State private var selectedStatus: ModerationStatus?
+
+    // Bearbeiten-Zustand
+    @State private var editingProfile: Profile?
+    @State private var showingNewProfile = false
+
+    /// Offene Fälle zuerst, danach nach Name
+    private var sortedProfiles: [Profile] {
+        store.profiles
+            .filter { selectedStatus == nil || $0.status == selectedStatus }
+            .sorted { lhs, rhs in
+                if lhs.status.priority != rhs.status.priority {
+                    return lhs.status.priority < rhs.status.priority
+                }
+                return lhs.name.localizedCaseInsensitiveCompare(rhs.name) == .orderedAscending
+            }
+    }
+
     var body: some View {
         NavigationView {
-            List(moderationItems) { item in
-                ModerationRow(item: item)
+            VStack(spacing: 0) {
+                statusFilterBar
+
+                List(sortedProfiles) { profile in
+                    ModerationRow(profile: profile)
+                        .contentShape(Rectangle())
+                        .onTapGesture { editingProfile = profile }
+                }
+                .listStyle(PlainListStyle())
+
+                if sortedProfiles.isEmpty {
+                    VStack(spacing: 8) {
+                        Image(systemName: "checkmark.seal.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(.secondary)
+                        Text("Keine Einträge in dieser Kategorie")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding()
+                }
             }
             .navigationTitle("Moderation")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    Button(action: {}) {
+                    Button(action: { showingNewProfile = true }) {
                         Label("Hinzufügen", systemImage: "plus.circle.fill")
                     }
                 }
             }
+            .sheet(item: $editingProfile) { profile in
+                ProfileEditorView(profile: profile)
+            }
+            .sheet(isPresented: $showingNewProfile) {
+                ProfileEditorView()
+            }
         }
+    }
+
+    // MARK: - Status-Filter (horizontal scrollbar)
+
+    private var statusFilterBar: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                FilterPill(
+                    label: "Alle",
+                    value: "\(store.profiles.count)",
+                    isActive: selectedStatus == nil
+                )
+                .onTapGesture { selectedStatus = nil }
+
+                ForEach(ModerationStatus.allCases, id: \.self) { status in
+                    FilterPill(
+                        label: status.shortText,
+                        value: "\(store.profiles.filter { $0.status == status }.count)",
+                        isActive: selectedStatus == status
+                    )
+                    .onTapGesture { selectedStatus = status }
+                }
+            }
+            .padding(.horizontal)
+        }
+        .frame(height: 48)
     }
 }
 
+// MARK: - ModerationRow
+
 struct ModerationRow: View {
-    let item: ModerationItem
-    
+    let profile: Profile
+
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            statusCircle(status: item.status)
-            
+            statusCircle(status: profile.status)
+
             VStack(alignment: .leading, spacing: 4) {
-                Text(item.profileName)
+                Text(profile.name)
                     .font(.headline)
-                
+
                 HStack(spacing: 8) {
-                    Text(item.status.displayText)
+                    Text(profile.status.displayText)
                         .font(.caption)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                         .background(statusColor.opacity(0.1))
                         .cornerRadius(6)
                         .foregroundColor(statusColor)
-                    
+
                     Spacer()
-                    
-                    Text(item.date, style: .date)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+
+                    if let updatedAt = profile.updatedAt {
+                        Text(updatedAt, style: .date)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                 }
-                
-                if let note = item.note {
+
+                if let note = profile.note {
                     HStack(spacing: 4) {
                         Image(systemName: "note.fill")
                             .font(.caption)
@@ -71,24 +139,24 @@ struct ModerationRow: View {
                     }
                 }
             }
-            
+
             Spacer()
-            
-            Image(systemName: "chevron.right")
+
+            Image(systemName: "pencil")
                 .foregroundColor(.secondary)
         }
         .padding(.vertical, 8)
     }
-    
+
     private var statusColor: Color {
-        switch item.status {
+        switch profile.status {
         case .pending: return .orange
         case .approved: return .green
         case .returned: return .red
         case .paused: return .gray
         }
     }
-    
+
     private func statusCircle(status: ModerationStatus) -> some View {
         Circle()
             .fill(statusColor)
@@ -97,33 +165,6 @@ struct ModerationRow: View {
                 Image(systemName: status.icon)
                     .foregroundColor(.white)
             )
-    }
-}
-
-// MARK: - Moderation Models
-
-struct ModerationItem: Identifiable {
-    let id: Int
-    let profileName: String
-    let status: ModerationStatus
-    let date: Date
-    let note: String?
-}
-
-enum ModerationStatus: String, CaseIterable {
-    case pending = "Wartet auf Prüfung"
-    case approved = "Lokal freigegeben"
-    case returned = "Zurückgestellt"
-    case paused = "Pausiert"
-    
-    var displayText: String { rawValue }
-    var icon: String {
-        switch self {
-        case .pending: return "hourglass.fill"
-        case .approved: return "checkmark.circle.fill"
-        case .returned: return "return.down.back.icon.fill"
-        case .paused: return "pause.fill"
-        }
     }
 }
 

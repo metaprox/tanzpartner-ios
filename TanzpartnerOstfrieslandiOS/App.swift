@@ -1,17 +1,18 @@
 //
-//  TanzpartnerOstfrieslandiOSApp.swift
+//  App.swift
 //  TanzpartnerOstfrieslandiOS
-//
-//  Created by Sven Schley on 14.11.2026.
 //
 
 import SwiftUI
 
 @main
 struct TanzpartnerOstfrieslandiOSApp: App {
+    @StateObject private var store = ProfileStore()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(store)
                 .environment(\.colorScheme, .light)
         }
     }

@@ -1,5 +1,8 @@
 # Tanzpartner iOS App – Entwickler-Dokumentation
 
+> **⚠️ Status (2026-11-14):** Dieses Dokument beschreibt die *geplante* Hybrid-Architektur (WKWebView + SQLite).
+> Die aktuell laufende App ist **reines SwiftUI mit JSON-Persistenz** (`ProfileStore`) – der Ist-Zustand steht im [KI-LEITFADEN.md](../KI-LEITFADEN.md).
+
 ## 📱 Projektübersicht
 
 Die **Tanzpartner Ostfriesland iOS App** ist eine native iOS-Anwendung, basierend auf dem bestehenden Web-Projekt in `../ki-web-labor/tanzpartner-ostfriesland`.
@@ -83,10 +86,11 @@ tanzpartner-ios/
 
 | Komponente | Status |
 |---|---|
-| **Xcode Projekt** | ⏳ Planung in Vorbereitung |
-| **Web-Inhalte kopiert** | ✅ Fertig (`www/`) |
-| **Datenbankstruktur** | ✅ Bekannt (SQLite) |
-| **Native Features** | 📋 Geplant |
+| **Xcode Projekt** | ✅ Fertig – App baut und läuft (`BUILD SUCCEEDED`) |
+| **Kernlogik (SwiftUI)** | ✅ Fertig – Speichern, Bearbeiten, Löschen, Filter, Moderation via `ProfileStore` (JSON) |
+| **Web-Inhalte kopiert** | ✅ Fertig (`www/`, noch nicht von der iOS-App genutzt) |
+| **Backend-Sync** | ⏳ Nächster Schritt (`store.mjs`-API) |
+| **Native Features (Push, Kamera, Biometrie)** | 📋 Geplant |
 
 ---
 

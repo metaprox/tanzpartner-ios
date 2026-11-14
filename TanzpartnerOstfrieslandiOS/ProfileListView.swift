@@ -2,44 +2,112 @@
 //  ProfileListView.swift
 //  TanzpartnerOstfrieslandiOS
 //
-//  Created by Sven Schley on 14.11.2026.
-//
 
 import SwiftUI
 
 struct ProfileListView: View {
-    @StateObject private var viewModel = ProfileListViewModel()
-    
+    @EnvironmentObject private var store: ProfileStore
+
+    // Filter-Zustand
+    @State private var searchText = ""
+    @State private var selectedCity: String?
+    @State private var selectedStyle: String?
+    @State private var selectedRole: String?
+    @State private var filterSheetVisible = false
+
+    // Bearbeiten-Zustand
+    @State private var editingProfile: Profile?
+    @State private var showingNewProfile = false
+
+    let cities = ["Norden", "Emden", "Aurich"]
+    let styles = ["Standard / Latein", "Salsa", "Discofox", "Tango", "Rock'n'Roll"]
+    let roles = ["Führend", "Folgend", "Beides"]
+
+    var filteredProfiles: [Profile] {
+        store.profiles.filter { profile in
+            // Suchtext-Filter
+            let matchesSearch = searchText.isEmpty ||
+                profile.name.lowercased().contains(searchText.lowercased()) ||
+                profile.city.lowercased().contains(searchText.lowercased())
+
+            // Ort-Filter
+            let matchesCity = selectedCity == nil || profile.city == selectedCity
+
+            // Stil-Filter
+            let matchesStyle = selectedStyle == nil ||
+                profile.styles.contains { $0 == selectedStyle }
+
+            // Rolle-Filter
+            let matchesRole = selectedRole == nil || profile.role == selectedRole
+
+            return matchesSearch && matchesCity && matchesStyle && matchesRole
+        }
+    }
+
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                FilterBar(viewModel: viewModel)
-                    .padding(.horizontal)
-                
-                List(viewModel.filteredProfiles) { profile in
-                    ProfileRow(profile: profile)
-                        .onTapGesture {
-                            // Öffne Detailansicht oder nutze WebView für Profil
-                        }
+                FilterBar(
+                    searchText: $searchText,
+                    selectedCity: $selectedCity,
+                    selectedStyle: $selectedStyle,
+                    selectedRole: $selectedRole,
+                    onFilterTap: { filterSheetVisible = true }
+                )
+                .padding(.horizontal)
+
+                List {
+                    ForEach(filteredProfiles) { profile in
+                        ProfileRow(profile: profile)
+                            .contentShape(Rectangle())
+                            .onTapGesture { editingProfile = profile }
+                    }
+                    .onDelete(perform: deleteProfiles)
                 }
                 .listStyle(PlainListStyle())
-                
-                if viewModel.isLoading {
-                    ProgressView("Lade Tanzpartner...")
-                        .padding()
+
+                if filteredProfiles.isEmpty {
+                    VStack(spacing: 8) {
+                        Image(systemName: "person.2.slash.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(.secondary)
+                        Text("Keine Tanzpartner gefunden")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding()
                 }
             }
             .navigationTitle("Tanzpartner")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    NavigationLink(
-                        destination: ProfileEditorView(),
-                        label: {
-                            Label("Neues Profil", systemImage: "plus")
-                        }
-                    )
+                    Button(action: { showingNewProfile = true }) {
+                        Label("Neues Profil", systemImage: "plus")
+                    }
                 }
             }
+            .sheet(isPresented: $filterSheetVisible) {
+                FilterSheet(
+                    selectedCity: $selectedCity,
+                    selectedStyle: $selectedStyle,
+                    selectedRole: $selectedRole,
+                    cities: cities,
+                    styles: styles,
+                    roles: roles
+                )
+            }
+            .sheet(item: $editingProfile) { profile in
+                ProfileEditorView(profile: profile)
+            }
+            .sheet(isPresented: $showingNewProfile) {
+                ProfileEditorView()
+            }
+        }
+    }
+
+    private func deleteProfiles(at offsets: IndexSet) {
+        for index in offsets {
+            store.delete(filteredProfiles[index])
         }
     }
 }
@@ -47,38 +115,42 @@ struct ProfileListView: View {
 // MARK: - FilterBar
 
 struct FilterBar: View {
-    @ObservedObject var viewModel: ProfileListViewModel
-    
+    @Binding var searchText: String
+    @Binding var selectedCity: String?
+    @Binding var selectedStyle: String?
+    @Binding var selectedRole: String?
+    let onFilterTap: () -> Void
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
-                TextField("Suche...", text: $viewModel.searchText)
+                TextField("Suche...", text: $searchText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                Button(action: viewModel.toggleFilterSheet) {
+
+                Button(action: onFilterTap) {
                     Label("Filter", systemImage: "slider.horizontal.3")
                 }
             }
-            
+
             HStack(spacing: 12) {
                 FilterPill(
                     label: "Ort",
-                    value: viewModel.selectedCity ?? "Alle",
-                    isActive: viewModel.selectedCity != nil
+                    value: selectedCity ?? "Alle",
+                    isActive: selectedCity != nil
                 )
-                
+
                 FilterPill(
                     label: "Stil",
-                    value: viewModel.selectedStyle ?? "Alle",
-                    isActive: viewModel.selectedStyle != nil
+                    value: selectedStyle ?? "Alle",
+                    isActive: selectedStyle != nil
                 )
-                
+
                 FilterPill(
                     label: "Rolle",
-                    value: viewModel.selectedRole ?? "Beide",
-                    isActive: viewModel.selectedRole != nil
+                    value: selectedRole ?? "Beide",
+                    isActive: selectedRole != nil
                 )
             }
         }
@@ -89,14 +161,14 @@ struct FilterPill: View {
     let label: String
     let value: String
     let isActive: Bool
-    
+
     var body: some View {
         HStack(spacing: 6) {
             Text(label)
                 .font(.caption2)
                 .fontWeight(.medium)
                 .foregroundColor(isActive ? .blue : .secondary)
-            
+
             Text(value)
                 .font(.subheadline)
                 .foregroundColor(isActive ? .primary : .secondary)
@@ -108,11 +180,75 @@ struct FilterPill: View {
     }
 }
 
+// MARK: - FilterSheet
+
+struct FilterSheet: View {
+    @Binding var selectedCity: String?
+    @Binding var selectedStyle: String?
+    @Binding var selectedRole: String?
+
+    let cities: [String]
+    let styles: [String]
+    let roles: [String]
+
+    @Environment(\.presentationMode) var presentationMode
+
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Ort")) {
+                    Picker("Ort", selection: $selectedCity) {
+                        Text("Alle").tag(String?.none)
+                        ForEach(cities, id: \.self) { city in
+                            Text(city).tag(String?.some(city))
+                        }
+                    }
+                }
+
+                Section(header: Text("Tanzstil")) {
+                    Picker("Stil", selection: $selectedStyle) {
+                        Text("Alle").tag(String?.none)
+                        ForEach(styles, id: \.self) { style in
+                            Text(style).tag(String?.some(style))
+                        }
+                    }
+                }
+
+                Section(header: Text("Rolle")) {
+                    Picker("Rolle", selection: $selectedRole) {
+                        Text("Beide").tag(String?.none)
+                        ForEach(roles, id: \.self) { role in
+                            Text(role).tag(String?.some(role))
+                        }
+                    }
+                }
+
+                Button("Filter zurücksetzen", role: .destructive) {
+                    selectedCity = nil
+                    selectedStyle = nil
+                    selectedRole = nil
+                }
+            }
+            .navigationTitle("Filter")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Abbrechen") { presentationMode.wrappedValue.dismiss() }
+                }
+
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("OK") { presentationMode.wrappedValue.dismiss() }
+                }
+            }
+        }
+    }
+}
+
 // MARK: - ProfileRow
 
 struct ProfileRow: View {
     let profile: Profile
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Circle()
@@ -130,11 +266,11 @@ struct ProfileRow: View {
                         .foregroundColor(.white)
                         .bold()
                 )
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(profile.name)
                     .font(.headline)
-                
+
                 HStack(spacing: 8) {
                     Image(systemName: "location.fill")
                         .font(.caption)
@@ -142,9 +278,9 @@ struct ProfileRow: View {
                     Text(profile.city)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
-                    
+
                     Spacer()
-                    
+
                     if let role = profile.role {
                         Text(role)
                             .font(.caption)
@@ -155,15 +291,15 @@ struct ProfileRow: View {
                             .foregroundColor(.green)
                     }
                 }
-                
+
                 Text(profile.bio)
                     .font(.body)
                     .foregroundColor(.secondary)
                     .lineLimit(2)
             }
-            
+
             Spacer()
-            
+
             Image(systemName: "chevron.right")
                 .foregroundColor(.secondary)
         }
@@ -171,106 +307,28 @@ struct ProfileRow: View {
     }
 }
 
-// MARK: - ProfileListViewModel
-
-class ProfileListViewModel: ObservableObject {
-    @Published var profiles: [Profile] = []
-    @Published var filteredProfiles: [Profile] = []
-    @Published var isLoading = false
-    @Published var searchText = ""
-    @Published var selectedCity: String?
-    @Published var selectedStyle: String?
-    @Published var selectedRole: String?
-    
-    private let cities = ["Norden", "Emden", "Aurich"]
-    private let styles = ["Standard / Latein", "Salsa", "Discofox", "Tango", "Rock'n'Roll"]
-    private let roles = ["Führend", "Folgend", "Beides"]
-    
-    @Published var filterSheetVisible = false
-    
-    init() {
-        loadProfiles()
-    }
-    
-    func loadProfiles() {
-        isLoading = true
-        // Simuliere API-Abruf
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.profiles = [
-                Profile(id: 1, name: "Mara", city: "Norden", styles: ["Standard / Latein"], role: "Folgend", level: "Ohne Vorkenntnisse", goal: "Ersten Kurs beginnen", places: ["Norden", "Aurich"], time: "Dienstag oder Donnerstag abends", bio: "Ich möchte die ersten Schritte lernen und suche jemanden, der mit Geduld und Freude einen Grundkurs beginnt."),
-                Profile(id: 2, name: "Jan", city: "Emden", styles: ["Discofox", "Standard / Latein"], role: "Führend", level: "Grundkenntnisse", goal: "Wieder einsteigen", places: ["Emden", "Norden"], time: "Freitag abends", bio: "Nach einigen Jahren Pause möchte ich wieder aufs Parkett. Ein entspanter Wiedereinstieg wäre schön."),
-                Profile(id: 3, name: "Alva", city: "Aurich", styles: ["Standard / Latein"], role: "Beides", level: "Fortgeschritten", goal: "Kenntnisse vertiefen", places: ["Aurich"], time: "Mittwoch abends oder am Wochenende", bio: "Die Grundlagen sitzen. Jetzt möchte ich an Haltung und Technik arbeiten und gemeinsam einen weiterführenden Kurs besuchen."),
-                Profile(id: 4, name: "Timo", city: "Norden", styles: ["Salsa"], role: "Führend", level: "Ohne Vorkenntnisse", goal: "Ersten Kurs beginnen", places: ["Norden"], time: "Montag abends", bio: "Salsa macht mir schon beim Zuhören Spaß. Für meinen ersten Kurs suche ich einen ebenso neugierigen Menschen."),
-                Profile(id: 5, name: "Jule", city: "Emden", styles: ["Salsa"], role: "Folgend", level: "Grundkenntnisse", goal: "Regelmäßig tanzen", places: ["Emden", "Aurich"], time: "Samstag nachmittags oder abends", bio: "Ich möchte meine Schritte regelmäßig üben. Die Freude an der Musik ist mir wichtiger als Perfektion."),
-                Profile(id: 6, name: "Lukas", city: "Aurich", styles: ["Tango"], role: "Führend", level: "Fortgeschritten", goal: "Regelmäßig tanzen", places: ["Aurich", "Norden"], time: "Dienstag und Donnerstag abends", bio: "Ich liebe den Ausdruck des Tangos. Suche einen Partner für regelmäßige Übungsstunden."),
-                Profile(id: 7, name: "Sarah", city: "Norden", styles: ["Rock'n'Roll", "Standard / Latein"], role: "Beides", level: "Grundkenntnisse", goal: "Regelmäßig tanzen", places: ["Norden", "Emden"], time: "Mittwoch abends", bio: "Ich tanze seit Jahren und suche nun einen festen Tanzpartner für Übungen und gemeinsame Kurse."),
-                Profile(id: 8, name: "Finn", city: "Emden", styles: ["Standard / Latein"], role: "Führend", level: "Ohne Vorkenntnisse", goal: "Ersten Kurs beginnen", places: ["Emden", "Aurich"], time: "Freitag abends", bio: "Ich habe noch keine Erfahrung, möchte aber gerne tanzen lernen. Freue mich auf gemeinsame Stunden!")
-            ]
-            
-            self.applyFilters()
-            self.isLoading = false
-        }
-    }
-    
-    func applyFilters() {
-        filteredProfiles = profiles.filter { profile in
-            // Suchtext-Filter
-            let matchesSearch = searchText.isEmpty ||
-                profile.name.lowercased().contains(searchText.lowercased()) ||
-                profile.city.lowercased().contains(searchText.lowercased())
-            
-            // Ort-Filter
-            let matchesCity = selectedCity == nil || profile.city == selectedCity
-            
-            // Stil-Filter
-            let matchesStyle = selectedStyle == nil ||
-                profile.styles.contains { $0 == selectedStyle }
-            
-            // Rolle-Filter
-            let matchesRole = selectedRole == nil || profile.role == selectedRole
-            
-            return matchesSearch && matchesCity && matchesStyle && matchesRole
-        }
-    }
-    
-    func toggleFilterSheet() {
-        filterSheetVisible.toggle()
-    }
-}
-
-// MARK: - Profile Model
-
-struct Profile: Identifiable, Hashable {
-    let id: Int
-    let name: String
-    let city: String
-    let styles: [String]
-    let role: String?
-    let level: String
-    let goal: String
-    let places: [String]
-    let time: String
-    let bio: String
-    
-    // Berechnete Werte für UI
-    var displayName: String { name }
-    var displayCity: String { city }
-}
-
 // MARK: - ProfileEditorView
 
 struct ProfileEditorView: View {
+    @EnvironmentObject private var store: ProfileStore
     @Environment(\.presentationMode) var presentationMode
-    
+
+    /// nil = neues Profil, sonst wird dieses bearbeitet
+    let profile: Profile?
+
     @State private var name = ""
     @State private var city = "Norden"
     @State private var styles: [String] = []
     @State private var role = "Führend"
     @State private var level = "Ohne Vorkenntnisse"
     @State private var goal = "Ersten Kurs beginnen"
-    @State private var time = "Dienstag oder Donnerstag abends"
+    @State private var time = ""
     @State private var bio = ""
-    
+
+    // Moderation
+    @State private var status: ModerationStatus = .pending
+    @State private var note = ""
+
     let cities = ["Norden", "Emden", "Aurich"]
     let allStyles = ["Standard / Latein", "Salsa", "Discofox", "Tango", "Rock'n'Roll", "Bachata", "Zumba"]
     let roles = ["Führend", "Folgend", "Beides"]
@@ -281,7 +339,23 @@ struct ProfileEditorView: View {
         "Regelmäßig tanzen",
         "Kenntnisse vertiefen"
     ]
-    
+
+    init(profile: Profile? = nil) {
+        self.profile = profile
+        _name = State(initialValue: profile?.name ?? "")
+        _city = State(initialValue: profile?.city ?? "Norden")
+        _styles = State(initialValue: profile?.styles ?? [])
+        _role = State(initialValue: profile?.role ?? "Führend")
+        _level = State(initialValue: profile?.level ?? "Ohne Vorkenntnisse")
+        _goal = State(initialValue: profile?.goal ?? "Ersten Kurs beginnen")
+        _time = State(initialValue: profile?.time ?? "")
+        _bio = State(initialValue: profile?.bio ?? "")
+        _status = State(initialValue: profile?.status ?? .pending)
+        _note = State(initialValue: profile?.note ?? "")
+    }
+
+    private var isNew: Bool { profile == nil }
+
     var body: some View {
         NavigationView {
             Form {
@@ -292,74 +366,94 @@ struct ProfileEditorView: View {
                             Text(city).tag(city)
                         }
                     }
-                    
+
                     MultiSelectPicker(
                         title: "Tanzstil",
                         options: allStyles,
                         selectedOptions: $styles
                     )
                 }
-                
+
                 Section(header: Text("Erfahrung")) {
                     Picker("Rolle", selection: $role) {
                         ForEach(roles, id: \.self) { role in
                             Text(role).tag(role)
                         }
                     }
-                    
+
                     Picker("Erfahrungsstufe", selection: $level) {
                         ForEach(levels, id: \.self) { level in
                             Text(level).tag(level)
                         }
                     }
                 }
-                
+
                 Section(header: Text("Ziel & Zeit")) {
                     Picker("Ziel", selection: $goal) {
                         ForEach(goals, id: \.self) { goal in
                             Text(goal).tag(goal)
                         }
                     }
-                    
-                    TextField("VerfügbareZeiten", text: $time)
+
+                    TextField("Verfügbare Zeiten", text: $time)
                 }
-                
+
                 Section(header: Text("Über dich")) {
                     TextArea(text: $bio, placeholder: "Erzähle etwas über dich...")
                         .lineLimit(5...10)
                 }
+
+                Section(header: Text("Moderation")) {
+                    Picker("Status", selection: $status) {
+                        ForEach(ModerationStatus.allCases, id: \.self) { status in
+                            Text(status.rawValue).tag(status)
+                        }
+                    }
+
+                    TextField("Notiz", text: $note, prompt: Text("z. B. Sehr engagiert").foregroundColor(.secondary))
+                }
             }
-            .navigationTitle("Neues Profil")
+            .navigationTitle(isNew ? "Neues Profil" : "Profil bearbeiten")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Abbrechen") { presentationMode.wrappedValue.dismiss() }
                 }
-                
+
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Speichern") { saveProfile() }
-                        .disabled(name.isEmpty)
+                        .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
                 }
             }
         }
     }
-    
+
     private func saveProfile() {
-        // Speichere Profil in SQLite
-        let profile = Profile(
-            id: Int.random(in: 100...999),
-            name: name,
+        var updated = profile ?? Profile(
+            id: store.nextID(),
+            name: "",
             city: city,
-            styles: styles,
-            role: role,
-            level: level,
-            goal: goal,
-            places: [city],
-            time: time,
-            bio: bio
+            styles: [],
+            level: "",
+            goal: "",
+            time: "",
+            bio: ""
         )
-        
-        print("Gespeichertes Profil:", profile)
-        // TODO: Speichere in SQLite via store.mjs API
+
+        updated.name = name.trimmingCharacters(in: .whitespaces)
+        updated.city = city
+        updated.styles = styles
+        updated.role = role
+        updated.level = level
+        updated.goal = goal
+        updated.places = [city]
+        updated.time = time
+        updated.bio = bio
+        updated.status = status
+        updated.note = note.isEmpty ? nil : note
+
+        store.upsert(updated)
+        presentationMode.wrappedValue.dismiss()
     }
 }
 
@@ -369,14 +463,14 @@ struct MultiSelectPicker: View {
     let title: String
     let options: [String]
     @Binding var selectedOptions: [String]
-    
+
     private func isSelected(_ option: String) -> Bool { selectedOptions.contains(option) }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .font(.headline)
-            
+
             LazyVGrid(columns: [
                 GridItem(.flexible()),
                 GridItem(.flexible())
@@ -400,7 +494,7 @@ struct MultiSelectPicker: View {
             }
         }
     }
-    
+
     private func toggle(_ option: String) {
         if isSelected(option) {
             selectedOptions.remove(at: selectedOptions.firstIndex(of: option)!)
@@ -415,7 +509,7 @@ struct MultiSelectPicker: View {
 struct TextArea: View {
     @Binding var text: String
     let placeholder: String
-    
+
     var body: some View {
         UITextViewWrapper(text: $text, placeholder: placeholder)
             .frame(minHeight: 120)
@@ -426,7 +520,7 @@ struct TextArea: View {
 struct UITextViewWrapper: UIViewRepresentable {
     @Binding var text: String
     let placeholder: String
-    
+
     func makeUIView(context: Context) -> UITextView {
         let textView = UITextView()
         textView.isScrollEnabled = true
@@ -434,13 +528,13 @@ struct UITextViewWrapper: UIViewRepresentable {
         textView.font = .systemFont(ofSize: 16)
         textView.backgroundColor = .clear
         textView.delegate = context.coordinator
-        
+
         // UITextView hat kein attributedPlaceholder – Placeholder als grauen Text emulieren
         if text.isEmpty {
             textView.text = placeholder
             textView.textColor = .secondaryLabel
         }
-        
+
         // Notification for text changes
         NotificationCenter.default.addObserver(
             context.coordinator,
@@ -448,13 +542,13 @@ struct UITextViewWrapper: UIViewRepresentable {
             name: UITextView.textDidChangeNotification,
             object: textView
         )
-        
+
         return textView
     }
-    
+
     func updateUIView(_ uiView: UITextView, context: Context) {
         let showsPlaceholder = !uiView.isFirstResponder && uiView.text == placeholder
-        
+
         if text.isEmpty {
             // Leeres Binding → grauen Placeholder zeigen (wenn noch nicht geschehen)
             if !uiView.isFirstResponder && uiView.text != placeholder {
@@ -471,33 +565,33 @@ struct UITextViewWrapper: UIViewRepresentable {
             uiView.textColor = .label
         }
     }
-    
+
     func makeCoordinator() -> Coordinator {
         Coordinator(text: $text, placeholder: placeholder)
     }
-    
+
     class Coordinator: NSObject, UITextViewDelegate {
         @Binding var text: String
         let placeholder: String
-        
+
         init(text: Binding<String>, placeholder: String) {
             _text = text
             self.placeholder = placeholder
         }
-        
+
         @objc func textChanged(_ notification: Notification) {
             guard let textView = notification.object as? UITextView else { return }
             // Der graue Placeholder-Text ist kein echter Inhalt
             text = (textView.text == placeholder && !textView.isFirstResponder) ? "" : textView.text
         }
-        
+
         func textViewDidBeginEditing(_ textView: UITextView) {
             if textView.text == placeholder {
                 textView.text = ""
                 textView.textColor = .label
             }
         }
-        
+
         func textViewDidEndEditing(_ textView: UITextView) {
             if textView.text.isEmpty {
                 textView.text = placeholder

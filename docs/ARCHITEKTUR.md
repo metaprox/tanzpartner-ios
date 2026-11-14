@@ -1,6 +1,9 @@
 # Architektur – Tanzpartner iOS App
 
-## Übersicht
+> **⚠️ Status (2026-11-14):** Dieses Dokument beschreibt die *geplante* Hybrid-Architektur (WKWebView + SQLite).
+> Die aktuell laufende App ist **reines SwiftUI mit JSON-Persistenz** (`ProfileStore`) – der Ist-Zustand steht im [KI-LEITFADEN.md](../KI-LEITFADEN.md).
+
+## Übersicht (geplante Architektur)
 
 Die iOS-App wird als **SwiftUI + WKWebView**-Hybrid realisiert.
 

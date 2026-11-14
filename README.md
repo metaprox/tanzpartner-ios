@@ -5,18 +5,20 @@ Native iOS-App für Tanzpartner Ostfriesland, basierend auf dem bestehenden Web-
 ## 📱 Status
 
 **Projektstart:** 14. November 2026  
-**Ziel:** Eine native iOS-App mit SwiftUI + WKWebView  
+**Stand (14.11.2026):** ✅ App baut und läuft – Kernlogik implementiert (Speichern, Bearbeiten, Löschen, Filter, Moderation)  
+**Ziel:** Eine native iOS-App mit SwiftUI (local-first, später Backend-Sync)  
 
 ---
 
 ## 🛠️ Technologie
 
-| Komponente | Technologie |
-|---|---|
-| UI-Framework | SwiftUI |
-| WebView | WKWebView |
-| Datenbank | SQLite (native API) |
-| Build-Tool | Xcode |
+| Komponente | Technologie | Status |
+|---|---|---|
+| UI-Framework | SwiftUI (rein nativ) | ✅ in use |
+| Datenhaltung | JSON-Datei via `ProfileStore` (local-first) | ✅ in use |
+| WebView | WKWebView (`www/`) | ⏳ geplant, noch nicht in use |
+| Datenbank | SQLite (native API) | ⏳ geplant, noch nicht in use |
+| Build-Tool | Xcode | ✅ in use |
 
 **Keine externen Kosten** – alles Open Source oder Teil von Apple SDKs.
 
@@ -26,13 +28,15 @@ Native iOS-App für Tanzpartner Ostfriesland, basierend auf dem bestehenden Web-
 
 ```
 tanzpartner-ios/
-├── TanzpartnerOstfrieslandiOS.xcodeproj/     # Xcode Projekt (in Vorbereitung)
+├── TanzpartnerOstfrieslandiOS.xcodeproj/     # Xcode Projekt ✅
 │   └── project.pbxproj                        # Projektkonfiguration
 ├── TanzpartnerOstfrieslandiOS/               # Swift-Quellcode
-│   ├── App.swift                              # Hauptklasse
-│   ├── ContentView.swift                      # Tab-Navigation
-│   ├── ProfileListView.swift                  # Tanzpartner-Liste
-│   └── ModerationView.swift                   # Moderations-Queue
+│   ├── App.swift                              # Hauptklasse (injiziert ProfileStore)
+│   ├── ContentView.swift                      # Tab-Navigation (3 Tabs)
+│   ├── Models.swift                           # Profile + ModerationStatus (Codable)
+│   ├── ProfileStore.swift                     # Zentrale Datenquelle, JSON-Persistenz
+│   ├── ProfileListView.swift                  # Tanzpartner-Liste + Editor
+│   └── ModerationView.swift                   # Moderations-Tab (+ SettingsView)
 ├── www/                                       # Kopie des Web-Projekts (~21 MB)
 │   ├── index.html, app.js, style.css
 │   └── data.sqlite                            # SQLite-Datenbank (8 Profile)
@@ -61,11 +65,11 @@ tanzpartner-ios/
 ## 🔄 Datenfluss
 
 ```
-SwiftUI + WKWebView → SQLite (data.sqlite)
+SwiftUI-Views → ProfileStore (ObservableObject)
                        ↓
-                   native iOS APIs
+              JSON-Datei (Documents/profiles.json, local-first)
                        ↓
-           Push, Kamera, Biometrie (optional)
+        später: Backend-Sync via store.mjs API (geplant)
 ```
 
 ---
@@ -88,13 +92,12 @@ SwiftUI + WKWebView → SQLite (data.sqlite)
 
 ## 📝 Nächste Schritte
 
-1. **Xcode Projekt erstellen** (SwiftUI App Template)
-2. **WKWebView konfigurieren** für bestehende Web-App
-3. **SQLite-Integration** testen
-4. **Views implementieren**
-   - `ContentView.swift` – Hauptansicht mit Tab-Navigation ✅
-   - `ProfileListView.swift` – Profil erstellen/bearbeiten ✅
-   - `ModerationView.swift` – Moderations-Queue ✅
+**Erledigt:** Xcode-Projekt, alle Views, Kernlogik (Speichern/Bearbeiten/Löschen/Filter/Moderation) ✅
+
+1. **Backend-Sync** – `ProfileStore` mit der `store.mjs`-API verbinden (local-first beibehalten)
+2. **App-Icon** – PNGs in `Assets.xcassets/AppIcon.appiconset/` ergänzen
+3. **Detailansicht** für einzelne Profile (optional)
+4. **Native Features** – Push-Benachrichtigungen, Kamera für Profil-Fotos, Biometrie
 
 ---
 
