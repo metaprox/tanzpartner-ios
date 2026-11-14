@@ -84,15 +84,20 @@
         04F3A2A72AD1C1D8003E9D8F /* Project object */ = {
             isa = PBXProject;
             attributes = {
-                LastSwiftUpdateCheck = 1430;
+                LastSwiftUpdateCheck = "1600";
                 MainComponents = {
                     MainComponent = {
                         Ref = "04F3A2B02AD1C1D8003E9D8F";
                     };
                 };
+                TargetAttributes = {
+                    04F3A2AF2AD1C1D8003E9D8F = {
+                        CreatedOnToolsVersion = "16.0";
+                    };
+                };
             };
             buildConfigurationList = 04F3A2A92AD1C1D8003E9D8F /* Build configuration list for PBXProject "TanzpartnerOstfrieslandiOS" */;
-            compatibilityVersion = "Xcode 14.0";
+            compatibilityVersion = "Xcode 16.0";
             developmentRegion = en;
             hasScannedForEncodings = 1;
             knownRegions = (
@@ -188,7 +193,7 @@
 /* Begin XCScheme section */
         04F3A2B12AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS.xcscheme */ = {
             isa = XCScheme;
-            lastUpgradeVersion = "1430";
+            lastUpgradeVersion = "16.0";
             schemeName = TanzpartnerOstfrieslandiOS;
         };
 /* End XCScheme section */
