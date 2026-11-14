@@ -49,3 +49,7 @@ playground/
 # Assets
 Assets/
 *.xctest
+
+# Web-App (optional: node_modules nicht im Repo)
+www/node_modules/
+www/package-lock.json
