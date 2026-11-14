@@ -1,0 +1,205 @@
+// !$*UTF8*!
+{
+    archiveVersion = 1;
+    classes = {
+    };
+    objectVersion = 56;
+    objects = {
+
+/* Begin PBXBuildFile section */
+        04F3A2B22AD1C1D8003E9D8F /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A2B12AD1C1D8003E9D8F /* App.swift */; };
+        04F3A2B52AD1C1D8003E9D8F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A2B42AD1C1D8003E9D8F /* ContentView.swift */; };
+        04F3A2B72AD1C1D8003E9D8F /* ProfileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A2B62AD1C1D8003E9D8F /* ProfileListView.swift */; };
+        04F3A2B92AD1C1D8003E9D8F /* ModerationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A2B82AD1C1D8003E9D8F /* ModerationView.swift */; };
+        04F3A2BC2AD1C1D8003E9D8F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F3A2BB2AD1C1D8003E9D8F /* Assets.xcassets */; };
+        04F3A2BF2AD1C1D8003E9D8F /* Preview Content in Resources */ = {isa = PBXBuildFile; fileRef = 04F3A2BE2AD1C1D8003E9D8F /* Preview Content */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+        04F3A2B02AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS.app */ = {isa = PBXFileReference; explicitFileType = "wrapper.application"; includeInIndex = 0; path = TanzpartnerOstfrieslandiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+        04F3A2B12AD1C1D8003E9D8F /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+        04F3A2B22AD1C1D8003E9D8F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+        04F3A2B32AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanzpartnerOstfrieslandiOSApp.swift; sourceTree = "<group>"; };
+        04F3A2B42AD1C1D8003E9D8F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+        04F3A2B52AD1C1D8003E9D8F /* ProfileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListView.swift; sourceTree = "<group>"; };
+        04F3A2B62AD1C1D8003E9D8F /* ModerationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModerationView.swift; sourceTree = "<group>"; };
+        04F3A2B72AD1C1D8003E9D8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml.plist; path = Info.plist; sourceTree = "<group>"; };
+        04F3A2BB2AD1C1D8003E9D8F /* Assets.xcassets */ = {isa = PBXFileReference; explicitFileType = "wrapper.assetcatalog"; includeInIndex = 0; path = Assets.xcassets; sourceTree = "<group>"; };
+        04F3A2BE2AD1C1D8003E9D8F /* Preview Content */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Preview Content"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+        04F3A2A52AD1C1D8003E9D8F /* Project */ = {
+            isa = PBXGroup;
+            children = (
+                04F3A2B02AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS.app */,
+                04F3A2B32AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOSApp.swift */,
+                04F3A2B12AD1C1D8003E9D8F /* App.swift */,
+                04F3A2B42AD1C1D8003E9D8F /* ContentView.swift */,
+                04F3A2B52AD1C1D8003E9D8F /* ProfileListView.swift */,
+                04F3A2B62AD1C1D8003E9D8F /* ModerationView.swift */,
+                04F3A2B72AD1C1D8003E9D8F /* Info.plist */,
+                04F3A2BA2AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS */,
+                04F3A2BB2AD1C1D8003E9D8F /* Assets.xcassets */,
+                04F3A2BE2AD1C1D8003E9D8F /* Preview Content */,
+            );
+            sourceTree = "<group>";
+        };
+        04F3A2BA2AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS */ = {
+            isa = PBXGroup;
+            children = (
+                04F3A2B12AD1C1D8003E9D8F /* App.swift */,
+                04F3A2B42AD1C1D8003E9D8F /* ContentView.swift */,
+                04F3A2B52AD1C1D8003E9D8F /* ProfileListView.swift */,
+                04F3A2B62AD1C1D8003E9D8F /* ModerationView.swift */,
+                04F3A2B72AD1C1D8003E9D8F /* Info.plist */,
+            );
+            path = TanzpartnerOstfrieslandiOS;
+            sourceTree = "<group>";
+        };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+        04F3A2AF2AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = 04F3A2B82AD1C1D8003E9D8F /* Build configuration list for PBXNativeTarget TanzpartnerOstfrieslandiOS */;
+            buildPhases = (
+                04F3A2AC2AD1C1D8003E9D8F /* Resources */,
+                04F3A2AD2AD1C1D8003E9D8F /* Sources */,
+            );
+            buildRules = (
+            );
+            dependencies = (
+            );
+            name = TanzpartnerOstfrieslandiOS;
+            packageReferences = (
+            );
+            productName = TanzpartnerOstfrieslandiOS;
+            productReference = 04F3A2B02AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS.app */;
+            productType = "com.apple.product-type.application";
+        };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+        04F3A2A72AD1C1D8003E9D8F /* Project object */ = {
+            isa = PBXProject;
+            attributes = {
+                LastSwiftUpdateCheck = 1430;
+                MainComponents = {
+                    MainComponent = {
+                        Ref = "04F3A2B02AD1C1D8003E9D8F";
+                    };
+                };
+            };
+            buildConfigurationList = 04F3A2A92AD1C1D8003E9D8F /* Build configuration list for PBXProject "TanzpartnerOstfrieslandiOS" */;
+            compatibilityVersion = "Xcode 14.0";
+            developmentRegion = en;
+            hasScannedForEncodings = 1;
+            knownRegions = (
+                en,
+                Base,
+            );
+            mainGroup = 04F3A2A52AD1C1D8003E9D8F /* Project */;
+            productRefGroup = 04F3A2A52AD1C1D8003E9D8F /* Project */;
+            projectDirPath = "";
+            projectRoot = "";
+            targets = (
+                04F3A2AF2AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS */,
+            );
+        };
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+        04F3A2AC2AD1C1D8003E9D8F /* Resources */ = {
+            isa = PBXResourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                04F3A2BC2AD1C1D8003E9D8F /* Assets.xcassets in Resources */,
+                04F3A2BF2AD1C1D8003E9D8F /* Preview Content in Resources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+        04F3A2AD2AD1C1D8003E9D8F /* Sources */ = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                04F3A2B22AD1C1D8003E9D8F /* App.swift in Sources */,
+                04F3A2B52AD1C1D8003E9D8F /* ContentView.swift in Sources */,
+                04F3A2B72AD1C1D8003E9D8F /* ProfileListView.swift in Sources */,
+                04F3A2B92AD1C1D8003E9D8F /* ModerationView.swift in Sources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCConfigurationList section */
+        04F3A2A92AD1C1D8003E9D8F /* Build configuration list for PBXProject "TanzpartnerOstfrieslandiOS" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                04F3A2AA2AD1C1D8003E9D8F /* Debug */,
+                04F3A2AB2AD1C1D8003E9D8F /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Debug;
+        };
+        04F3A2B82AD1C1D8003E9D8F /* Build configuration list for PBXNativeTarget TanzpartnerOstfrieslandiOS */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                04F3A2B92AD1C1D8003E9D8F /* Debug */,
+                04F3A2BA2AD1C1D8003E9D8F /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Debug;
+        };
+/* End XCConfigurationList section */
+
+/* Begin XCBuildConfiguration section */
+        04F3A2AA2AD1C1D8003E9D8F /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                DEVELOPMENT_TEAM = "";
+                INFOPLIST_FILE = TanzpartnerOstfrieslandiOS/Info.plist;
+                INSTALL_DIR = "$(LOCAL_APPS_DIR)";
+                PRODUCT_BUNDLE_IDENTIFIER = com.svenschley.tanzpartnerostfrieslandios;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+            };
+            name = Debug;
+        };
+        04F3A2AB2AD1C1D8003E9D8F /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                DEVELOPMENT_TEAM = "";
+                INFOPLIST_FILE = TanzpartnerOstfrieslandiOS/Info.plist;
+                INSTALL_DIR = "$(LOCAL_APPS_DIR)";
+                PRODUCT_BUNDLE_IDENTIFIER = com.svenschley.tanzpartnerostfrieslandios;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+            };
+            name = Release;
+        };
+/* End XCBuildConfiguration section */
+
+/* Begin XCScheme section */
+        04F3A2B12AD1C1D8003E9D8F /* TanzpartnerOstfrieslandiOS.xcscheme */ = {
+            isa = XCScheme;
+            lastUpgradeVersion = "1430";
+            schemeName = TanzpartnerOstfrieslandiOS;
+        };
+/* End XCScheme section */
+
+/* Begin XCWorkspaceData section */
+        04F3A2A52AD1C1D8003E9D8F /* Workspace data */ = {
+            isa = XCWorkspaceData;
+            Path = "TanzpartnerOstfrieslandiOS.xcodeproj";
+        };
+/* End XCWorkspaceData section */
+
+    };
+    rootObject = 04F3A2A72AD1C1D8003E9D8F /* Project object */;
+}
