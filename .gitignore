@@ -60,24 +60,6 @@ www/package-lock.json
 .LSOverride
 Thumbs.db
 
-# Xcode-Specific
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-xcuserdata/
-*.xccheckout
-*.moved-aside
-DerivedData/
-*.hmap
-*.ipa
-*.dSYM.zip
-*.dSYM
-
 # Editor
 .vscode/
 .idea/
@@ -92,3 +74,18 @@ __tests__/
 # Documentation
 docs/*.md
 README.md
+
+# Xcode project files (optional: uncomment if you don't want to commit .xcodeproj)
+# *.pbxuser
+# *.mode1v3
+# *.mode2v3
+# *.perspectivev3
+# xcuserdata/
+# *.xccheckout
+# DerivedData/
+
+# Xcode workspace
+*.xcworkspace
+
+# App icons (optional: uncomment if you want to manage them externally)
+# Assets.xcassets/AppIcon.appiconset/
