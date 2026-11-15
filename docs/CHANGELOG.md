@@ -2,6 +2,18 @@
 
 Alle wichtigen Änderungen an der iOS-App sind hier dokumentiert.
 
+## [0.2.1] - 2026-11-15
+
+### 🔧 Stabilisierung & UI-Korrekturen
+
+#### Geändert
+- **`ProfileListView.swift`** – Status-Filterung ergänzt: Die Tanzpartner-Liste zeigt nun ausschließlich lokal freigegebene Profile (`profile.status == .approved`); unbestätigte, zurückgestellte und pausierte Profile bleiben im Moderations-Tab.
+- **`ModerationView.swift`** – `SettingsView` in einen `NavigationStack` eingebettet, damit `.navigationTitle("Einstellungen")` korrekt angezeigt wird.
+- **`Models.swift` & `ModerationView.swift`** – Nicht existierende SF-Symbol-Namen korrigiert (`hourglass.fill` → `hourglass`, `return.down.back.icon.fill` → `arrow.uturn.backward`, `note.fill` → `note.text`, `arrow.triangle.2.circlepath.fill` → `arrow.triangle.2.circlepath`) und gegen iOS SDK verifiziert.
+- **`KI-LEITFADEN.md`** – Aktuellen Stand (15.11.2026), Deployment Target `17.0` und offene Cleanup-Punkte nachgezogen.
+
+---
+
 ## [0.2.0] - 2026-11-14
 
 ### 🎉 Kernlogik implementiert (App voll funktionsfähig)

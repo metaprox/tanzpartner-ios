@@ -25,6 +25,9 @@ struct ProfileListView: View {
 
     var filteredProfiles: [Profile] {
         store.profiles.filter { profile in
+            // Nur freigegebene Profile in der öffentlichen Tanzpartner-Liste anzeigen
+            let matchesStatus = profile.status == .approved
+
             // Suchtext-Filter
             let matchesSearch = searchText.isEmpty ||
                 profile.name.lowercased().contains(searchText.lowercased()) ||
@@ -40,7 +43,7 @@ struct ProfileListView: View {
             // Rolle-Filter
             let matchesRole = selectedRole == nil || profile.role == selectedRole
 
-            return matchesSearch && matchesCity && matchesStyle && matchesRole
+            return matchesStatus && matchesSearch && matchesCity && matchesStyle && matchesRole
         }
     }
 

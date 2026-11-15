@@ -4,18 +4,18 @@
 
 Eine weitere KI (oder Entwickler) soll nach diesem Leitfaden das Projekt **Tanzpartner Ostfriesland iOS** verstehen, weiterentwickeln und verwalten können.
 
-> **⚠️ Wichtig:** Dieser Leitfaden beschreibt den **tatsächlichen Stand** der App (14.11.2026).
+> **⚠️ Wichtig:** Dieser Leitfaden beschreibt den **tatsächlichen Stand** der App (15.11.2026).
 > Die Dokumente `docs/README.md` und `docs/ARCHITEKTUR.md` beschreiben die *geplante* Hybrid-Architektur (WKWebView + SQLite) – die ist **noch nicht** in der laufenden App enthalten.
 
 ---
 
-## ✅ Aktueller Stand (14. November 2026)
+## ✅ Aktueller Stand (15. November 2026)
 
 | Element | Status |
 |---|---|
 | **Build** | ✅ `BUILD SUCCEEDED` (Xcode, iOS Simulator), 0 Swift-Warnings |
 | **App läuft** | ✅ 3 Tabs: Tanzpartner, Moderation, Einstellungen |
-| **Kernlogik** | ✅ Profile speichern, bearbeiten, löschen; Suche + Filter; Moderations-Status |
+| **Kernlogik** | ✅ Profile speichern, bearbeiten, löschen; Status-Filter (`.approved` in Tanzpartner-Liste); Suche + Filter; Moderations-Status |
 | **Persistenz** | ✅ Local-first: JSON-Datei in `Documents/profiles.json` (8 Seed-Profile beim ersten Start) |
 | **Backend-Sync** | ⏳ Nächster Ausbauschritt – Voraussetzung: Web-Etappe 1 (Mehrbenutzer, s. u.) |
 
@@ -34,7 +34,7 @@ tanzpartner-ios/
 │   ├── ProfileStore.swift                     # Zentrale Datenquelle, JSON-Persistenz
 │   ├── ProfileListView.swift                  # Tanzpartner-Tab: Liste, Filter, Editor
 │   ├── ModerationView.swift                   # Moderations-Tab + SettingsView
-│   ├── Info.plist                             # App-Konfiguration (Deployment Target 16.0)
+│   ├── Info.plist                             # App-Konfiguration (Deployment Target 17.0)
 │   └── Assets.xcassets/                       # AppIcon (⚠️ nur Contents.json, PNGs fehlen)
 ├── www/                                       # Kopie der Web-App (~21 MB, noch NICHT von iOS genutzt)
 │   ├── index.html, app.js, style.css
@@ -55,7 +55,7 @@ tanzpartner-ios/
 | Komponente | Status |
 |---|---|
 | macOS + Xcode (im `/Applications/Xcode.app`) | ✅ installiert |
-| Deployment Target | iOS 16.0 (deckt alle verwendeten APIs ab) |
+| Deployment Target | iOS 17.0 (`RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET`) |
 
 ### Schritte
 
@@ -130,7 +130,7 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 ### `Models.swift`
 - **`Profile`** (Identifiable, Hashable, Codable): `id: Int`, `name`, `city`, `styles: [String]`, `role: String?`, `level`, `goal`, `places: [String]`, `time`, `bio` + Moderation: `status: ModerationStatus`, `note: String?`, `updatedAt: Date?`
 - **Toleranter `init(from:)`:** alle Felder außer `id/name/city` mit Defaults (`decodeIfPresent`) – ältere JSON-Dateien überleben Schema-Erweiterungen
-- **`ModerationStatus`** (String, CaseIterable, Codable): `pending`/`approved`/`returned`/`paused` mit `displayText`, `shortText` (für Filter-Pills), `icon`, `priority` (Sortierung: offen zuerst)
+- **`ModerationStatus`** (String, CaseIterable, Codable): `pending`/`approved`/`returned`/`paused` mit `displayText`, `shortText` (für Filter-Pills), geprüften SF-Symbolen (`icon`: `hourglass`, `checkmark.circle.fill`, `arrow.uturn.backward`, `pause.fill`) und `priority` (Sortierung: offen zuerst)
 
 ### `ProfileStore.swift`
 - `@Published private(set) var profiles: [Profile]` – Mutationen nur über Methoden
@@ -140,19 +140,19 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 - `seedProfiles()`: 8 Beispieldaten (Mara, Jan, Alva, Timo, Jule, Lukas, Sarah, Finn) – nur beim allerersten Start
 
 ### `ProfileListView.swift` (Tanzpartner-Tab)
-- Liste aus `store.profiles`, gefiltert per computed Property `filteredProfiles` (Suchtext in Name+Ort, exakte Matches für Ort/Stil/Rolle)
+- Liste aus `store.profiles`, gefiltert per computed Property `filteredProfiles`: **zeigt nur freigegebene Profile (`profile.status == .approved`)**, zusätzlich Suchtext in Name+Ort sowie exakte Matches für Ort/Stil/Rolle
 - **Filter-Sheet** (`FilterSheet`): optionale Picker mit `String?.none/.some`-Tags, Abbrechen/Zurücksetzen/OK
 - **Tap auf Zeile** → `ProfileEditorView(profile:)` als Sheet (Bearbeiten)
 - **Wischen** → `store.delete(...)`
-- **"+" im Toolbar** → `ProfileEditorView()` (neu, Default `.pending`)
+- **"+" im Toolbar** → `ProfileEditorView()` (neu, Default `.pending` – erscheint nach Speichern im Moderations-Tab bis zur Freigabe)
 - Enthält wiederverwendbare Komponenten: `FilterBar`, `FilterPill` (wird auch vom Moderations-Tab genutzt), `ProfileRow`, `MultiSelectPicker`, `TextArea` + `UITextViewWrapper` (Placeholder-Emulation, da UITextView keins hat)
 
 ### `ModerationView.swift` (Moderations-Tab)
 - Status-Filter-Pills horizontal scrollbar: Alle + 4 Status mit Zählern (`selectedStatus: ModerationStatus?`)
 - Liste nach `status.priority` sortiert (offen zuerst), dann Name
 - **Tap auf Zeile** → `ProfileEditorView(profile:)` (Status + Notiz ändern)
-- `ModerationRow`: Status-Kreis mit Icon, Name, Status-Badge, `updatedAt` (falls gesetzt), Notiz
-- **`SettingsView`** in derselben Datei (wird von ContentView referenziert – nicht verschieben!)
+- `ModerationRow`: Status-Kreis mit Icon, Name, Status-Badge, `updatedAt` (falls gesetzt), Notiz (`note.text`)
+- **`SettingsView`** in derselben Datei (in `NavigationStack` eingebettet, damit `.navigationTitle("Einstellungen")` sichtbar ist; wird von ContentView referenziert)
 
 ---
 
@@ -204,11 +204,13 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 
 | Problem | Status | Lösungsvorschlag |
 |---|---|---|
+| **Filter vs. Editor Stile & `places`** | ⚠️ Offen (nächster Cleanup) | Im Filter fehlen `Bachata`/`Zumba`; `ProfileEditorView.saveProfile()` überschreibt `places` aktuell mit `[city]` |
+| **`UITextViewWrapper` Observer** | ⚠️ Offen (nächster Cleanup) | `NotificationCenter`-Observer wird nicht entfernt; auf `UITextViewDelegate.textViewDidChange` oder natives SwiftUI umstellen |
 | **App-Icon PNGs fehlen** | ⚠️ Build-Warnings (kosmetisch) | 1024×1024 + iOS-Größen in AppIcon.appiconset legen |
 | **Leere Extra-Ordner** im Source-Verzeichnis (`Assets.app/`, `Content/`, `Preview Content/`) | 🧹 Cleanup-Kandidaten | Löschen (sind leer, nicht im pbxproj referenziert) |
 | **`www/`-Ordner (~21 MB)** | ℹ️ Noch nicht von iOS genutzt | Bleibt als Referenz + Ziel für Backend-Sync; ggf. später aus dem Repo auslagern |
 | **xcode-select → CommandLineTools** | ⚠️ Shell-Builds schlagen ohne vollen Pfad fehl | `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer` |
-| **SettingsView = Mock** | ℹ️ Toggles tun noch nichts | Mit ProfileStore/Backend verdrahten, wenn Sync kommt |
+| **SettingsView = Mock** | ℹ️ Toggles tun noch nichts | Mit ProfileStore/Backend verdrahten, wenn Sync kommt (Light Mode aktuell in `App.swift` festgesetzt) |
 
 ---
 
