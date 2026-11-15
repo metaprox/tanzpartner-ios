@@ -2,6 +2,19 @@
 
 Alle wichtigen Änderungen an der iOS-App sind hier dokumentiert.
 
+## [0.2.3] - 2026-11-15
+
+### 📱 Detailansicht & Kontakt-Simulation
+
+#### Hinzugefügt
+- **`ProfileDetailView.swift`** – Neue Profil-Detailansicht mit allen Profildaten (Stile, Bio, Rolle, Erfahrung, Ziel, mögliche Kursorte, verfügbare Zeiten), Toolbar-Button „Bearbeiten“ und der aus der Web-Vorlage bekannten **Kontaktanfrage-Simulation** (inkl. vorausgefüllter Beispielnachricht, Bestätigung und „Neue Simulation starten“).
+
+#### Geändert
+- **`ProfileListView.swift`** – Von `NavigationView` auf `NavigationStack` umgestellt; Tap auf eine Profilzeile navigiert über `NavigationLink` nun zu `ProfileDetailView` statt direkt in den Editor (doppeltes Chevron in `ProfileRow` entfernt).
+- **`project.pbxproj`** – `ProfileDetailView.swift` registriert.
+
+---
+
 ## [0.2.2] - 2026-11-15
 
 ### 🎨 App-Icon & Projekt-Cleanup

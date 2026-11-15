@@ -16,7 +16,6 @@ struct ProfileListView: View {
     @State private var filterSheetVisible = false
 
     // Bearbeiten-Zustand
-    @State private var editingProfile: Profile?
     @State private var showingNewProfile = false
 
     let cities = Profile.cities
@@ -52,7 +51,7 @@ struct ProfileListView: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 0) {
                 FilterBar(
                     searchText: $searchText,
@@ -65,13 +64,16 @@ struct ProfileListView: View {
 
                 List {
                     ForEach(filteredProfiles) { profile in
-                        ProfileRow(profile: profile)
-                            .contentShape(Rectangle())
-                            .onTapGesture { editingProfile = profile }
+                        NavigationLink(value: profile) {
+                            ProfileRow(profile: profile)
+                        }
                     }
                     .onDelete(perform: deleteProfiles)
                 }
                 .listStyle(PlainListStyle())
+                .navigationDestination(for: Profile.self) { profile in
+                    ProfileDetailView(profileID: profile.id)
+                }
 
                 if filteredProfiles.isEmpty {
                     VStack(spacing: 8) {
@@ -102,9 +104,6 @@ struct ProfileListView: View {
                     styles: styles,
                     roles: roles
                 )
-            }
-            .sheet(item: $editingProfile) { profile in
-                ProfileEditorView(profile: profile)
             }
             .sheet(isPresented: $showingNewProfile) {
                 ProfileEditorView()
@@ -305,10 +304,6 @@ struct ProfileRow: View {
                     .lineLimit(2)
             }
 
-            Spacer()
-
-            Image(systemName: "chevron.right")
-                .foregroundColor(.secondary)
         }
         .padding(.vertical, 8)
     }

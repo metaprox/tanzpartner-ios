@@ -33,6 +33,7 @@ tanzpartner-ios/
 │   ├── Models.swift                           # Profile + ModerationStatus (Codable)
 │   ├── ProfileStore.swift                     # Zentrale Datenquelle, JSON-Persistenz
 │   ├── ProfileListView.swift                  # Tanzpartner-Tab: Liste, Filter, Editor
+│   ├── ProfileDetailView.swift                # Profil-Detailansicht + Kontakt-Simulation
 │   ├── ModerationView.swift                   # Moderations-Tab
 │   ├── SettingsView.swift                     # Einstellungen-Tab (Theme, AppStorage, Rechtliches)
 │   ├── Info.plist                             # App-Konfiguration (Deployment Target 17.0)
@@ -144,10 +145,15 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 ### `ProfileListView.swift` (Tanzpartner-Tab)
 - Liste aus `store.profiles`, gefiltert per computed Property `filteredProfiles`: **zeigt nur freigegebene Profile (`profile.status == .approved`)**, zusätzlich Suchtext (Name, Hauptort, weitere Tanzorte `places`), Ort-Filter (`city` oder `places`) sowie exakte Matches für Stil/Rolle
 - **Filter-Sheet** (`FilterSheet`): nutzt dieselben Optionen wie der Editor (`Profile.cities`, `Profile.availableStyles` inkl. Bachata/Zumba, `Profile.roles`), Abbrechen/Zurücksetzen/OK
-- **Tap auf Zeile** → `ProfileEditorView(profile:)` als Sheet (Bearbeiten; `places` bleiben über `MultiSelectPicker` „Mögliche Tanzorte“ erhalten und bearbeitbar, `city` bleibt immer enthalten)
+- **Tap auf Zeile** → navigiert per `NavigationLink` / `NavigationStack` zu `ProfileDetailView(profileID:)`
 - **Wischen** → `store.delete(...)`
 - **"+" im Toolbar** → `ProfileEditorView()` (neu, Default `.pending` – erscheint nach Speichern im Moderations-Tab bis zur Freigabe)
 - Enthält wiederverwendbare Komponenten: `FilterBar`, `FilterPill` (wird auch vom Moderations-Tab genutzt), `ProfileRow`, `MultiSelectPicker` (`.buttonStyle(.plain)`, ohne Force-Unwrap); Bio-Eingabe im Editor läuft nativ über `TextField(..., axis: .vertical)` mit `.lineLimit(5...10)`
+
+### `ProfileDetailView.swift` (Profil-Detailansicht & Kontakt-Simulation)
+- Zeigt alle Details eines Profils (`name`, `city`, `status`, `styles`, `bio`, `role`, `level`, `goal`, `places`, `time`) analog zur Web-Vorlage
+- **Kontaktanfrage simulieren:** vorausgefüllte Beispielnachricht + lokaler Simulations-Status (*„Simulation abgeschlossen“*, ohne Versand/Speicherung) + *„Neue Simulation starten“*
+- **Toolbar „Bearbeiten“** → öffnet `ProfileEditorView(profile:)` als Sheet; Änderungen spiegeln sich durch Lookup über `profileID` sofort wider
 
 ### `ModerationView.swift` (Moderations-Tab)
 - Status-Filter-Pills horizontal scrollbar: Alle + 4 Status mit Zählern (`selectedStatus: ModerationStatus?`)
@@ -187,6 +193,7 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 |---|---|
 | Tab-Navigation (3 Tabs) | ContentView.swift |
 | Profil-Liste mit Suche + Filter-Sheet (Ort/Stil/Rolle) | ProfileListView.swift |
+| **Detailansicht & Kontakt-Simulation** (+ Bearbeiten-Sheet) | ProfileDetailView.swift |
 | Profil-Editor: **neu + bearbeiten** (alle Felder) | ProfileListView.swift (`ProfileEditorView`) |
 | **Speichern** (persistiert in JSON) | ProfileStore.swift (`upsert`) |
 | **Löschen** per Wischen-Geste | ProfileListView.swift (`.onDelete`) |
@@ -199,7 +206,6 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 
 | Feature | Hinweis |
 |---|---|
-| **Detailansicht & Kontakt-Simulation** | Profil-Details sauber darstellen + Anfrage-Simulation (analog zur Web-Vorlage) + „Bearbeiten“-Aktion |
 | **Demo-Daten zurücksetzen** | Button in `SettingsView`, um `ProfileStore` für Präsentationen auf die 8 Ausgangsprofile zurückzusetzen |
 | **Backend-Sync / Multiuser** | ⏸️ **Bewusst zurückgestellt** – Idee noch nicht ausgereift; wird erst nach der Präsentationsphase weiterentwickelt |
 | **Profil-Fotos / Push / Biometrie** | Spätere Ausbaustufen nach dem Prototyp |
@@ -218,9 +224,8 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 
 ## 🚢 Nächste Schritte (empfohlen)
 
-1. **Detailansicht für Profile + Kontakt-Simulation:** Für die Präsentation analog zur Web-Vorlage
-2. **Demo-Reset in `SettingsView`:** Beispieldaten für Präsentationen per Tipp zurücksetzen können
-3. **Später (zurückgestellt):** Backend-Sync & Multiuser-Konzept weiterdenken, sobald der Prototyp präsentiert wurde
+1. **Demo-Reset in `SettingsView`:** Beispieldaten für Präsentationen per Tipp zurücksetzen können
+2. **Später (zurückgestellt):** Backend-Sync & Multiuser-Konzept weiterdenken, sobald der Prototyp präsentiert wurde
 
 ---
 
