@@ -33,7 +33,8 @@ tanzpartner-ios/
 │   ├── Models.swift                           # Profile + ModerationStatus (Codable)
 │   ├── ProfileStore.swift                     # Zentrale Datenquelle, JSON-Persistenz
 │   ├── ProfileListView.swift                  # Tanzpartner-Tab: Liste, Filter, Editor
-│   ├── ModerationView.swift                   # Moderations-Tab + SettingsView
+│   ├── ModerationView.swift                   # Moderations-Tab
+│   ├── SettingsView.swift                     # Einstellungen-Tab (Theme, AppStorage, Rechtliches)
 │   ├── Info.plist                             # App-Konfiguration (Deployment Target 17.0)
 │   └── Assets.xcassets/                       # AppIcon (⚠️ nur Contents.json, PNGs fehlen)
 ├── www/                                       # Kopie der Web-App (~21 MB, noch NICHT von iOS genutzt)
@@ -121,7 +122,7 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 
 ### `App.swift`
 - `@StateObject private var store = ProfileStore()` → `.environmentObject(store)` an ContentView
-- Erzwingt `colorScheme .light`
+- Liest `@AppStorage("appTheme")` (`AppTheme`) und setzt `.preferredColorScheme(selectedTheme.colorScheme)` (System / Hell / Dunkel)
 
 ### `ContentView.swift`
 - TabView mit 3 Tabs: Tanzpartner (0), Moderation (1), Einstellungen (2)
@@ -153,7 +154,12 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 - Liste nach `status.priority` sortiert (offen zuerst), dann Name
 - **Tap auf Zeile** → `ProfileEditorView(profile:)` (Status + Notiz ändern)
 - `ModerationRow`: Status-Kreis mit Icon, Name, Status-Badge, `updatedAt` (falls gesetzt), Notiz (`note.text`)
-- **`SettingsView`** in derselben Datei (in `NavigationStack` eingebettet, damit `.navigationTitle("Einstellungen")` sichtbar ist; wird von ContentView referenziert)
+
+### `SettingsView.swift` (Einstellungen-Tab)
+- Aus `ModerationView.swift` in eine eigene Datei ausgelagert
+- Persistiert `enablePushNotifications`, `autoSync` und `appTheme` (`AppTheme`: Automatisch / Hell / Dunkel) über `@AppStorage` (mit `App.swift` verdrahtet)
+- Liest App-Version + Build-Nummer dynamisch aus `Bundle.main` und zeigt echten Speicherort (`Nur lokal (JSON)`)
+- Enthält `PrivacyPolicyView` (Datenschutz) und `ImprintView` (Impressum) als eigene `NavigationLink`-Unterseiten (Texte angelehnt an `www/datenschutz.html` und `www/impressum.html`)
 
 ---
 
@@ -186,7 +192,7 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 | **Löschen** per Wischen-Geste | ProfileListView.swift (`.onDelete`) |
 | Moderations-Tab: Status-Filter-Pills, Sortierung offen zuerst | ModerationView.swift |
 | **Moderation: Status + Notiz ändern** (Tap → Editor) | ModerationView.swift |
-| Einstellungen-Tab (Mock: Push, Sync, Theme) | ModerationView.swift (`SettingsView`) |
+| Einstellungen-Tab (Theme-Steuerung, `@AppStorage`, Datenschutz & Impressum) | SettingsView.swift |
 
 ### Geplant ⏳ (empfohlene Reihenfolge)
 
@@ -209,7 +215,7 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 | **Leere Extra-Ordner** im Source-Verzeichnis (`Assets.app/`, `Content/`, `Preview Content/`) | 🧹 Cleanup-Kandidaten | Löschen (sind leer, nicht im pbxproj referenziert) |
 | **`www/`-Ordner (~21 MB)** | ℹ️ Noch nicht von iOS genutzt | Bleibt als Referenz + Ziel für Backend-Sync; ggf. später aus dem Repo auslagern |
 | **xcode-select → CommandLineTools** | ⚠️ Shell-Builds schlagen ohne vollen Pfad fehl | `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer` |
-| **SettingsView = Mock** | ℹ️ Toggles tun noch nichts | Mit ProfileStore/Backend verdrahten, wenn Sync kommt (Light Mode aktuell in `App.swift` festgesetzt) |
+| **SettingsView-Toggles** | ℹ️ Lokal in `UserDefaults` gespeichert | Push/Sync-Toggles mit `UserNotifications`/Backend verdrahten, sobald Server-Sync aktiv wird |
 
 ---
 

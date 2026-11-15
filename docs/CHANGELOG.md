@@ -6,7 +6,12 @@ Alle wichtigen Änderungen an der iOS-App sind hier dokumentiert.
 
 ### 🔧 Stabilisierung & UI-Korrekturen
 
+#### Hinzugefügt
+- **`SettingsView.swift`** – `SettingsView` aus `ModerationView.swift` ausgelagert; `AppTheme` (`Automatisch`, `Hell`, `Dunkel`), `@AppStorage`-Persistenz für Push/Sync/Theme, dynamische Versionsanzeige aus `Bundle.main`, sowie `PrivacyPolicyView` (Datenschutz) und `ImprintView` (Impressum) als Unterseiten ergänzt.
+
 #### Geändert
+- **`App.swift`** – Hartes `.environment(\.colorScheme, .light)` durch `@AppStorage("appTheme")` + `.preferredColorScheme(selectedTheme.colorScheme)` ersetzt, sodass der Theme-Picker aus `SettingsView` unmittelbar wirkt.
+- **`project.pbxproj`** – `SettingsView.swift` registriert.
 - **`Models.swift`** – Zentrale Auswahloptionen (`Profile.cities`, `Profile.availableStyles`, `Profile.roles`, `Profile.levels`, `Profile.goals`) als Single Source of Truth ergänzt; ungültige SF Symbols korrigiert (`hourglass.fill` → `hourglass`, `return.down.back.icon.fill` → `arrow.uturn.backward`).
 - **`ProfileListView.swift`** –
   - Status-Filterung ergänzt: Die Tanzpartner-Liste zeigt ausschließlich lokal freigegebene Profile (`profile.status == .approved`).
