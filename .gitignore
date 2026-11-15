@@ -16,21 +16,9 @@ DerivedData/
 # Xcode project directory (uncomment to exclude entire .xcodeproj)
 # TanzpartnerOstfrieslandiOS.xcodeproj/
 
-# Web-App (node_modules nicht im Repo, da nur für Node.js-Server nötig)
-www/node_modules/
-www/package-lock.json
-
 # Editor
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-
-# Test files
-*.test.js
-__tests__/
-
-# Documentation
-docs/*.md
-README.md

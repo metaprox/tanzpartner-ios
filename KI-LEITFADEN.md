@@ -1,256 +1,28 @@
-# 🤖 KI-Leitfaden – Tanzpartner Ostfriesland iOS
+# KI-Leitfaden
 
-## 🎯 Ziel dieses Leitfadens
+## Start in jeder Sitzung
 
-Eine weitere KI (oder Entwickler) soll nach diesem Leitfaden das Projekt **Tanzpartner Ostfriesland iOS** verstehen, weiterentwickeln und verwalten können.
+1. Branch, letzten Commit und `git status` prüfen; bestehende Änderungen erhalten.
+2. Diesen Leitfaden und [ARBEITSLOG.md](ARBEITSLOG.md) lesen, dann eine Aufgabe aus [TODO.md](TODO.md) wählen. [ROADMAP.md](ROADMAP.md) nur für Scope/Stand, betroffene Code-Dateien gezielt lesen. Nicht das ganze Repository einlesen.
+3. Eine kleine Aufgabe bearbeiten (ca. 15–45 Minuten); größere Aufgaben aufteilen. Keine Funktionen außerhalb V1 ohne Auftrag ergänzen.
+4. Passend zur Änderung prüfen. Checkbox nur bei erfüllten Akzeptanzkriterien mit Nachweis setzen; nicht ausgeführte Tests ausdrücklich benennen.
+5. Arbeitslog knapp aktualisieren: Ergebnis, Prüfnachweis, Blockade, nächster Schritt, Git-Status. Erledigte Detailhistorie entfernen, wichtige Entscheidungen bewahren. Commit/Push übernimmt derzeit der Nutzer über GitHub Desktop.
 
-> **⚠️ Wichtig:** Dieser Leitfaden beschreibt den **tatsächlichen Stand** der App (15.11.2026).
-> Die Dokumente `docs/README.md` und `docs/ARCHITEKTUR.md` beschreiben die *geplante* Hybrid-Architektur (WKWebView + SQLite) – die ist **noch nicht** in der laufenden App enthalten.
+## Technische Orientierung
 
----
+Alle folgenden Dateien liegen in `TanzpartnerOstfrieslandiOS/`:
 
-## ✅ Aktueller Stand (15. November 2026)
-
-| Element | Status |
+| Datei | Verantwortung |
 |---|---|
-| **Build** | ✅ `BUILD SUCCEEDED` (Xcode, iOS Simulator), 0 Errors, 0 Warnings (inkl. Asset-Catalog) |
-| **App läuft** | ✅ 3 Tabs: Tanzpartner, Moderation, Einstellungen |
-| **Kernlogik** | ✅ Profile speichern, bearbeiten, löschen; Status-Filter (`.approved` in Tanzpartner-Liste); Suche + Filter; Moderations-Status |
-| **Persistenz** | ✅ Local-first: JSON-Datei in `Documents/profiles.json` (8 Seed-Profile beim ersten Start) |
-| **Backend-Sync** | ⏸️ **Zurückgestellt** – Web-Version dient vorerst als Vorlage; aktueller Fokus ist ein runder Standalone-Prototyp für eine Präsentation |
+| `App.swift`, `ContentView.swift` | Gemeinsamer ProfileStore, Theme, drei Tabs |
+| `Models.swift` | Profile/Moderationsstatus, gemeinsame Auswahlwerte, toleranter Decoder |
+| `ProfileStore.swift` | JSON laden/speichern, CRUD, acht Seed-Profile, Demo-Reset |
+| `ProfileListView.swift` | Profilsuche/Filter, Editor; Liste zeigt nur freigegebene Profile |
+| `ProfileDetailView.swift` | Details, Bearbeiten, lokale Kontakt-Simulation |
+| `ModerationView.swift` | Statusfilter, Sortierung, Bearbeitung |
+| `SettingsView.swift` | Theme, lokale Schalter, Reset, Datenschutz/Impressum |
+| `Info.plist` | App-Konfiguration; Hintergrundmodi vor Release prüfen |
 
----
+Persistenz: `Documents/profiles.json` und `UserDefaults`. Neue Modellfelder optional oder mit Decoder-Default; bei inkompatiblen Änderungen Migration vorsehen. Den gemeinsamen Store nutzen, keine parallele Profil-Datenhaltung einführen. Speichern/Neustart und Bestandserhalt bei Persistenzänderungen testen.
 
-## 🗂️ Projektstruktur
-
-```
-tanzpartner-ios/
-├── TanzpartnerOstfrieslandiOS.xcodeproj/      # Xcode-Projekt
-│   └── project.pbxproj                        # Kernkonfiguration (objectVersion 56)
-├── TanzpartnerOstfrieslandiOS/                # Swift-Quellcode
-│   ├── App.swift                              # @main: injiziert ProfileStore via environmentObject
-│   ├── ContentView.swift                      # TabView (3 Tabs) + Preview mit Store
-│   ├── Models.swift                           # Profile + ModerationStatus (Codable)
-│   ├── ProfileStore.swift                     # Zentrale Datenquelle, JSON-Persistenz
-│   ├── ProfileListView.swift                  # Tanzpartner-Tab: Liste, Filter, Editor
-│   ├── ProfileDetailView.swift                # Profil-Detailansicht + Kontakt-Simulation
-│   ├── ModerationView.swift                   # Moderations-Tab
-│   ├── SettingsView.swift                     # Einstellungen-Tab (Theme, AppStorage, Rechtliches)
-│   ├── Info.plist                             # App-Konfiguration (Deployment Target 17.0)
-│   └── Assets.xcassets/                       # AppIcon (vollständiger iOS/iPadOS-Satz, 15 PNGs)
-├── www/                                       # Kopie der Web-App (~21 MB, noch NICHT von iOS genutzt)
-│   ├── index.html, app.js, style.css
-│   ├── store.mjs                              # API für App-Zustand (Ziel des Backend-Syncs)
-│   └── data.sqlite                            # SQLite-Datenbank (8 Profile, Referenz)
-├── docs/                                      # Dokumentation (teilweise veraltet, s. o.)
-│   ├── README.md, ARCHITEKTUR.md, CHANGELOG.md
-├── SETUP.md                                   # GitHub-Desktop-Anleitung
-└── KI-LEITFADEN.md                            # Dieser Leitfaden (STARTPUNKT)
-```
-
----
-
-## 🚀 Erster Start (für eine neue KI)
-
-### Voraussetzungen
-
-| Komponente | Status |
-|---|---|
-| macOS + Xcode (im `/Applications/Xcode.app`) | ✅ installiert |
-| Deployment Target | iOS 17.0 (`RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET`) |
-
-### Schritte
-
-1. **Projekt öffnen**
-   ```bash
-   open "/Users/svenschley/Documents/GitHub/tanzpartner-ios/TanzpartnerOstfrieslandiOS.xcodeproj"
-   ```
-
-2. **Falls `xcodebuild` in der Shell fehlschlägt** (xcode-select zeigt auf CommandLineTools):
-   ```bash
-   sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-   ```
-
-3. **Build aus der Shell** (vollständiger Pfad nötig, wenn xcode-select nicht gesetzt):
-   ```bash
-   /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild \
-     -project TanzpartnerOstfrieslandiOS.xcodeproj \
-     -scheme TanzpartnerOstfrieslandiOS \
-     -destination 'generic/platform=iOS Simulator' build 2>&1 | grep -E "error:|BUILD" | sort -u
-   ```
-
-4. **In Xcode:** Simulator wählen (z. B. iPhone 15) oder physisches iPhone → Run (▶️)
-
-### Rechnerwechsel (auf einem anderen Mac weiterarbeiten)
-1. In **GitHub Desktop** auf dem aktuellen Mac zuerst **Push origin** ausführen; auf dem zweiten Mac **Pull origin** / klonen.
-2. In Xcode auf dem zweiten Mac unter **Xcode → Settings… (`⌘,`) → Accounts** dieselbe Apple-ID anmelden (`DEVELOPMENT_TEAM` ist bereits in `project.pbxproj` hinterlegt).
-3. Auf dem zweiten Mac `TanzpartnerOstfrieslandiOS.xcodeproj` öffnen → Ziel wählen (Simulator oder iPhone) → Run (▶️).
-4. Bei Build auf ein echtes iPhone: Entwicklermodus auf dem iPhone aktivieren und Entwickler-Zertifikat einmalig unter *Einstellungen → Allgemein → VPN & Geräteverwaltung* vertrauen.
-
----
-
-## 🧩 Architektur (tatsächlicher Stand)
-
-### Technologie-Stack
-
-| Ebene | Technologie | Verwendung |
-|---|---|---|
-| **UI** | SwiftUI (rein nativ) | Alle 3 Tabs, keine WKWebView |
-| **Datenhaltung** | `ProfileStore` (ObservableObject) + JSON-Datei | Local-first, kein Backend nötig |
-| **Datenmodell** | `Profile` + `ModerationStatus` (Codable) | Geteilt zwischen Tanzpartner- und Moderations-Tab |
-
-### Datenfluss
-
-```
-┌──────────────────────────────────────────────────────┐
-│              iOS App (reines SwiftUI)               │
-├──────────────────────────────────────────────────────┤
-│                                                      │
-│  ProfileListView ◄────► ModerationView              │
-│        (Tab 1)             (Tab 2)                  │
-│             └────────┬─────────┘                    │
-│                      ▼                              │
-│            ProfileStore (ObservableObject)          │
-│        @Published profiles: [Profile]               │
-│                      │                              │
-│              upsert / delete                        │
-│                      ▼                              │
-│        persist() → Documents/profiles.json          │
-│                                                      │
-└──────────────────────────────────────────────────────┘
-```
-
-**Wichtig:** Beide Tabs teilen sich denselben `ProfileStore` (via `environmentObject`).
-Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort die JSON-Datei.
-
----
-
-## 🔧 Swift-Code-Übersicht (Datei für Datei)
-
-### `App.swift`
-- `@StateObject private var store = ProfileStore()` → `.environmentObject(store)` an ContentView
-- Liest `@AppStorage("appTheme")` (`AppTheme`) und setzt `.preferredColorScheme(selectedTheme.colorScheme)` (System / Hell / Dunkel)
-
-### `ContentView.swift`
-- TabView mit 3 Tabs: Tanzpartner (0), Moderation (1), Einstellungen (2)
-- `ContentView_Previews` hat `.environmentObject(ProfileStore())` (Canvas-Crash-Schutz)
-
-### `Models.swift`
-- **`Profile`** (Identifiable, Hashable, Codable): `id: Int`, `name`, `city`, `styles: [String]`, `role: String?`, `level`, `goal`, `places: [String]`, `time`, `bio` + Moderation: `status: ModerationStatus`, `note: String?`, `updatedAt: Date?`
-- **Zentrale Auswahloptionen** (`Profile.cities`, `Profile.availableStyles`, `Profile.roles`, `Profile.levels`, `Profile.goals`): Single Source of Truth für Filter und Editor
-- **Toleranter `init(from:)`:** alle Felder außer `id/name/city` mit Defaults (`decodeIfPresent`) – ältere JSON-Dateien überleben Schema-Erweiterungen
-- **`ModerationStatus`** (String, CaseIterable, Codable): `pending`/`approved`/`returned`/`paused` mit `displayText`, `shortText` (für Filter-Pills), geprüften SF-Symbolen (`icon`: `hourglass`, `checkmark.circle.fill`, `arrow.uturn.backward`, `pause.fill`) und `priority` (Sortierung: offen zuerst)
-
-### `ProfileStore.swift`
-- `@Published private(set) var profiles: [Profile]` – Mutationen nur über Methoden
-- `upsert(_:)`: neu hinzufügen ODER bestehende ID aktualisieren, setzt `updatedAt`, persistiert
-- `delete(_:)`, `nextID()` (max-ID + 1), `resetToSeedProfiles()` (Demo-Reset auf 8 Ausgangsprofile)
-- `persist()`: JSONEncoder `.prettyPrinted, .sortedKeys` → atomar nach `Documents/profiles.json`
-- `seedProfiles()`: 8 Beispieldaten (Mara, Jan, Alva, Timo, Jule, Lukas, Sarah, Finn) – nur beim allerersten Start
-
-### `ProfileListView.swift` (Tanzpartner-Tab)
-- Liste aus `store.profiles`, gefiltert per computed Property `filteredProfiles`: **zeigt nur freigegebene Profile (`profile.status == .approved`)**, zusätzlich Suchtext (Name, Hauptort, weitere Tanzorte `places`), Ort-Filter (`city` oder `places`) sowie exakte Matches für Stil/Rolle
-- **Filter-Sheet** (`FilterSheet`): nutzt dieselben Optionen wie der Editor (`Profile.cities`, `Profile.availableStyles` inkl. Bachata/Zumba, `Profile.roles`), Abbrechen/Zurücksetzen/OK
-- **Tap auf Zeile** → navigiert per `NavigationLink` / `NavigationStack` zu `ProfileDetailView(profileID:)`
-- **Wischen** → `store.delete(...)`
-- **"+" im Toolbar** → `ProfileEditorView()` (neu, Default `.pending` – erscheint nach Speichern im Moderations-Tab bis zur Freigabe)
-- Enthält wiederverwendbare Komponenten: `FilterBar`, `FilterPill` (wird auch vom Moderations-Tab genutzt), `ProfileRow`, `MultiSelectPicker` (`.buttonStyle(.plain)`, ohne Force-Unwrap); Bio-Eingabe im Editor läuft nativ über `TextField(..., axis: .vertical)` mit `.lineLimit(5...10)`
-
-### `ProfileDetailView.swift` (Profil-Detailansicht & Kontakt-Simulation)
-- Zeigt alle Details eines Profils (`name`, `city`, `status`, `styles`, `bio`, `role`, `level`, `goal`, `places`, `time`) analog zur Web-Vorlage
-- **Kontaktanfrage simulieren:** vorausgefüllte Beispielnachricht + lokaler Simulations-Status (*„Simulation abgeschlossen“*, ohne Versand/Speicherung) + *„Neue Simulation starten“*
-- **Toolbar „Bearbeiten“** → öffnet `ProfileEditorView(profile:)` als Sheet; Änderungen spiegeln sich durch Lookup über `profileID` sofort wider
-
-### `ModerationView.swift` (Moderations-Tab)
-- Status-Filter-Pills horizontal scrollbar: Alle + 4 Status mit Zählern (`selectedStatus: ModerationStatus?`)
-- Liste nach `status.priority` sortiert (offen zuerst), dann Name
-- **Tap auf Zeile** → `ProfileEditorView(profile:)` (Status + Notiz ändern)
-- `ModerationRow`: Status-Kreis mit Icon, Name, Status-Badge, `updatedAt` (falls gesetzt), Notiz (`note.text`)
-
-### `SettingsView.swift` (Einstellungen-Tab)
-- Aus `ModerationView.swift` in eine eigene Datei ausgelagert
-- Persistiert `enablePushNotifications`, `autoSync` und `appTheme` (`AppTheme`: Automatisch / Hell / Dunkel) über `@AppStorage` (mit `App.swift` verdrahtet)
-- Liest App-Version + Build-Nummer dynamisch aus `Bundle.main` und zeigt echten Speicherort (`Nur lokal (JSON)`)
-- Enthält einen Abschnitt **„Präsentation“** mit **„Beispieldaten zurücksetzen“** (Bestätigungsdialog → `store.resetToSeedProfiles()`)
-- Enthält `PrivacyPolicyView` (Datenschutz) und `ImprintView` (Impressum) als eigene `NavigationLink`-Unterseiten (Texte angelehnt an `www/datenschutz.html` und `www/impressum.html`)
-
----
-
-## 💾 Datenmodell & Persistenz
-
-### JSON-Datei: `Documents/profiles.json`
-```json
-[ { "id": 1, "name": "Mara", "city": "Norden", "styles": ["Standard / Latein"],
-    "role": "Folgend", ..., "status": "Lokal freigegeben", "note": null,
-    "updatedAt": "2026-11-14T..." }, ... ]
-```
-
-### Regeln für Schema-Änderungen
-1. Neue Felder **immer** optional ODER mit Default im toleranten `init(from:)` ergänzen
-2. Bestehende Felder nicht umbenennen/löschen (oder Migration in `ProfileStore.init` schreiben)
-3. Nach Änderungen: JSON-Datei im Simulator prüfen (`~/Library/Developer/CoreSimulator/Devices/<UDID>/data/Containers/Data/Application/<UUID>/Documents/profiles.json`)
-
----
-
-## 📱 App-Funktionen (Status Quo)
-
-### Umgesetzt ✅
-
-| Feature | Wo |
-|---|---|
-| Tab-Navigation (3 Tabs) | ContentView.swift |
-| Profil-Liste mit Suche + Filter-Sheet (Ort/Stil/Rolle) | ProfileListView.swift |
-| **Detailansicht & Kontakt-Simulation** (+ Bearbeiten-Sheet) | ProfileDetailView.swift |
-| Profil-Editor: **neu + bearbeiten** (alle Felder) | ProfileListView.swift (`ProfileEditorView`) |
-| **Speichern** (persistiert in JSON) | ProfileStore.swift (`upsert`) |
-| **Löschen** per Wischen-Geste | ProfileListView.swift (`.onDelete`) |
-| Moderations-Tab: Status-Filter-Pills, Sortierung offen zuerst | ModerationView.swift |
-| **Moderation: Status + Notiz ändern** (Tap → Editor) | ModerationView.swift |
-| Einstellungen-Tab (Theme-Steuerung, `@AppStorage`, **Demo-Reset**, Datenschutz & Impressum) | SettingsView.swift |
-| **App-Icon & Asset-Catalog** (15 PNGs ohne Warnings) | Assets.xcassets/AppIcon.appiconset/ |
-
-### Geplant ⏳ (empfohlene Reihenfolge für den Präsentations-Prototyp)
-
-| Feature | Hinweis |
-|---|---|
-| **Backend-Sync / Multiuser** | ⏸️ **Bewusst zurückgestellt** – Idee noch nicht ausgereift; wird erst nach der Präsentationsphase weiterentwickelt |
-| **Profil-Fotos / Push / Biometrie** | Spätere Ausbaustufen nach dem Prototyp |
-
----
-
-## 🔍 Known Issues & To-Dos
-
-| Problem | Status | Lösungsvorschlag |
-|---|---|---|
-| **`www/`-Ordner (~21 MB)** | ℹ️ Noch nicht von iOS genutzt | Bleibt als Web-Vorlage für den Prototypen; Backend-Sync vorerst zurückgestellt |
-| **xcode-select → CommandLineTools** | ⚠️ Shell-Builds schlagen ohne vollen Pfad fehl | `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer` |
-| **SettingsView-Toggles** | ℹ️ Lokal in `UserDefaults` gespeichert | Push/Sync-Toggles bei späterem Ausbau mit `UserNotifications`/Backend verdrahten |
-
----
-
-## 🚢 Nächste Schritte (empfohlen)
-
-1. **Präsentation des iOS- und Web-Prototyps** (aktueller Meilenstein erreicht ✅)
-2. **Später (zurückgestellt):** Ideen für Multiuser-Betrieb & Backend-Sync ausarbeiten und umsetzen
-
----
-
-## 📚 Verwandte Dokumentation
-
-| Datei | Zweck |
-|---|---|
-| **KI-LEITFADEN.md** | 🤖 Dieser Leitfaden – **aktuelle Wahrheit**, Startpunkt |
-| **README.md** | Kurzübersicht, Technologie, Status |
-| **SETUP.md** | GitHub-Desktop-Anleitung |
-| **docs/CHANGELOG.md** | Versionshistorie (aktuell halten!) |
-| **docs/README.md / ARCHITEKTUR.md** | ⚠️ Beschreiben die *geplante* WKWebView+SQLite-Architektur (noch nicht umgesetzt) |
-
----
-
-## ✅ Fertig – los geht's!
-
-Mit diesem Leitfaden sollte eine weitere KI das Projekt verstehen und weiterentwickeln können.
-
-**Startpunkt:** Xcode öffnen → Projekt laden → Run (▶️) · **Aktueller Fokus:** Eigenständiger Präsentations-Prototyp (Multiuser/Backend-Sync bewusst zurückgestellt)
-
-Viel Erfolg beim Weitermachen! 🎉
+Code und reproduzierbare Tests belegen den Ist-Stand; Roadmap beschreibt den Plan. Widersprüche protokollieren. Keine Build-Erfolge, Quellenprüfungen oder Veröffentlichungen ohne Nachweis behaupten. Keine Zugangsdaten oder privaten Testdaten dokumentieren; keine kostenpflichtigen oder modellspezifischen Werkzeuge voraussetzen.
