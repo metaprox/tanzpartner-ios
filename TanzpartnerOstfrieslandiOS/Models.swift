@@ -118,4 +118,16 @@ struct Profile: Identifiable, Hashable, Codable {
     // Berechnete Werte für UI
     var displayName: String { name }
     var displayCity: String { city }
+
+    // Zentrale Auswahloptionen für Filter und Editor (Single Source of Truth)
+    static let cities = ["Norden", "Emden", "Aurich"]
+    static let availableStyles = ["Standard / Latein", "Salsa", "Discofox", "Tango", "Rock'n'Roll", "Bachata", "Zumba"]
+    static let roles = ["Führend", "Folgend", "Beides"]
+    static let levels = ["Ohne Vorkenntnisse", "Grundkenntnisse", "Fortgeschritten"]
+    static let goals = [
+        "Ersten Kurs beginnen",
+        "Wieder einsteigen",
+        "Regelmäßig tanzen",
+        "Kenntnisse vertiefen"
+    ]
 }

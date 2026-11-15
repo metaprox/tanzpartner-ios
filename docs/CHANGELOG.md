@@ -7,10 +7,15 @@ Alle wichtigen Änderungen an der iOS-App sind hier dokumentiert.
 ### 🔧 Stabilisierung & UI-Korrekturen
 
 #### Geändert
-- **`ProfileListView.swift`** – Status-Filterung ergänzt: Die Tanzpartner-Liste zeigt nun ausschließlich lokal freigegebene Profile (`profile.status == .approved`); unbestätigte, zurückgestellte und pausierte Profile bleiben im Moderations-Tab.
-- **`ModerationView.swift`** – `SettingsView` in einen `NavigationStack` eingebettet, damit `.navigationTitle("Einstellungen")` korrekt angezeigt wird.
-- **`Models.swift` & `ModerationView.swift`** – Nicht existierende SF-Symbol-Namen korrigiert (`hourglass.fill` → `hourglass`, `return.down.back.icon.fill` → `arrow.uturn.backward`, `note.fill` → `note.text`, `arrow.triangle.2.circlepath.fill` → `arrow.triangle.2.circlepath`) und gegen iOS SDK verifiziert.
-- **`KI-LEITFADEN.md`** – Aktuellen Stand (15.11.2026), Deployment Target `17.0` und offene Cleanup-Punkte nachgezogen.
+- **`Models.swift`** – Zentrale Auswahloptionen (`Profile.cities`, `Profile.availableStyles`, `Profile.roles`, `Profile.levels`, `Profile.goals`) als Single Source of Truth ergänzt; ungültige SF Symbols korrigiert (`hourglass.fill` → `hourglass`, `return.down.back.icon.fill` → `arrow.uturn.backward`).
+- **`ProfileListView.swift`** –
+  - Status-Filterung ergänzt: Die Tanzpartner-Liste zeigt ausschließlich lokal freigegebene Profile (`profile.status == .approved`).
+  - Filter und Editor nutzen gemeinsame Optionen (`Profile.availableStyles` inkl. `Bachata` & `Zumba`).
+  - Suche und Ortsfilter berücksichtigen neben `city` nun auch `places`.
+  - `ProfileEditorView` bewahrt bestehende `places` und erlaubt deren Bearbeitung über „Mögliche Tanzorte“ (Hauptort bleibt immer enthalten).
+  - `MultiSelectPicker` auf `.buttonStyle(.plain)` umgestellt und Force-Unwrap beim Abwählen entfernt.
+- **`ModerationView.swift`** – `SettingsView` in einen `NavigationStack` eingebettet (`.navigationTitle("Einstellungen")` sichtbar) und ungültige SF Symbols korrigiert (`note.fill` → `note.text`, `arrow.triangle.2.circlepath.fill` → `arrow.triangle.2.circlepath`).
+- **`KI-LEITFADEN.md`** – Aktuellen Stand (15.11.2026), Deployment Target `17.0`, Single-Source-Optionen, `places`-Verhalten und offene Cleanup-Punkte nachgezogen.
 
 ---
 

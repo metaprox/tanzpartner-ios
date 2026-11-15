@@ -129,6 +129,7 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 
 ### `Models.swift`
 - **`Profile`** (Identifiable, Hashable, Codable): `id: Int`, `name`, `city`, `styles: [String]`, `role: String?`, `level`, `goal`, `places: [String]`, `time`, `bio` + Moderation: `status: ModerationStatus`, `note: String?`, `updatedAt: Date?`
+- **Zentrale Auswahloptionen** (`Profile.cities`, `Profile.availableStyles`, `Profile.roles`, `Profile.levels`, `Profile.goals`): Single Source of Truth für Filter und Editor
 - **Toleranter `init(from:)`:** alle Felder außer `id/name/city` mit Defaults (`decodeIfPresent`) – ältere JSON-Dateien überleben Schema-Erweiterungen
 - **`ModerationStatus`** (String, CaseIterable, Codable): `pending`/`approved`/`returned`/`paused` mit `displayText`, `shortText` (für Filter-Pills), geprüften SF-Symbolen (`icon`: `hourglass`, `checkmark.circle.fill`, `arrow.uturn.backward`, `pause.fill`) und `priority` (Sortierung: offen zuerst)
 
@@ -140,12 +141,12 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 - `seedProfiles()`: 8 Beispieldaten (Mara, Jan, Alva, Timo, Jule, Lukas, Sarah, Finn) – nur beim allerersten Start
 
 ### `ProfileListView.swift` (Tanzpartner-Tab)
-- Liste aus `store.profiles`, gefiltert per computed Property `filteredProfiles`: **zeigt nur freigegebene Profile (`profile.status == .approved`)**, zusätzlich Suchtext in Name+Ort sowie exakte Matches für Ort/Stil/Rolle
-- **Filter-Sheet** (`FilterSheet`): optionale Picker mit `String?.none/.some`-Tags, Abbrechen/Zurücksetzen/OK
-- **Tap auf Zeile** → `ProfileEditorView(profile:)` als Sheet (Bearbeiten)
+- Liste aus `store.profiles`, gefiltert per computed Property `filteredProfiles`: **zeigt nur freigegebene Profile (`profile.status == .approved`)**, zusätzlich Suchtext (Name, Hauptort, weitere Tanzorte `places`), Ort-Filter (`city` oder `places`) sowie exakte Matches für Stil/Rolle
+- **Filter-Sheet** (`FilterSheet`): nutzt dieselben Optionen wie der Editor (`Profile.cities`, `Profile.availableStyles` inkl. Bachata/Zumba, `Profile.roles`), Abbrechen/Zurücksetzen/OK
+- **Tap auf Zeile** → `ProfileEditorView(profile:)` als Sheet (Bearbeiten; `places` bleiben über `MultiSelectPicker` „Mögliche Tanzorte“ erhalten und bearbeitbar, `city` bleibt immer enthalten)
 - **Wischen** → `store.delete(...)`
 - **"+" im Toolbar** → `ProfileEditorView()` (neu, Default `.pending` – erscheint nach Speichern im Moderations-Tab bis zur Freigabe)
-- Enthält wiederverwendbare Komponenten: `FilterBar`, `FilterPill` (wird auch vom Moderations-Tab genutzt), `ProfileRow`, `MultiSelectPicker`, `TextArea` + `UITextViewWrapper` (Placeholder-Emulation, da UITextView keins hat)
+- Enthält wiederverwendbare Komponenten: `FilterBar`, `FilterPill` (wird auch vom Moderations-Tab genutzt), `ProfileRow`, `MultiSelectPicker` (`.buttonStyle(.plain)`, ohne Force-Unwrap), `TextArea` + `UITextViewWrapper` (Placeholder-Emulation, da UITextView keins hat)
 
 ### `ModerationView.swift` (Moderations-Tab)
 - Status-Filter-Pills horizontal scrollbar: Alle + 4 Status mit Zählern (`selectedStatus: ModerationStatus?`)
@@ -204,8 +205,7 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 
 | Problem | Status | Lösungsvorschlag |
 |---|---|---|
-| **Filter vs. Editor Stile & `places`** | ⚠️ Offen (nächster Cleanup) | Im Filter fehlen `Bachata`/`Zumba`; `ProfileEditorView.saveProfile()` überschreibt `places` aktuell mit `[city]` |
-| **`UITextViewWrapper` Observer** | ⚠️ Offen (nächster Cleanup) | `NotificationCenter`-Observer wird nicht entfernt; auf `UITextViewDelegate.textViewDidChange` oder natives SwiftUI umstellen |
+| **`UITextViewWrapper` Observer** | ⚠️ Offen (nächster Cleanup) | `NotificationCenter`-Observer wird nicht entfernt; auf `UITextViewDelegate.textViewDidChange` oder natives SwiftUI (`TextField(..., axis: .vertical)`) umstellen |
 | **App-Icon PNGs fehlen** | ⚠️ Build-Warnings (kosmetisch) | 1024×1024 + iOS-Größen in AppIcon.appiconset legen |
 | **Leere Extra-Ordner** im Source-Verzeichnis (`Assets.app/`, `Content/`, `Preview Content/`) | 🧹 Cleanup-Kandidaten | Löschen (sind leer, nicht im pbxproj referenziert) |
 | **`www/`-Ordner (~21 MB)** | ℹ️ Noch nicht von iOS genutzt | Bleibt als Referenz + Ziel für Backend-Sync; ggf. später aus dem Repo auslagern |

@@ -19,22 +19,26 @@ struct ProfileListView: View {
     @State private var editingProfile: Profile?
     @State private var showingNewProfile = false
 
-    let cities = ["Norden", "Emden", "Aurich"]
-    let styles = ["Standard / Latein", "Salsa", "Discofox", "Tango", "Rock'n'Roll"]
-    let roles = ["Führend", "Folgend", "Beides"]
+    let cities = Profile.cities
+    let styles = Profile.availableStyles
+    let roles = Profile.roles
 
     var filteredProfiles: [Profile] {
         store.profiles.filter { profile in
             // Nur freigegebene Profile in der öffentlichen Tanzpartner-Liste anzeigen
             let matchesStatus = profile.status == .approved
 
-            // Suchtext-Filter
+            // Suchtext-Filter (Name, Hauptort und weitere Tanzorte)
+            let query = searchText.lowercased()
             let matchesSearch = searchText.isEmpty ||
-                profile.name.lowercased().contains(searchText.lowercased()) ||
-                profile.city.lowercased().contains(searchText.lowercased())
+                profile.name.lowercased().contains(query) ||
+                profile.city.lowercased().contains(query) ||
+                profile.places.contains { $0.lowercased().contains(query) }
 
-            // Ort-Filter
-            let matchesCity = selectedCity == nil || profile.city == selectedCity
+            // Ort-Filter (Hauptort oder mögliche Tanzorte)
+            let matchesCity = selectedCity.map { city in
+                profile.city == city || profile.places.contains(city)
+            } ?? true
 
             // Stil-Filter
             let matchesStyle = selectedStyle == nil ||
@@ -321,6 +325,7 @@ struct ProfileEditorView: View {
 
     @State private var name = ""
     @State private var city = "Norden"
+    @State private var places: [String] = []
     @State private var styles: [String] = []
     @State private var role = "Führend"
     @State private var level = "Ohne Vorkenntnisse"
@@ -332,21 +337,17 @@ struct ProfileEditorView: View {
     @State private var status: ModerationStatus = .pending
     @State private var note = ""
 
-    let cities = ["Norden", "Emden", "Aurich"]
-    let allStyles = ["Standard / Latein", "Salsa", "Discofox", "Tango", "Rock'n'Roll", "Bachata", "Zumba"]
-    let roles = ["Führend", "Folgend", "Beides"]
-    let levels = ["Ohne Vorkenntnisse", "Grundkenntnisse", "Fortgeschritten"]
-    let goals = [
-        "Ersten Kurs beginnen",
-        "Wieder einsteigen",
-        "Regelmäßig tanzen",
-        "Kenntnisse vertiefen"
-    ]
+    let cities = Profile.cities
+    let allStyles = Profile.availableStyles
+    let roles = Profile.roles
+    let levels = Profile.levels
+    let goals = Profile.goals
 
     init(profile: Profile? = nil) {
         self.profile = profile
         _name = State(initialValue: profile?.name ?? "")
         _city = State(initialValue: profile?.city ?? "Norden")
+        _places = State(initialValue: profile?.places ?? [])
         _styles = State(initialValue: profile?.styles ?? [])
         _role = State(initialValue: profile?.role ?? "Führend")
         _level = State(initialValue: profile?.level ?? "Ohne Vorkenntnisse")
@@ -369,6 +370,12 @@ struct ProfileEditorView: View {
                             Text(city).tag(city)
                         }
                     }
+
+                    MultiSelectPicker(
+                        title: "Mögliche Tanzorte",
+                        options: cities,
+                        selectedOptions: $places
+                    )
 
                     MultiSelectPicker(
                         title: "Tanzstil",
@@ -449,7 +456,12 @@ struct ProfileEditorView: View {
         updated.role = role
         updated.level = level
         updated.goal = goal
-        updated.places = [city]
+        // Hauptort bleibt immer Teil von places; weitere gewählte Orte bleiben erhalten
+        var updatedPlaces = places.filter { !$0.isEmpty }
+        if !updatedPlaces.contains(city) {
+            updatedPlaces.insert(city, at: 0)
+        }
+        updated.places = updatedPlaces
         updated.time = time
         updated.bio = bio
         updated.status = status
@@ -493,6 +505,7 @@ struct MultiSelectPicker: View {
                         .background(isSelected(option) ? Color.blue.opacity(0.1) : nil)
                         .cornerRadius(8)
                     }
+                    .buttonStyle(.plain)
                 }
             }
         }
@@ -500,7 +513,7 @@ struct MultiSelectPicker: View {
 
     private func toggle(_ option: String) {
         if isSelected(option) {
-            selectedOptions.remove(at: selectedOptions.firstIndex(of: option)!)
+            selectedOptions.removeAll { $0 == option }
         } else {
             selectedOptions.append(option)
         }
