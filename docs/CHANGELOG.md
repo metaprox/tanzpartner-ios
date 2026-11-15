@@ -2,6 +2,16 @@
 
 Alle wichtigen Änderungen an der iOS-App sind hier dokumentiert.
 
+## [0.2.4] - 2026-11-15
+
+### 🎬 Demo-Reset für Präsentationen
+
+#### Hinzugefügt
+- **`ProfileStore.swift`** – `resetToSeedProfiles()` ergänzt, um alle lokalen Profile wieder auf die 8 Ausgangs-Beispieldaten zurückzusetzen und zu persistieren.
+- **`SettingsView.swift`** – Neuen Abschnitt „Präsentation“ mit Button **„Beispieldaten zurücksetzen“**, Sicherheitsabfrage (Alert) und Rückmeldung ergänzt.
+
+---
+
 ## [0.2.3] - 2026-11-15
 
 ### 📱 Detailansicht & Kontakt-Simulation

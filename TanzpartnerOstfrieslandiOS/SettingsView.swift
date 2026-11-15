@@ -32,9 +32,13 @@ enum AppTheme: String, CaseIterable {
 // MARK: - SettingsView
 
 struct SettingsView: View {
+    @EnvironmentObject private var store: ProfileStore
     @AppStorage("enablePushNotifications") private var enablePushNotifications = true
     @AppStorage("autoSync") private var autoSync = true
     @AppStorage("appTheme") private var selectedThemeRaw = AppTheme.auto.rawValue
+
+    @State private var showingResetConfirmation = false
+    @State private var didResetDemoData = false
 
     private var themeBinding: Binding<AppTheme> {
         Binding(
@@ -80,6 +84,20 @@ struct SettingsView: View {
                     }
                 }
 
+                Section(header: Text("Präsentation")) {
+                    Button(role: .destructive) {
+                        showingResetConfirmation = true
+                    } label: {
+                        Label("Beispieldaten zurücksetzen", systemImage: "arrow.counterclockwise")
+                    }
+
+                    if didResetDemoData {
+                        Label("Die 8 Ausgangsprofile wurden wiederhergestellt.", systemImage: "checkmark.circle.fill")
+                            .font(.caption)
+                            .foregroundColor(.green)
+                    }
+                }
+
                 Section(header: Text("Über")) {
                     HStack {
                         Text("Version")
@@ -99,6 +117,15 @@ struct SettingsView: View {
             }
             .listStyle(.insetGrouped)
             .navigationTitle("Einstellungen")
+            .alert("Beispieldaten zurücksetzen?", isPresented: $showingResetConfirmation) {
+                Button("Zurücksetzen", role: .destructive) {
+                    store.resetToSeedProfiles()
+                    didResetDemoData = true
+                }
+                Button("Abbrechen", role: .cancel) {}
+            } message: {
+                Text("Alle selbst angelegten oder geänderten Profile werden verworfen und die 8 Ausgangsprofile wiederhergestellt.")
+            }
         }
     }
 }

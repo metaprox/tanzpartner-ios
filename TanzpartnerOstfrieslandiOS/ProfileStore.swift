@@ -54,6 +54,12 @@ final class ProfileStore: ObservableObject {
         (profiles.map(\.id).max() ?? 0) + 1
     }
 
+    /// Setzt alle lokalen Profile auf die 8 Ausgangs-Beispieldaten zurück (für Präsentationen).
+    func resetToSeedProfiles() {
+        profiles = Self.seedProfiles()
+        persist()
+    }
+
     // MARK: - Persistenz (JSON im Documents-Ordner)
 
     private func persist() {

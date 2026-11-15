@@ -138,7 +138,7 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 ### `ProfileStore.swift`
 - `@Published private(set) var profiles: [Profile]` – Mutationen nur über Methoden
 - `upsert(_:)`: neu hinzufügen ODER bestehende ID aktualisieren, setzt `updatedAt`, persistiert
-- `delete(_:)`, `nextID()` (max-ID + 1)
+- `delete(_:)`, `nextID()` (max-ID + 1), `resetToSeedProfiles()` (Demo-Reset auf 8 Ausgangsprofile)
 - `persist()`: JSONEncoder `.prettyPrinted, .sortedKeys` → atomar nach `Documents/profiles.json`
 - `seedProfiles()`: 8 Beispieldaten (Mara, Jan, Alva, Timo, Jule, Lukas, Sarah, Finn) – nur beim allerersten Start
 
@@ -165,6 +165,7 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 - Aus `ModerationView.swift` in eine eigene Datei ausgelagert
 - Persistiert `enablePushNotifications`, `autoSync` und `appTheme` (`AppTheme`: Automatisch / Hell / Dunkel) über `@AppStorage` (mit `App.swift` verdrahtet)
 - Liest App-Version + Build-Nummer dynamisch aus `Bundle.main` und zeigt echten Speicherort (`Nur lokal (JSON)`)
+- Enthält einen Abschnitt **„Präsentation“** mit **„Beispieldaten zurücksetzen“** (Bestätigungsdialog → `store.resetToSeedProfiles()`)
 - Enthält `PrivacyPolicyView` (Datenschutz) und `ImprintView` (Impressum) als eigene `NavigationLink`-Unterseiten (Texte angelehnt an `www/datenschutz.html` und `www/impressum.html`)
 
 ---
@@ -199,14 +200,13 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 | **Löschen** per Wischen-Geste | ProfileListView.swift (`.onDelete`) |
 | Moderations-Tab: Status-Filter-Pills, Sortierung offen zuerst | ModerationView.swift |
 | **Moderation: Status + Notiz ändern** (Tap → Editor) | ModerationView.swift |
-| Einstellungen-Tab (Theme-Steuerung, `@AppStorage`, Datenschutz & Impressum) | SettingsView.swift |
+| Einstellungen-Tab (Theme-Steuerung, `@AppStorage`, **Demo-Reset**, Datenschutz & Impressum) | SettingsView.swift |
 | **App-Icon & Asset-Catalog** (15 PNGs ohne Warnings) | Assets.xcassets/AppIcon.appiconset/ |
 
 ### Geplant ⏳ (empfohlene Reihenfolge für den Präsentations-Prototyp)
 
 | Feature | Hinweis |
 |---|---|
-| **Demo-Daten zurücksetzen** | Button in `SettingsView`, um `ProfileStore` für Präsentationen auf die 8 Ausgangsprofile zurückzusetzen |
 | **Backend-Sync / Multiuser** | ⏸️ **Bewusst zurückgestellt** – Idee noch nicht ausgereift; wird erst nach der Präsentationsphase weiterentwickelt |
 | **Profil-Fotos / Push / Biometrie** | Spätere Ausbaustufen nach dem Prototyp |
 
@@ -224,8 +224,8 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 
 ## 🚢 Nächste Schritte (empfohlen)
 
-1. **Demo-Reset in `SettingsView`:** Beispieldaten für Präsentationen per Tipp zurücksetzen können
-2. **Später (zurückgestellt):** Backend-Sync & Multiuser-Konzept weiterdenken, sobald der Prototyp präsentiert wurde
+1. **Präsentation des iOS- und Web-Prototyps** (aktueller Meilenstein erreicht ✅)
+2. **Später (zurückgestellt):** Ideen für Multiuser-Betrieb & Backend-Sync ausarbeiten und umsetzen
 
 ---
 
