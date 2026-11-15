@@ -79,7 +79,13 @@ tanzpartner-ios/
      -destination 'generic/platform=iOS Simulator' build 2>&1 | grep -E "error:|BUILD" | sort -u
    ```
 
-4. **In Xcode:** Simulator wählen (z. B. iPhone 15) → Run (▶️)
+4. **In Xcode:** Simulator wählen (z. B. iPhone 15) oder physisches iPhone → Run (▶️)
+
+### Rechnerwechsel (auf einem anderen Mac weiterarbeiten)
+1. In **GitHub Desktop** auf dem aktuellen Mac zuerst **Push origin** ausführen; auf dem zweiten Mac **Pull origin** / klonen.
+2. In Xcode auf dem zweiten Mac unter **Xcode → Settings… (`⌘,`) → Accounts** dieselbe Apple-ID anmelden (`DEVELOPMENT_TEAM` ist bereits in `project.pbxproj` hinterlegt).
+3. Auf dem zweiten Mac `TanzpartnerOstfrieslandiOS.xcodeproj` öffnen → Ziel wählen (Simulator oder iPhone) → Run (▶️).
+4. Bei Build auf ein echtes iPhone: Entwicklermodus auf dem iPhone aktivieren und Entwickler-Zertifikat einmalig unter *Einstellungen → Allgemein → VPN & Geräteverwaltung* vertrauen.
 
 ---
 
