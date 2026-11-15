@@ -2,6 +2,18 @@
 
 Alle wichtigen Änderungen an der iOS-App sind hier dokumentiert.
 
+## [0.2.2] - 2026-11-15
+
+### 🎨 App-Icon & Projekt-Cleanup
+
+#### Hinzugefügt
+- **`Assets.xcassets/AppIcon.appiconset/`** – Alle 15 App-Icon-PNGs (20×20 bis 1024×1024, ohne Alpha-Kanal) im Petrol/Sand-Design (`figure.socialdance`) erzeugt; Xcode baut nun komplett ohne Asset-Warnings.
+
+#### Entfernt
+- Ungenutzte leere Verzeichnisse in `TanzpartnerOstfrieslandiOS/` (`Assets.app`, `Content`, `Preview`, `Preview Content`, `TanzpartnerOstfrieslandiOS`) aufgeräumt.
+
+---
+
 ## [0.2.1] - 2026-11-15
 
 ### 🔧 Stabilisierung & UI-Korrekturen

@@ -13,7 +13,7 @@ Eine weitere KI (oder Entwickler) soll nach diesem Leitfaden das Projekt **Tanzp
 
 | Element | Status |
 |---|---|
-| **Build** | ✅ `BUILD SUCCEEDED` (Xcode, iOS Simulator), 0 Swift-Warnings |
+| **Build** | ✅ `BUILD SUCCEEDED` (Xcode, iOS Simulator), 0 Errors, 0 Warnings (inkl. Asset-Catalog) |
 | **App läuft** | ✅ 3 Tabs: Tanzpartner, Moderation, Einstellungen |
 | **Kernlogik** | ✅ Profile speichern, bearbeiten, löschen; Status-Filter (`.approved` in Tanzpartner-Liste); Suche + Filter; Moderations-Status |
 | **Persistenz** | ✅ Local-first: JSON-Datei in `Documents/profiles.json` (8 Seed-Profile beim ersten Start) |
@@ -36,7 +36,7 @@ tanzpartner-ios/
 │   ├── ModerationView.swift                   # Moderations-Tab
 │   ├── SettingsView.swift                     # Einstellungen-Tab (Theme, AppStorage, Rechtliches)
 │   ├── Info.plist                             # App-Konfiguration (Deployment Target 17.0)
-│   └── Assets.xcassets/                       # AppIcon (⚠️ nur Contents.json, PNGs fehlen)
+│   └── Assets.xcassets/                       # AppIcon (vollständiger iOS/iPadOS-Satz, 15 PNGs)
 ├── www/                                       # Kopie der Web-App (~21 MB, noch NICHT von iOS genutzt)
 │   ├── index.html, app.js, style.css
 │   ├── store.mjs                              # API für App-Zustand (Ziel des Backend-Syncs)
@@ -193,12 +193,12 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 | Moderations-Tab: Status-Filter-Pills, Sortierung offen zuerst | ModerationView.swift |
 | **Moderation: Status + Notiz ändern** (Tap → Editor) | ModerationView.swift |
 | Einstellungen-Tab (Theme-Steuerung, `@AppStorage`, Datenschutz & Impressum) | SettingsView.swift |
+| **App-Icon & Asset-Catalog** (15 PNGs ohne Warnings) | Assets.xcassets/AppIcon.appiconset/ |
 
 ### Geplant ⏳ (empfohlene Reihenfolge für den Präsentations-Prototyp)
 
 | Feature | Hinweis |
 |---|---|
-| **App-Icon & Projekt-Cleanup** | PNGs in `Assets.xcassets/AppIcon.appiconset/` ergänzen (Warnings beseitigen) + leere Ordner im Source-Verzeichnis aufräumen |
 | **Detailansicht & Kontakt-Simulation** | Profil-Details sauber darstellen + Anfrage-Simulation (analog zur Web-Vorlage) + „Bearbeiten“-Aktion |
 | **Demo-Daten zurücksetzen** | Button in `SettingsView`, um `ProfileStore` für Präsentationen auf die 8 Ausgangsprofile zurückzusetzen |
 | **Backend-Sync / Multiuser** | ⏸️ **Bewusst zurückgestellt** – Idee noch nicht ausgereift; wird erst nach der Präsentationsphase weiterentwickelt |
@@ -210,20 +210,17 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 
 | Problem | Status | Lösungsvorschlag |
 |---|---|---|
-| **App-Icon PNGs fehlen** | ⚠️ Build-Warnings (kosmetisch) | 1024×1024 + iOS-Größen in AppIcon.appiconset legen |
-| **Leere Extra-Ordner** im Source-Verzeichnis (`Assets.app/`, `Content/`, `Preview Content/`) | 🧹 Cleanup-Kandidaten | Löschen (sind leer, nicht im pbxproj referenziert) |
-| **`www/`-Ordner (~21 MB)** | ℹ️ Noch nicht von iOS genutzt | Bleibt als Referenz + Ziel für Backend-Sync; ggf. später aus dem Repo auslagern |
+| **`www/`-Ordner (~21 MB)** | ℹ️ Noch nicht von iOS genutzt | Bleibt als Web-Vorlage für den Prototypen; Backend-Sync vorerst zurückgestellt |
 | **xcode-select → CommandLineTools** | ⚠️ Shell-Builds schlagen ohne vollen Pfad fehl | `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer` |
-| **SettingsView-Toggles** | ℹ️ Lokal in `UserDefaults` gespeichert | Push/Sync-Toggles mit `UserNotifications`/Backend verdrahten, sobald Server-Sync aktiv wird |
+| **SettingsView-Toggles** | ℹ️ Lokal in `UserDefaults` gespeichert | Push/Sync-Toggles bei späterem Ausbau mit `UserNotifications`/Backend verdrahten |
 
 ---
 
 ## 🚢 Nächste Schritte (empfohlen)
 
-1. **App-Icon & Cleanup:** App-Icon-PNGs ergänzen (Warnings beseitigen) und leere Ordner im Source-Verzeichnis aufräumen
-2. **Detailansicht für Profile + Kontakt-Simulation:** Für die Präsentation analog zur Web-Vorlage
-3. **Demo-Reset in `SettingsView`:** Beispieldaten für Präsentationen per Tipp zurücksetzen können
-4. **Später (zurückgestellt):** Backend-Sync & Multiuser-Konzept weiterdenken, sobald der Prototyp präsentiert wurde
+1. **Detailansicht für Profile + Kontakt-Simulation:** Für die Präsentation analog zur Web-Vorlage
+2. **Demo-Reset in `SettingsView`:** Beispieldaten für Präsentationen per Tipp zurücksetzen können
+3. **Später (zurückgestellt):** Backend-Sync & Multiuser-Konzept weiterdenken, sobald der Prototyp präsentiert wurde
 
 ---
 
