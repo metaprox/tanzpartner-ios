@@ -17,7 +17,7 @@ Eine weitere KI (oder Entwickler) soll nach diesem Leitfaden das Projekt **Tanzp
 | **App läuft** | ✅ 3 Tabs: Tanzpartner, Moderation, Einstellungen |
 | **Kernlogik** | ✅ Profile speichern, bearbeiten, löschen; Status-Filter (`.approved` in Tanzpartner-Liste); Suche + Filter; Moderations-Status |
 | **Persistenz** | ✅ Local-first: JSON-Datei in `Documents/profiles.json` (8 Seed-Profile beim ersten Start) |
-| **Backend-Sync** | ⏳ Nächster Ausbauschritt – Voraussetzung: Web-Etappe 1 (Mehrbenutzer, s. u.) |
+| **Backend-Sync** | ⏸️ **Zurückgestellt** – Web-Version dient vorerst als Vorlage; aktueller Fokus ist ein runder Standalone-Prototyp für eine Präsentation |
 
 ---
 
@@ -194,16 +194,15 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 | **Moderation: Status + Notiz ändern** (Tap → Editor) | ModerationView.swift |
 | Einstellungen-Tab (Theme-Steuerung, `@AppStorage`, Datenschutz & Impressum) | SettingsView.swift |
 
-### Geplant ⏳ (empfohlene Reihenfolge)
+### Geplant ⏳ (empfohlene Reihenfolge für den Präsentations-Prototyp)
 
 | Feature | Hinweis |
 |---|---|
-| **Backend-Sync** | `ProfileStore` mit der Web-API (`store.mjs`, Kopie in `www/`) verbinden. **Voraussetzung:** Die aktuelle Web-API speichert nur einen gemeinsamen Zustand (Tabelle `app_state`, ein Testprofil) – für echtes Mehrprofil-Syncen zuerst **Etappe 1 des Web-Mehrbenutzer-Plans** umsetzen (eigene Tabelle je Profil: stabile ID, Status, Token-Hash; Plan liegt in `ki-web-labor/tanzpartner-ostfriesland/docs/MEHRBENUTZER-PLAN.md`). Danach: Push/Pull je Profil. Local-first beibehalten: JSON bleibt Quelle, Sync als Overlay. **Das ist der wichtigste nächste Schritt.** |
-| **App-Icon** | PNGs in `Assets.xcassets/AppIcon.appiconset/` (aktuell nur Contents.json → Build-Warnings) |
-| **Detailansicht** für Profile | Optional – der Editor deckt aktuell Bearbeiten ab |
-| **Profil-Fotos** | Kamera-Integration (PhotosUI) |
-| **Push-Benachrichtigungen** | UserNotifications.framework, SettingsView-Vorbereitung vorhanden |
-| **Biometrie-Login** | LocalAuthentication (optional) |
+| **App-Icon & Projekt-Cleanup** | PNGs in `Assets.xcassets/AppIcon.appiconset/` ergänzen (Warnings beseitigen) + leere Ordner im Source-Verzeichnis aufräumen |
+| **Detailansicht & Kontakt-Simulation** | Profil-Details sauber darstellen + Anfrage-Simulation (analog zur Web-Vorlage) + „Bearbeiten“-Aktion |
+| **Demo-Daten zurücksetzen** | Button in `SettingsView`, um `ProfileStore` für Präsentationen auf die 8 Ausgangsprofile zurückzusetzen |
+| **Backend-Sync / Multiuser** | ⏸️ **Bewusst zurückgestellt** – Idee noch nicht ausgereift; wird erst nach der Präsentationsphase weiterentwickelt |
+| **Profil-Fotos / Push / Biometrie** | Spätere Ausbaustufen nach dem Prototyp |
 
 ---
 
@@ -221,11 +220,10 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 
 ## 🚢 Nächste Schritte (empfohlen)
 
-1. **Backend-Sync:** Zuerst Web-Etappe 1 (Mehrbenutzer: eigene Tabelle je Profil) im Web-Repo umsetzen – die aktuelle `app_state`-API kennt nur ein gemeinsames Testprofil. Danach: `ProfileStore` um Push/Pull je Profil erweitern, Konfliktstrategie definieren. **Praktisch:** Der lokale Server bindet an 127.0.0.1 → iOS-Simulator erreicht ihn, echtes iPhone im WLAN nicht (dann Bindung in `server.mjs` anpassen). Die `www/`-Kopie ist aktuelle Referenz (nur Doku-Änderungen im Web-Repo nicht nachgezogen).
-2. **App-Icon** ergänzen (Warnings beseitigen)
-3. **Leere Ordner** im Source-Verzeichnis aufräumen
-4. **Detailansicht** für Profile (wenn gewünscht)
-5. **Native Features:** Push, Kamera, Biometrie
+1. **App-Icon & Cleanup:** App-Icon-PNGs ergänzen (Warnings beseitigen) und leere Ordner im Source-Verzeichnis aufräumen
+2. **Detailansicht für Profile + Kontakt-Simulation:** Für die Präsentation analog zur Web-Vorlage
+3. **Demo-Reset in `SettingsView`:** Beispieldaten für Präsentationen per Tipp zurücksetzen können
+4. **Später (zurückgestellt):** Backend-Sync & Multiuser-Konzept weiterdenken, sobald der Prototyp präsentiert wurde
 
 ---
 
@@ -245,6 +243,6 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 
 Mit diesem Leitfaden sollte eine weitere KI das Projekt verstehen und weiterentwickeln können.
 
-**Startpunkt:** Xcode öffnen → Projekt laden → Run (▶️) · **Wichtigster nächster Schritt:** Backend-Sync
+**Startpunkt:** Xcode öffnen → Projekt laden → Run (▶️) · **Aktueller Fokus:** Eigenständiger Präsentations-Prototyp (Multiuser/Backend-Sync bewusst zurückgestellt)
 
 Viel Erfolg beim Weitermachen! 🎉
