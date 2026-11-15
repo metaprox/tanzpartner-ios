@@ -27,9 +27,9 @@ enum ModerationStatus: String, CaseIterable, Codable {
 
     var icon: String {
         switch self {
-        case .pending: return "hourglass.fill"
+        case .pending: return "hourglass"
         case .approved: return "checkmark.circle.fill"
-        case .returned: return "return.down.back.icon.fill"
+        case .returned: return "arrow.uturn.backward"
         case .paused: return "pause.fill"
         }
     }

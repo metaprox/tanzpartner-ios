@@ -130,7 +130,7 @@ struct ModerationRow: View {
 
                 if let note = profile.note {
                     HStack(spacing: 4) {
-                        Image(systemName: "note.fill")
+                        Image(systemName: "note.text")
                             .font(.caption)
                             .foregroundColor(.secondary)
                         Text(note)
@@ -182,57 +182,59 @@ struct SettingsView: View {
     }
     
     var body: some View {
-        List {
-            Section(header: Text("Benachrichtigungen")) {
-                Toggle(isOn: $enablePushNotifications) {
-                    HStack {
-                        Image(systemName: "bell.fill")
-                        Text("Push-Benachrichtigungen")
-                    }
-                }
-            }
-            
-            Section(header: Text("Synchronisation")) {
-                Toggle(isOn: $autoSync) {
-                    HStack {
-                        Image(systemName: "arrow.triangle.2.circlepath.fill")
-                        Text("Automatisch synchronisieren")
-                    }
-                }
-                
-                HStack {
-                    Text("Letzte Synchronisation")
-                    Spacer()
-                    Text("Gerade eben")
-                        .foregroundColor(.secondary)
-                }
-            }
-            
-            Section(header: Text("Darstellung")) {
-                Picker("Theme", selection: $theme) {
-                    ForEach(Theme.allCases, id: \.self) { theme in
+        NavigationStack {
+            List {
+                Section(header: Text("Benachrichtigungen")) {
+                    Toggle(isOn: $enablePushNotifications) {
                         HStack {
-                            Image(systemName: theme == .dark ? "moon.fill" : theme == .light ? "sun.max.fill" : "circle.grid.cross.fill")
-                            Text(theme.rawValue)
+                            Image(systemName: "bell.fill")
+                            Text("Push-Benachrichtigungen")
                         }
-                        .tag(theme)
                     }
                 }
-            }
-            
-            Section(header: Text("Über")) {
-                HStack {
-                    Text("Version")
-                    Spacer()
-                    Text("0.1.0")
-                        .foregroundColor(.secondary)
+
+                Section(header: Text("Synchronisation")) {
+                    Toggle(isOn: $autoSync) {
+                        HStack {
+                            Image(systemName: "arrow.triangle.2.circlepath")
+                            Text("Automatisch synchronisieren")
+                        }
+                    }
+
+                    HStack {
+                        Text("Letzte Synchronisation")
+                        Spacer()
+                        Text("Gerade eben")
+                            .foregroundColor(.secondary)
+                    }
                 }
-                
-                Button("Datenschutz") {}
-                Button("Impressum") {}
+
+                Section(header: Text("Darstellung")) {
+                    Picker("Theme", selection: $theme) {
+                        ForEach(Theme.allCases, id: \.self) { theme in
+                            HStack {
+                                Image(systemName: theme == .dark ? "moon.fill" : theme == .light ? "sun.max.fill" : "circle.grid.cross.fill")
+                                Text(theme.rawValue)
+                            }
+                            .tag(theme)
+                        }
+                    }
+                }
+
+                Section(header: Text("Über")) {
+                    HStack {
+                        Text("Version")
+                        Spacer()
+                        Text("0.1.0")
+                            .foregroundColor(.secondary)
+                    }
+
+                    Button("Datenschutz") {}
+                    Button("Impressum") {}
+                }
             }
+            .listStyle(PlainListStyle())
+            .navigationTitle("Einstellungen")
         }
-        .listStyle(PlainListStyle())
-        .navigationTitle("Einstellungen")
     }
 }
