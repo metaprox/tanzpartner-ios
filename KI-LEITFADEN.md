@@ -146,7 +146,7 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 - **Tap auf Zeile** → `ProfileEditorView(profile:)` als Sheet (Bearbeiten; `places` bleiben über `MultiSelectPicker` „Mögliche Tanzorte“ erhalten und bearbeitbar, `city` bleibt immer enthalten)
 - **Wischen** → `store.delete(...)`
 - **"+" im Toolbar** → `ProfileEditorView()` (neu, Default `.pending` – erscheint nach Speichern im Moderations-Tab bis zur Freigabe)
-- Enthält wiederverwendbare Komponenten: `FilterBar`, `FilterPill` (wird auch vom Moderations-Tab genutzt), `ProfileRow`, `MultiSelectPicker` (`.buttonStyle(.plain)`, ohne Force-Unwrap), `TextArea` + `UITextViewWrapper` (Placeholder-Emulation, da UITextView keins hat)
+- Enthält wiederverwendbare Komponenten: `FilterBar`, `FilterPill` (wird auch vom Moderations-Tab genutzt), `ProfileRow`, `MultiSelectPicker` (`.buttonStyle(.plain)`, ohne Force-Unwrap); Bio-Eingabe im Editor läuft nativ über `TextField(..., axis: .vertical)` mit `.lineLimit(5...10)`
 
 ### `ModerationView.swift` (Moderations-Tab)
 - Status-Filter-Pills horizontal scrollbar: Alle + 4 Status mit Zählern (`selectedStatus: ModerationStatus?`)
@@ -205,7 +205,6 @@ Jede Änderung (`upsert`, `delete`) aktualisiert `updatedAt` und schreibt sofort
 
 | Problem | Status | Lösungsvorschlag |
 |---|---|---|
-| **`UITextViewWrapper` Observer** | ⚠️ Offen (nächster Cleanup) | `NotificationCenter`-Observer wird nicht entfernt; auf `UITextViewDelegate.textViewDidChange` oder natives SwiftUI (`TextField(..., axis: .vertical)`) umstellen |
 | **App-Icon PNGs fehlen** | ⚠️ Build-Warnings (kosmetisch) | 1024×1024 + iOS-Größen in AppIcon.appiconset legen |
 | **Leere Extra-Ordner** im Source-Verzeichnis (`Assets.app/`, `Content/`, `Preview Content/`) | 🧹 Cleanup-Kandidaten | Löschen (sind leer, nicht im pbxproj referenziert) |
 | **`www/`-Ordner (~21 MB)** | ℹ️ Noch nicht von iOS genutzt | Bleibt als Referenz + Ziel für Backend-Sync; ggf. später aus dem Repo auslagern |

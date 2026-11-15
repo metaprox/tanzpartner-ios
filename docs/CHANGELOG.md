@@ -14,6 +14,7 @@ Alle wichtigen Änderungen an der iOS-App sind hier dokumentiert.
   - Suche und Ortsfilter berücksichtigen neben `city` nun auch `places`.
   - `ProfileEditorView` bewahrt bestehende `places` und erlaubt deren Bearbeitung über „Mögliche Tanzorte“ (Hauptort bleibt immer enthalten).
   - `MultiSelectPicker` auf `.buttonStyle(.plain)` umgestellt und Force-Unwrap beim Abwählen entfernt.
+  - `TextArea` / `UITextViewWrapper` entfernt und durch natives `TextField(..., axis: .vertical)` mit `.lineLimit(5...10)` ersetzt (kein UIKit-Workaround / Observer-Leak mehr).
 - **`ModerationView.swift`** – `SettingsView` in einen `NavigationStack` eingebettet (`.navigationTitle("Einstellungen")` sichtbar) und ungültige SF Symbols korrigiert (`note.fill` → `note.text`, `arrow.triangle.2.circlepath.fill` → `arrow.triangle.2.circlepath`).
 - **`KI-LEITFADEN.md`** – Aktuellen Stand (15.11.2026), Deployment Target `17.0`, Single-Source-Optionen, `places`-Verhalten und offene Cleanup-Punkte nachgezogen.
 

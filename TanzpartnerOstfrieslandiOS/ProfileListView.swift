@@ -409,7 +409,7 @@ struct ProfileEditorView: View {
                 }
 
                 Section(header: Text("Über dich")) {
-                    TextArea(text: $bio, placeholder: "Erzähle etwas über dich...")
+                    TextField("Erzähle etwas über dich...", text: $bio, axis: .vertical)
                         .lineLimit(5...10)
                 }
 
@@ -520,101 +520,3 @@ struct MultiSelectPicker: View {
     }
 }
 
-// MARK: - TextArea
-
-struct TextArea: View {
-    @Binding var text: String
-    let placeholder: String
-
-    var body: some View {
-        UITextViewWrapper(text: $text, placeholder: placeholder)
-            .frame(minHeight: 120)
-            .accentColor(.blue)
-    }
-}
-
-struct UITextViewWrapper: UIViewRepresentable {
-    @Binding var text: String
-    let placeholder: String
-
-    func makeUIView(context: Context) -> UITextView {
-        let textView = UITextView()
-        textView.isScrollEnabled = true
-        textView.isEditable = true
-        textView.font = .systemFont(ofSize: 16)
-        textView.backgroundColor = .clear
-        textView.delegate = context.coordinator
-
-        // UITextView hat kein attributedPlaceholder – Placeholder als grauen Text emulieren
-        if text.isEmpty {
-            textView.text = placeholder
-            textView.textColor = .secondaryLabel
-        }
-
-        // Notification for text changes
-        NotificationCenter.default.addObserver(
-            context.coordinator,
-            selector: #selector(Coordinator.textChanged),
-            name: UITextView.textDidChangeNotification,
-            object: textView
-        )
-
-        return textView
-    }
-
-    func updateUIView(_ uiView: UITextView, context: Context) {
-        let showsPlaceholder = !uiView.isFirstResponder && uiView.text == placeholder
-
-        if text.isEmpty {
-            // Leeres Binding → grauen Placeholder zeigen (wenn noch nicht geschehen)
-            if !uiView.isFirstResponder && uiView.text != placeholder {
-                uiView.text = placeholder
-                uiView.textColor = .secondaryLabel
-            }
-        } else if !showsPlaceholder && uiView.text != text {
-            // Externe Änderung → synchronisieren (während des Tippens überspringen)
-            uiView.text = text
-            uiView.textColor = .label
-        } else if showsPlaceholder {
-            // Externer Text kam, während der Placeholder angezeigt wurde
-            uiView.text = text
-            uiView.textColor = .label
-        }
-    }
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(text: $text, placeholder: placeholder)
-    }
-
-    class Coordinator: NSObject, UITextViewDelegate {
-        @Binding var text: String
-        let placeholder: String
-
-        init(text: Binding<String>, placeholder: String) {
-            _text = text
-            self.placeholder = placeholder
-        }
-
-        @objc func textChanged(_ notification: Notification) {
-            guard let textView = notification.object as? UITextView else { return }
-            // Der graue Placeholder-Text ist kein echter Inhalt
-            text = (textView.text == placeholder && !textView.isFirstResponder) ? "" : textView.text
-        }
-
-        func textViewDidBeginEditing(_ textView: UITextView) {
-            if textView.text == placeholder {
-                textView.text = ""
-                textView.textColor = .label
-            }
-        }
-
-        func textViewDidEndEditing(_ textView: UITextView) {
-            if textView.text.isEmpty {
-                textView.text = placeholder
-                textView.textColor = .secondaryLabel
-            } else if textView.textColor == .secondaryLabel {
-                textView.textColor = .label
-            }
-        }
-    }
-}
