@@ -22,3 +22,11 @@ DerivedData/
 *.swp
 *.swo
 *~
+
+# Lokale Server-Geheimnisse (Vorlage db-config.example.php bleibt versioniert)
+db-config.php
+.htpasswd
+.htpasswd.*
+.env
+.env.*
+!.env.example

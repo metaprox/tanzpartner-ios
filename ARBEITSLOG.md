@@ -1,16 +1,17 @@
 # Arbeitslog – aktuelle Übergabe
 
-## Stand 16.11.2026 – Pause nach Server-Test
+## Stand 16.11.2026 – Serverdatei lokal gesichert
 
 - **Arbeitsordner:** `/Users/svenschley/Documents/GitHub/tanzpartner-ios`; Branch `main`.
-- **Basis dieser Dokumentationssitzung:** `1c400431d191224f1b934468ce1d151df5ecff2b`; Arbeitsverzeichnis beim Start sauber. Vorherige Dokumentationsbereinigung damit lokal committed; Remote nicht neu abgefragt.
-- **Entscheidung:** Offline-V1 bleibt bestehen. Spätere Partnersuche als digitales schwarzes Brett, ohne Chat/interne Kontaktanfragen; externe Kontaktaufnahme und ablaufende Gesuche. Kontaktdatensichtbarkeit noch offen.
-- **Ergebnis S01:** Nutzer hat manitu-Testbereich mit PHP/MariaDB und Basic Auth eingerichtet. Drei Demo-Gesuche mit Anmeldung geliefert; ohne Anmeldung HTTP 401. Nachweise sind Nutzerberichte/Screenshots, keine eigene Serverinspektion. Pfade, Schema, API-Vertrag und offene Punkte in [SERVER-TEST.md](SERVER-TEST.md).
-- **Werkzeuge:** Cyberduck ersetzt Transmit; VS Code ersetzt TextEdit. Kurze Einzelschritte, unnötige Screenshots vermeiden.
-- **Heute geändert:** ausschließlich Dokumentation: SERVER-TEST neu, Verweise/Plan/Aufgaben/Übergabe aktualisiert. Keine App- oder Server-Codeänderung durch diese Dokumentationssitzung. Keine Geheimnisse übernommen.
-- **Prüfungen:** Dokumentationslinks, eindeutige Aufgaben-IDs, Whitespace und Dateiumfang geprüft; kein Build, App-Test oder unabhängiger Netzwerk-/Sicherheitstest.
-- **Git:** heutige Ergänzungen uncommitted; Nutzer übernimmt Commit/Push, danach Pause. Kein Push/PR durch Codex. D02 bleibt bis Remote-Bestätigung offen.
-- **Nächste Sitzung:** S02 (Serverdatei ohne Geheimnisse versionieren und Testzustand prüfen), V01 (Ausgangsbuild), danach S03 (native Leseansicht). Keine erneute DB-Anlage/Seed-Inserts; bestehende Testdaten bewahren.
+- **Sitzungsbasis:** `ca2966becdeb011c5b5f3bdc72a923b1c851cc0f`; Arbeitsverzeichnis anfangs sauber. Frühere Dokumentation lokal committed, Remote nicht neu geprüft.
+- **Entscheidung:** Offline-V1 bleibt bestehen; spätere Partnersuche als schwarzes Brett ohne Chat/interne Kontaktanfragen. Kontaktdatensichtbarkeit noch offen.
+- **S01:** Nutzer bestätigte HTTPS/PHP/MariaDB mit drei Demo-Gesuchen und HTTP 401 ohne Anmeldung; kein unabhängiger Live-Test. Details in SERVER-TEST.md.
+- **S02 abgeschlossen:** Nutzerdatei `Downloads/gesuche.php` geprüft und bytegleich unter `server-test/gesuche.php` gesichert. Keine enthaltenen Passwörter. Konfigurationsvorlage mit Platzhaltern, Schema-Referenz und kurze Wiederherstellungs-/Prüfhinweise ergänzt. Git-Ausschlussregeln für echte Konfiguration und Passwortdateien ergänzt.
+- **Prüfungen:** Dateiidentität, Links, Whitespace, Ausschlussregeln und unveränderte App-Dateien geprüft. Homebrew PHP 8.4.27 installiert; beide PHP-Dateien mit `/opt/homebrew/opt/php@8.4/bin/php -l` erfolgreich geprüft. Kein Datenbank-/Laufzeittest, kein Hintergrunddienst gestartet. Kein Schema-Export, Serverzugriff oder Upload in dieser Sitzung.
+- **Abnahme S02 (16.11.2026):** Nutzer bestätigt ausdrücklich Entfernung von `test.php`/`db-test.php`, danach erneuten Browser-Test: Anmeldung abgebrochen → HTTP 401; nach Anmeldung → drei Demo-Gesuche. FTP-SSL ebenfalls bestätigt. Nutzerprüfung, keine unabhängige Serverinspektion; S02 abgehakt.
+- **Nächster kleiner Schritt:** V01-Ausgangsbuild dokumentieren, dann native Leseansicht S03. Keine erneuten Seed-Inserts.
+- **Git:** aktuelle Änderungen uncommitted; Commit/Push durch Nutzer. App-Code, Server und Datenbank unverändert.
+- **Arbeitsweise:** Cyberduck + VS Code; kurze Einzelschritte, Screenshots nur bei Unklarheit.
 
 ## Knappe Übergabevorlage
 

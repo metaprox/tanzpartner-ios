@@ -12,7 +12,7 @@ Spätere Partnersuche als digitales schwarzes Brett: eigene Gesuche erstellen, b
 - Testadresse: `https://ios-test.tanzpartner-ostfriesland.de`; Zielordner `/htdocs/ios-test/`. Nach anfänglicher Deaktivierung für die Tests aktiviert; Zugang über HTTP Basic Auth geschützt.
 - Hauptwebsite blieb nach Nutzerangabe separat deaktiviert; spätere Hauptwebsite-Konfiguration nicht erneut geprüft. Nicht ungefragt aktivieren oder ändern.
 - SSL: Let's Encrypt und automatische HTTPS-Umleitung eingestellt. Nutzer konnte den HTTPS-Endpunkt aufrufen; Zertifikatslaufzeit und Erneuerung nicht separat geprüft.
-- Dateizugriff: Cyberduck, Bearbeitung ausschließlich in VS Code als reiner Text. TextEdit hatte HTML als sichtbaren Text eingebettet. Verwendetes Übertragungsprotokoll noch prüfen; verschlüsselte Übertragung verwenden.
+- Dateizugriff: Cyberduck, Bearbeitung ausschließlich in VS Code als reiner Text. TextEdit hatte HTML als sichtbaren Text eingebettet. FTP-SSL (FTPS) vom Nutzer am 16.11.2026 bestätigt.
 - In Cyberduck sichtbare Pfade beziehen sich auf `/home/sites/site100047965/web/`.
 - Datenbank: `db138017`, MariaDB auf `mysql14.manitu.net`, Port 3306; Benutzer `u138017`. Bestehende ältere Datenbank nicht verändern. Nur PHP greift intern auf MariaDB zu, kein direkter Datenbankzugriff aus der App.
 - Konfiguration: `/private/db-config.php` außerhalb von `htdocs`; PHP lädt `/home/sites/site100047965/web/private/db-config.php`. Gibt ein Array mit `host`, `database`, `username`, `password` zurück. Die echte Datei und Passwörter niemals ins Repository übernehmen.
@@ -50,7 +50,7 @@ Beispiel gekürzt auf einen Eintrag. IDs werden als Zahlen ausgegeben. Ohne akti
 | HTTPS-Aufruf `gesuche.php` mit Anmeldung | Drei Gesuche samt Umlauten und Ablaufdatum geliefert |
 | Privater Browseraufruf, Anmeldung abgebrochen | HTTP 401 Unauthorized, keine Gesuche |
 
-`test.php` und `db-test.php` wurden auf Anweisung entfernt (Nutzerbestätigung „ok“); Dateiliste nicht erneut kontrolliert. `index.html`, `gesuche.php` und `.htaccess` sollen im Testordner verbleiben. Der produktive Inhalt von `gesuche.php` liegt derzeit nur auf dem Server; der PHP-Entwurf stammt aus dem Chat, nicht aus versionierten Backend-Dateien.
+Entfernung von `test.php` und `db-test.php` am 16.11.2026 ausdrücklich vom Nutzer bestätigt. Am selben Tag Zugriffstest wiederholt und vom Nutzer bestätigt: ohne Anmeldung 401, mit Anmeldung drei Demo-Gesuche. `index.html`, `gesuche.php` und `.htaccess` sollen im Testordner verbleiben. Die am 16.11.2026 vom Nutzer heruntergeladene `gesuche.php` ist jetzt unverändert unter [server-test/](server-test/README.md) gesichert, zusammen mit einer Konfigurationsvorlage ohne Geheimnisse und dem Schema aus dem Chat. Kein erneuter Upload oder unabhängiger Live-Test durch Codex; lokale Syntaxprüfung beider PHP-Dateien mit Homebrew PHP 8.4.27 am 16.11.2026 erfolgreich, keine Laufzeitprüfung.
 
 ## Nächste Arbeit
 
