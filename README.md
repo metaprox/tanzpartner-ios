@@ -10,6 +10,7 @@ Derzeit vorhanden: lokale Profile, Suche/Filter, Moderation und Kontakt-Simulati
 | [TODO.md](TODO.md) | Prioritäten und Akzeptanzkriterien |
 | [ROADMAP.md](ROADMAP.md) | Geprüfter Stand und Zielumfang |
 | [ARBEITSLOG.md](ARBEITSLOG.md) | Aktuelle Übergabe und Prüfergebnisse |
+| [SERVER-TEST.md](SERVER-TEST.md) | Separater Serverversuch und spätere Partnersuche |
 | [SETUP.md](SETUP.md) | Lokal öffnen, testen und übertragen |
 
 App-Code: `TanzpartnerOstfrieslandiOS/`; Projekt: `TanzpartnerOstfrieslandiOS.xcodeproj`.

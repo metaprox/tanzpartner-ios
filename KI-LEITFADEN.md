@@ -26,3 +26,7 @@ Alle folgenden Dateien liegen in `TanzpartnerOstfrieslandiOS/`:
 Persistenz: `Documents/profiles.json` und `UserDefaults`. Neue Modellfelder optional oder mit Decoder-Default; bei inkompatiblen Änderungen Migration vorsehen. Den gemeinsamen Store nutzen, keine parallele Profil-Datenhaltung einführen. Speichern/Neustart und Bestandserhalt bei Persistenzänderungen testen.
 
 Code und reproduzierbare Tests belegen den Ist-Stand; Roadmap beschreibt den Plan. Widersprüche protokollieren. Keine Build-Erfolge, Quellenprüfungen oder Veröffentlichungen ohne Nachweis behaupten. Keine Zugangsdaten oder privaten Testdaten dokumentieren; keine kostenpflichtigen oder modellspezifischen Werkzeuge voraussetzen.
+
+## Bei Serverarbeiten
+
+Nur dann zusätzlich [SERVER-TEST.md](SERVER-TEST.md) lesen. Nutzer bevorzugt kleine Schritte mit Zweck und erwartetem Ergebnis; Screenshots nur bei unklarer Oberfläche. Cyberduck für Dateien, VS Code zum Bearbeiten. Server-Test bleibt getrennt von Offline-V1. Zugangsschutz nicht entfernen, Hauptwebsite nicht ungefragt aktivieren; Geheimnisse bleiben außerhalb von Git und App-Code.

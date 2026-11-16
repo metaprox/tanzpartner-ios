@@ -36,3 +36,7 @@ Quellcode vorhanden bedeutet nicht Laufzeit geprüft. Insbesondere Neustart/Pers
 Pro Eintrag: stabile ID, Titel, Kategorie, Suchbegriffe, Kurzbeschreibung, Fachtext, Quellen mit Herausgeber/Titel/URL/Abrufdatum, Prüfstatus/-datum und Prüfer. Quellen tatsächlich lesen; ungeklärte oder regionale Varianten kennzeichnen. Keine ungeprüften KI-Texte oder fremden Medien ohne geklärte Rechte veröffentlichen. Nur Quellenlinks dürfen Internet benötigen, alle Kerntexte müssen offline vorliegen.
 
 Aufgaben und Akzeptanzkriterien ausschließlich in [TODO.md](TODO.md); aktuelle Übergabe in [ARBEITSLOG.md](ARBEITSLOG.md).
+
+## Separater Serverversuch / spätere Erweiterung
+
+Seit 16.11.2026 ist ein geschützter PHP-/MariaDB-Lesetest mit drei fiktiven Gesuchen durch Nutzerberichte bestätigt; noch keine App-Anbindung. Späteres Ziel: digitales schwarzes Brett, ausdrücklich ohne Chat und internes Kontaktanfrage-System; externe Kontaktaufnahme, Ablauf/Bestätigung von Gesuchen. Details und offene Entscheidungen: [SERVER-TEST.md](SERVER-TEST.md). Offline-V1 bleibt unverändert.

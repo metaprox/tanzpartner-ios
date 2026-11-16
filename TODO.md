@@ -1,11 +1,11 @@
 # TODO – Kleine Aufgaben für V1
 
-Stand: 15.11.2026. Reihenfolge: P0 vor P1 vor P2; Abhängigkeiten beachten. Je Sitzung möglichst **eine** Aufgabe, meist 15–45 Minuten. Wird sie größer, vor Umsetzung in Teilaufgaben mit eigener ID zerlegen. `[ ]` = offen, auch bei Teilergebnis; `[x]` nur mit erfüllten Kriterien und Nachweis im [Arbeitslog](ARBEITSLOG.md). Blockaden und „in Arbeit“ im Log festhalten. Keine parallelen konkurrierenden Änderungen derselben Aufgabe.
+Stand: 16.11.2026. Reihenfolge: P0 vor P1 vor P2; Abhängigkeiten beachten. Je Sitzung möglichst **eine** Aufgabe, meist 15–45 Minuten. Wird sie größer, vor Umsetzung in Teilaufgaben mit eigener ID zerlegen. `[ ]` = offen, auch bei Teilergebnis; `[x]` nur mit erfüllten Kriterien und Nachweis im [Arbeitslog](ARBEITSLOG.md). Blockaden und „in Arbeit“ im Log festhalten. Keine parallelen konkurrierenden Änderungen derselben Aufgabe.
 
 ## P0 – Grundlage und ehrlicher Umfang
 
-- [x] **D01 – Dokumentationsgrundlage erstellen.** Akzeptanz: ROADMAP, TODO, ARBEITSLOG und Verweise in README/KI-Leitfaden vorhanden; historische Aussagen abgegrenzt; keine App-Codeänderung. Nachweis: aktueller Stand im ARBEITSLOG; GitHub-Übertragung offen.
-- [ ] **D02 – Dokumentationspatch nach GitHub übernehmen.** Abhängigkeit: D01. Akzeptanz: Patch geprüft und auf passender Basis angewendet; Commit/PR-Link und Zielbranch im Log; Veröffentlichung verifiziert.
+- [x] **D01 – Dokumentationsgrundlage erstellen.** Akzeptanz: ROADMAP, TODO, ARBEITSLOG und Verweise in README/KI-Leitfaden vorhanden; historische Aussagen abgegrenzt; keine App-Codeänderung. Nachweis: aktueller Stand im ARBEITSLOG; Dokumentation im lokalen Commit `1c40043` vorhanden; Remote-Stand nicht frisch geprüft.
+- [ ] **D02 – Dokumentation nach GitHub übertragen/verifizieren.** Abhängigkeit: D01. Bisherige Dokumentation lokal auf `main` in `1c40043` committed. Akzeptanz: aktuelle Ergänzungen committed/gepusht; Remote-Commit und Branch im Log bestätigt.
 - [ ] **V01 – Ausgangsbuild und Mindest-iOS prüfen.** Akzeptanz: effektive Build-Einstellungen, Xcode-Version, Zielgerät/OS, vollständiges Build-Ergebnis und Abweichungen dokumentiert; ältere Build-Meldung nicht als neuen Test verwenden.
 - [ ] **F01 – Profil-Prototyp durchgehend kennzeichnen.** Akzeptanz: Liste, Detail, Editor, Moderation und Einstieg erklären lokale Demo/fiktive Beispiele; kein Eindruck echter Nutzer, Vermittlung oder Nachrichten; selbst eingegebene Daten nicht pauschal als fiktiv ausgeben. Sichtprüfung dokumentiert.
 - [ ] **F02 – Irreführende Einstellungen bereinigen.** Akzeptanz: Push/Sync nicht als verfügbare Funktionen bedienbar; Hintergrundmodi auf Notwendigkeit geprüft; lokale Speicherung verständlich erklärt. Entscheidung und Test dokumentiert.
@@ -41,4 +41,11 @@ Stand: 15.11.2026. Reihenfolge: P0 vor P1 vor P2; Abhängigkeiten beachten. Je S
 ## Später, ausdrücklich außerhalb V1
 
 - [ ] **I01 – Erweiterungsideen bewerten:** Lernkarten, Querverweise, Übungsnotizen; Nutzen/Aufwand prüfen, keine implizite Zusage.
-- [ ] **I02 – Echte Partnersuche separat planen:** Backend, Konten, Kontakt, Moderation, Betrieb und Kosten; eigene Datenschutz-/Sicherheitsprüfung vor Umsetzung.
+- [ ] **I02 – Echte Partnersuche separat planen:** Digitales schwarzes Brett ohne Chat/interne Kontaktanfragen; Konten, externe Kontaktdaten, Ablauf/Bestätigung, Moderation und Betrieb planen. Details: SERVER-TEST.md.
+
+## Separater Server-Test – außerhalb Offline-V1
+
+- [x] **S01 – Geschützten Lesetest einrichten.** Akzeptanz erfüllt laut Nutzerberichten vom 16.11.2026: drei fiktive Gesuche über HTTPS/PHP/MariaDB abrufbar; ohne Anmeldung HTTP 401. Belege/Grenzen in [SERVER-TEST.md](SERVER-TEST.md).
+- [ ] **S02 – Server-Test reproduzierbar sichern.** Aktuelle `gesuche.php` ohne Zugangsdaten versionieren; Schema und Konfigurationsvorlage ohne Geheimnisse sichern; entfernte Testdateien, verschlüsselten Dateitransfer und GET mit/ohne Anmeldung prüfen. Akzeptanz: reproduzierbare Dateien und Prüfergebnisse vorhanden; keine Secrets im Diff.
+- [ ] **S03 – Kleine native Leseansicht anbinden.** Abhängigkeit: S02, V01. Zugang zur Laufzeit eingeben (keine fest eingebauten Passwörter; dauerhafte Speicherung nur Keychain). Akzeptanz: drei Demo-Gesuche sichtbar; Laden, leeres Ergebnis, 401, 500 und fehlendes Netz verständlich behandelt; bestehende Offline-Funktionen unverändert.
+- [ ] **S04 – Betriebsvoraussetzungen klären.** Akzeptanz: Datenbankversion, Backup/Restore, Hosting-/Mail-Limits und Verantwortlichkeit dokumentiert; keine öffentliche Freigabe vor separater Datenschutz-/Sicherheitsprüfung.

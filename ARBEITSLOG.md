@@ -1,25 +1,25 @@
 # Arbeitslog – aktuelle Übergabe
 
-## Stand 15.11.2026
+## Stand 16.11.2026 – Pause nach Server-Test
 
-- **Arbeitsordner:** `/Users/svenschley/Documents/GitHub/tanzpartner-ios`.
-- **Geprüfte Codebasis:** `fbb950b77b6fdd453161e3983f937c037e1c9dd7`; native App und Xcode-Projekt unverändert.
-- **Entscheidung:** Offline-V1 gemäß ROADMAP; echte Partnersuche später. Der Nutzer übernimmt Commit/Push über GitHub Desktop.
-- **Erledigt (D01):** Dokumentation auf aktuelle Fakten, Aufgaben und Übergabe verdichtet. Ungenutzte Webkopie `www/` samt Abhängigkeiten entfernt; alte Architektur-/Changelog-Dokumente entfernt. Frühere Details bleiben in der Git-Historie.
-- **Geprüft:** Keine App-/Projektverweise auf die entfernte Kopie; Dokumentationslinks, Aufgaben-IDs, Änderungsumfang und Whitespace geprüft. Kein Build/App-Test, keine Inhalts- oder Datenschutzfreigabe.
-- **Offen:** Änderungen lokal, uncommitted; kein Push/PR. D02 bleibt offen. Mindest-iOS, Ausgangsbuild und V1-Funktionen sind noch zu prüfen/umzusetzen.
-- **Nächster Schritt:** Nutzer prüft, committet und pusht die Änderungen (D02); danach V01. Viele gelöschte Dateien stammen aus alten Abhängigkeiten.
+- **Arbeitsordner:** `/Users/svenschley/Documents/GitHub/tanzpartner-ios`; Branch `main`.
+- **Basis dieser Dokumentationssitzung:** `1c400431d191224f1b934468ce1d151df5ecff2b`; Arbeitsverzeichnis beim Start sauber. Vorherige Dokumentationsbereinigung damit lokal committed; Remote nicht neu abgefragt.
+- **Entscheidung:** Offline-V1 bleibt bestehen. Spätere Partnersuche als digitales schwarzes Brett, ohne Chat/interne Kontaktanfragen; externe Kontaktaufnahme und ablaufende Gesuche. Kontaktdatensichtbarkeit noch offen.
+- **Ergebnis S01:** Nutzer hat manitu-Testbereich mit PHP/MariaDB und Basic Auth eingerichtet. Drei Demo-Gesuche mit Anmeldung geliefert; ohne Anmeldung HTTP 401. Nachweise sind Nutzerberichte/Screenshots, keine eigene Serverinspektion. Pfade, Schema, API-Vertrag und offene Punkte in [SERVER-TEST.md](SERVER-TEST.md).
+- **Werkzeuge:** Cyberduck ersetzt Transmit; VS Code ersetzt TextEdit. Kurze Einzelschritte, unnötige Screenshots vermeiden.
+- **Heute geändert:** ausschließlich Dokumentation: SERVER-TEST neu, Verweise/Plan/Aufgaben/Übergabe aktualisiert. Keine App- oder Server-Codeänderung durch diese Dokumentationssitzung. Keine Geheimnisse übernommen.
+- **Prüfungen:** Dokumentationslinks, eindeutige Aufgaben-IDs, Whitespace und Dateiumfang geprüft; kein Build, App-Test oder unabhängiger Netzwerk-/Sicherheitstest.
+- **Git:** heutige Ergänzungen uncommitted; Nutzer übernimmt Commit/Push, danach Pause. Kein Push/PR durch Codex. D02 bleibt bis Remote-Bestätigung offen.
+- **Nächste Sitzung:** S02 (Serverdatei ohne Geheimnisse versionieren und Testzustand prüfen), V01 (Ausgangsbuild), danach S03 (native Leseansicht). Keine erneute DB-Anlage/Seed-Inserts; bestehende Testdaten bewahren.
 
-## Vorlage für die nächste Übergabe
-
-Aktuellen Stand aktualisieren statt lange Sitzungsberichte anzuhängen; relevante Entscheidungen und ungelöste Probleme erhalten.
+## Knappe Übergabevorlage
 
 ```text
 Datum / Bearbeiter / Aufgabe-ID:
 Branch / Basis-Commit / vorhandene Änderungen:
-Ergebnis / betroffene Dateien / Entscheidung:
-Prüfung: Schritte oder Befehl, Umgebung, Soll/Ist, Ergebnis:
-Nicht geprüft / Blockade / offene Akzeptanzkriterien:
+Ergebnis / Dateien / Entscheidung:
+Prüfung: Schritte, Umgebung, Soll/Ist und Ergebnis:
+Nicht geprüft / Blockade / offene Kriterien:
 Nächster kleiner Schritt:
-Commit / Push / PR: erfolgt mit Nachweis oder offen:
+Commit / Push / PR: Nachweis oder offen:
 ```
