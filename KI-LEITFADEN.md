@@ -21,6 +21,7 @@ Alle folgenden Dateien liegen in `TanzpartnerOstfrieslandiOS/`:
 | `ProfileDetailView.swift` | Details, Bearbeiten, lokale Kontakt-Simulation |
 | `ModerationView.swift` | Statusfilter, Sortierung, Bearbeitung |
 | `SettingsView.swift` | Theme, lokale Schalter, Reset, Datenschutz/Impressum |
+| `OnlineTestView.swift` | Geschützter Demo-Abruf, Zugang nur flüchtig; Tab ausschließlich Debug |
 | `Info.plist` | App-Konfiguration; Hintergrundmodi vor Release prüfen |
 
 Persistenz: `Documents/profiles.json` und `UserDefaults`. Neue Modellfelder optional oder mit Decoder-Default; bei inkompatiblen Änderungen Migration vorsehen. Den gemeinsamen Store nutzen, keine parallele Profil-Datenhaltung einführen. Speichern/Neustart und Bestandserhalt bei Persistenzänderungen testen.

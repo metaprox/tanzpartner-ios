@@ -29,6 +29,12 @@ struct ContentView: View {
                     Label("Einstellungen", systemImage: "gearshape.fill")
                 }
                 .tag(2)
+
+            #if DEBUG
+            OnlineTestView()
+                .tabItem { Label("Online-Test", systemImage: "network") }
+                .tag(3)
+            #endif
         }
         .accentColor(.blue)
     }

@@ -8,7 +8,7 @@ Außerhalb V1: Backend/Mehrbenutzerbetrieb, Cloud-Sync, Push, Fotos, Biometrie u
 
 ## Geprüfter Stand – 15.11.2026
 
-Quellcodebasis: `fbb950b77b6fdd453161e3983f937c037e1c9dd7`. Seither nur Dokumentation/Bereinigung. Kein Build oder Gerätetest in diesen Sitzungen.
+Quellcodebasis: `fbb950b77b6fdd453161e3983f937c037e1c9dd7`. Quellcodeprüfung vom 15.11.; zusätzlich am 16.11.2026 erfolgreicher Simulator-Debug-Build von Commit `85cfb5e8a2c5914b75fd8d812d52e41c80ab053c` mit Xcode 27.2. Kein App-Start durch Codex. Ergänzender Nutzerbericht vom 16.11.: bisheriger Stand auf iPhone 16 Pro Max mit iOS 27.2.1 grundsätzlich funktionsfähig; installierter Build und Testfälle nicht erfasst, keine vollständige Abnahme.
 
 | Befund | Beleg (unter `TanzpartnerOstfrieslandiOS/`, sofern nicht anders angegeben) |
 |---|---|
@@ -17,7 +17,7 @@ Quellcodebasis: `fbb950b77b6fdd453161e3983f937c037e1c9dd7`. Seither nur Dokument
 | Profilsuche/Filter, Detail, fiktive Beispiele und Kontakt-Simulation | `ProfileListView.swift`, `ProfileDetailView.swift` |
 | Theme, Push-/Sync-Schalter nur lokal gespeichert; rechtliche Texte vorhanden, ungeprüft | `SettingsView.swift` |
 | Hintergrundmodi `fetch`/`remote-notification`; Bedarf offen | `Info.plist` |
-| Mindest-iOS ungeklärt: Projekt 16.0, Target verwendet empfohlene Variable | `TanzpartnerOstfrieslandiOS.xcodeproj/project.pbxproj` |
+| Effektives Mindest-iOS im geprüften Debug-Simulator-Build: 17.0; Projektwert 16.0, Target nutzt empfohlene Variable. Release-Einstellungen separat prüfen. | `TanzpartnerOstfrieslandiOS.xcodeproj/project.pbxproj` |
 | Kein Lexikonmodell, Lexikon-Datensatz oder Favoritenspeicher gefunden | Native Swift-Dateien und Projekt-Dateiliste |
 
 Quellcode vorhanden bedeutet nicht Laufzeit geprüft. Insbesondere Neustart/Persistenz, Fehlerfälle, vollständige Demo-Kennzeichnung und Datenschutz sind offen.
@@ -39,4 +39,4 @@ Aufgaben und Akzeptanzkriterien ausschließlich in [TODO.md](TODO.md); aktuelle 
 
 ## Separater Serverversuch / spätere Erweiterung
 
-Seit 16.11.2026 ist ein geschützter PHP-/MariaDB-Lesetest mit drei fiktiven Gesuchen durch Nutzerberichte bestätigt; noch keine App-Anbindung. Späteres Ziel: digitales schwarzes Brett, ausdrücklich ohne Chat und internes Kontaktanfrage-System; externe Kontaktaufnahme, Ablauf/Bestätigung von Gesuchen. Details und offene Entscheidungen: [SERVER-TEST.md](SERVER-TEST.md). Offline-V1 bleibt unverändert.
+Seit 16.11.2026 ist ein geschützter PHP-/MariaDB-Lesetest mit drei fiktiven Gesuchen durch Nutzerberichte bestätigt; Debug-Leseansicht seit 16.11. implementiert und gebaut, echter App-Login noch nicht abgenommen. Späteres Ziel: digitales schwarzes Brett, ausdrücklich ohne Chat und internes Kontaktanfrage-System; externe Kontaktaufnahme, Ablauf/Bestätigung von Gesuchen. Details und offene Entscheidungen: [SERVER-TEST.md](SERVER-TEST.md). Offline-V1 bleibt unverändert.

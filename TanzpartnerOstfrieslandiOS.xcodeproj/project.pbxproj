@@ -16,6 +16,7 @@
 		04F3A2D42AD1C1D8003E9D8F /* ProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A2D32AD1C1D8003E9D8F /* ProfileStore.swift */; };
 		9D3F870B30A9BAFF0000FD66 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3F870A30A9BAFF0000FD66 /* SettingsView.swift */; };
 		9D3F870D30A9BD0C0000FD66 /* ProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3F870C30A9BD0C0000FD66 /* ProfileDetailView.swift */; };
+		AABBCCDD1122334455667701 /* OnlineTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCCDD1122334455667702 /* OnlineTestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		04F3A2D32AD1C1D8003E9D8F /* ProfileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStore.swift; sourceTree = "<group>"; };
 		9D3F870A30A9BAFF0000FD66 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9D3F870C30A9BD0C0000FD66 /* ProfileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailView.swift; sourceTree = "<group>"; };
+		AABBCCDD1122334455667702 /* OnlineTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineTestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			children = (
 				04F3A2B12AD1C1D8003E9D8F /* App.swift */,
 				04F3A2B42AD1C1D8003E9D8F /* ContentView.swift */,
+				AABBCCDD1122334455667702 /* OnlineTestView.swift */,
 				04F3A2C52AD1C1D8003E9D8F /* ProfileListView.swift */,
 				04F3A2B82AD1C1D8003E9D8F /* ModerationView.swift */,
 				04F3A2D12AD1C1D8003E9D8F /* Models.swift */,
@@ -149,6 +152,7 @@
 				9D3F870D30A9BD0C0000FD66 /* ProfileDetailView.swift in Sources */,
 				04F3A2B22AD1C1D8003E9D8F /* App.swift in Sources */,
 				04F3A2B52AD1C1D8003E9D8F /* ContentView.swift in Sources */,
+				AABBCCDD1122334455667701 /* OnlineTestView.swift in Sources */,
 				04F3A2B72AD1C1D8003E9D8F /* ProfileListView.swift in Sources */,
 				04F3A2B92AD1C1D8003E9D8F /* ModerationView.swift in Sources */,
 				04F3A2D22AD1C1D8003E9D8F /* Models.swift in Sources */,
@@ -216,6 +220,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;

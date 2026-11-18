@@ -1,6 +1,6 @@
 # Server-Test – Übergabe 16.11.2026
 
-Separater technischer Versuch für eine spätere Erweiterung; kein Bestandteil der Offline-V1 und noch keine iOS-Anbindung. Nachweise: Screenshots und Rückmeldungen des Nutzers in der gemeinsamen Einrichtung. Keine unabhängige Serverinspektion oder vollständige Sicherheitsprüfung durch Codex.
+Separater technischer Versuch für eine spätere Erweiterung; kein Bestandteil der Offline-V1 und iOS-Leseansicht seit 16.11. als Debug-Tab implementiert, erfolgreicher Demo-Abruf auf iPhone 16 Pro Max mit iOS 27.2.1 vom Nutzer bestätigt; weitere Abnahmefälle offen. Nachweise: Screenshots und Rückmeldungen des Nutzers in der gemeinsamen Einrichtung. Keine unabhängige Serverinspektion oder vollständige Sicherheitsprüfung durch Codex.
 
 ## Produktentscheidung
 
@@ -57,3 +57,18 @@ Entfernung von `test.php` und `db-test.php` am 16.11.2026 ausdrücklich vom Nutz
 Aufgaben S01–S04 in [TODO.md](TODO.md). Vor App-Anbindung: aktuelle Serverdatei ohne Geheimnisse lokal versionieren, sicherstellen, dass der Passwortschutz weiterhin greift, Ausgangsbuild prüfen. Testzugang ist kein Nutzerkontensystem. Keine Passwörter fest in App-Code/Bundle oder Git speichern; Eingabe zur Laufzeit, bei dauerhafter Speicherung Keychain vorsehen.
 
 Offen vor öffentlichem Betrieb: Backups inklusive Wiederherstellung, Ressourcen-/Mail-Limits, Konten/Berechtigungen, Moderation, Löschung, Kontaktdatensichtbarkeit, Datenschutz und Betriebsverantwortung. Der bisherige Test ist keine öffentliche Freigabe.
+
+## Geräteabnahme der Online-Testansicht (S03 teilweise offen)
+
+Nutzerbericht vom 16.11.2026: Tab sichtbar, Demo-Daten erfolgreich auf dem iPhone geladen. Positiver Abrufpfad bestätigt; folgende übrige Fälle bleiben zu prüfen.
+
+Aus Xcode als Debug-Build starten → Tab „Online-Test“. Benutzername/Passwort des Website-Schutzes eingeben, nicht Datenbankzugang. Keine Geheimnisse in Screenshots/Chat teilen.
+
+- Mit gültigem Zugang drei Demo-Gesuche laden (nur solange noch nicht abgelaufen).
+- Falsches Passwort: verständlicher Zugriffshinweis, keine Ergebnisse.
+- Im Flugmodus laden: Netzfehler anzeigen, keine alten Ergebnisse als aktuell ausgeben.
+- Tab verlassen/zurückkehren und App in Hintergrund bringen: Zugang/Ergebnisse gelöscht.
+- Laden starten, sofort Tab verlassen: kein spätes Wiederbefüllen.
+- Leere Antwort und Serverfehler noch gezielt prüfen, ohne vorhandene Testdaten zu löschen.
+
+Nur der Debug-Build bietet den Tab; keine Veröffentlichung des Serverversuchs mit der Offline-V1. Bestehende Datenschutztexte sind für eine spätere öffentliche Online-Funktion erneut abzugleichen. Die Ansicht erklärt den Online-Test und das flüchtige Speichern; keine Nutzerkonten oder echte Gesuche.
