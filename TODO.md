@@ -7,13 +7,13 @@ Am 20.11.2026 neu ausgerichtet: Ziel ist eine echte Tanzpartner-Börse statt ein
 ## P0 – Grundlage
 
 - [x] **D01 – Dokumentationsgrundlage erstellen.** Nachweis: ARBEITSLOG; Commit `1c40043`.
-- [ ] **D02 – Dokumentation nach GitHub übertragen/verifizieren.** Stand 20.11.: `1f5ad60` lokal gleichauf mit `origin/main` (ohne frischen Abruf); Neuausrichtung vom 20.11. noch uncommitted. Akzeptanz: aktuelle Ergänzungen committed/gepusht; Remote-Commit im Log bestätigt.
+- [x] **D02 – Dokumentation nach GitHub übertragen/verifizieren.** Nachweis 20.11.2026: Commit `556d63c` vom Nutzer gepusht; nach `git fetch` steht `origin/main` auf `556d63c`.
 - [x] **V01 – Ausgangsbuild und Mindest-iOS prüfen.** Nachweis 16.11.2026 im ARBEITSLOG (Xcode 27.2, effektives Mindest-iOS 17.0).
 
 ## P0 – Konzept
 
-- [ ] **K01 – Offene Entscheidungen festlegen.** Akzeptanz: Mindestalter, Laufzeit eines Gesuchs, Felder eines Gesuchs (Pflicht/optional, Längen) und Absenderadresse für Mails entschieden und in ROADMAP eingetragen.
-- [ ] **K02 – Datenmodell und API-Vertrag beschreiben.** Abhängigkeit: K01. Akzeptanz: Tabellen (Gesuche, Bestätigungs-/Verwaltungstoken, Meldungen, Sperrliste, ggf. Protokoll für Spamschutz) mit Feldern und Status; Endpunkte mit Anfrage, Antwort und Fehlercodes als JSON-Beispiele; Statusübergänge (unbestätigt → wartet auf Freigabe → sichtbar → abgelaufen/gelöscht/abgelehnt). Kein Code.
+- [x] **K01 – Offene Entscheidungen festlegen.** Nachweis 20.11.2026: Nutzer entschied Mindestalter 18, Laufzeit 30 Tage, Pflicht-/Optionalfelder und vorläufigen Absender; in ROADMAP eingetragen. Feldlängen nach K02 verschoben.
+- [ ] **K02 – Datenmodell und API-Vertrag beschreiben.** Abhängigkeit: K01. Akzeptanz: Feldlängen und erlaubte Werte; Tabellen (Gesuche, Bestätigungs-/Verwaltungstoken, Meldungen, Sperrliste, ggf. Protokoll für Spamschutz) mit Feldern und Status; Endpunkte mit Anfrage, Antwort und Fehlercodes als JSON-Beispiele; Statusübergänge (unbestätigt → wartet auf Freigabe → sichtbar → abgelaufen/gelöscht/abgelehnt). Kein Code.
 - [ ] **K03 – Abläufe und Texte festlegen.** Abhängigkeit: K02. Akzeptanz: Ablauf für Aufgeben/Bestätigen/Freigabe/Erinnerung/Verlängern/Löschen, Kontaktweiterleitung, Meldung und Sperre beschrieben; Entwürfe aller Mails und App-Hinweise; Fristen und was gespeichert/gelöscht wird.
 
 ## P1 – Server

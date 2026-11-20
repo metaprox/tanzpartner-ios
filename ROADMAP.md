@@ -18,13 +18,15 @@ Die Store-Version muss eine **echte, vollständige App** sein. Eine Demo mit fik
 | Betreiber | Nutzer als Privatperson; nicht gewerblich. |
 | Lexikon | Später als zusätzlicher Mehrwert, nicht Teil der ersten Store-Version. |
 | Präsentation bis zum Store | Eigenes iPhone/iPad (Notlösung). |
+| Mindestalter (K01) | 18 Jahre für Gesuche und Kontaktaufnahme, per Bestätigung beim Absenden. |
+| Laufzeit (K01) | 30 Tage; danach Verlängerung per Mail-Link. |
+| Felder eines Gesuchs (K01) | Pflicht: Anzeigename, Ort, Tanzstile, Rolle. Optional: Erfahrung, Ziel, mögliche Tanzorte, Zeiten, Freitext. Kein Foto, keine Kontaktdaten im sichtbaren Text. Die E-Mail-Adresse wird erfasst, aber nie angezeigt. |
+| Absender (K01) | Vorerst `kontakt@tanzpartner-ostfriesland.de`; später änderbar. Postfach und Versandlimits in S04 prüfen. |
 
-## Offene Entscheidungen
+## Offene Punkte
 
-- **Mindestalter** für Gesuche und Kontaktaufnahme. Empfehlung: 18 Jahre, per Bestätigung beim Absenden.
-- **Laufzeit** eines Gesuchs bis zur Erneuerung. Der Server-Test nutzt 30 Tage.
-- **Felder eines Gesuchs:** Vorschlag auf Basis der bisherigen Profile (Anzeigename, Ort, mögliche Tanzorte, Stile, Rolle, Erfahrung, Ziel, Zeiten, Freitext). Kein Foto, keine Kontaktdaten im sichtbaren Text.
-- **Mail-Versand:** Limits und Absenderadresse beim Hoster (S04).
+- **Feldlängen** und erlaubte Werte: in K02 festlegen.
+- **Mail-Versand:** Limits, Absender-Authentifizierung und Cronjobs beim Hoster (S04).
 
 ## Erste Store-Version – Umfang
 

@@ -1,6 +1,6 @@
 # Arbeitslog – aktuelle Übergabe
 
-## Stand 20.11.2026 – Neuausrichtung auf Tanzpartner-Börse, nächster Schritt K01
+## Stand 20.11.2026 – Neuausrichtung auf Tanzpartner-Börse, K01 erledigt, nächster Schritt K02
 
 - **Bearbeiter:** Claude Code. Branch `main`, Basis `1f5ad60`; Arbeitsverzeichnis anfangs sauber, lokal gleichauf mit `origin/main` (ohne frischen Abruf von GitHub). Der Git-Hinweis „uncommitted“ im Abschnitt vom 16.11. ist damit überholt.
 - **Serverprüfung ohne Zugangsdaten (Claude, 20.11.):** `gesuche.php` ohne Anmeldung → HTTP 401; `http://` → 301 auf HTTPS; Let's-Encrypt-Zertifikat gültig bis 14.02.2027. Keine Anmeldung, keine Serveränderung.
@@ -10,8 +10,10 @@
 - **Entscheidung (Nutzer, 20.11.):** Push-/Sync-Schalter und Hintergrundmodi bleiben vorerst unverändert, da die App-Store-Prüfung noch fern ist. Aufgabe dafür jetzt F14 (vorher F02), vor A01 zu erledigen.
 - **Entscheidung Server-Test (Nutzer, 20.11.):** Zweck erreicht – iOS-App lädt über HTTPS/PHP Daten aus der MariaDB. S03-Restfälle (T2–T7, Leerfall, 500) und S04 bis zur echten Partnersuche (I02) zurückgestellt. Server bleibt passwortgeschützt online und wird vom Nutzer verwaltet; Demo-Gesuche bei Bedarf erneuerbar (aktuelle laufen am 15.12.2026 ab). HTTP 500 bisher nur per Code-Durchsicht geprüft.
 - **Neuausrichtung (Nutzer, 20.11.):** Eigentliches Ziel ist eine echte Tanzpartner-Börse für Ostfriesland im öffentlichen App Store (Präsentation bei Tanzschulen ohne TestFlight); das Lexikon war nur als Hilfe für die Zulassung gedacht. Apple-Richtlinien am 20.11. gelesen: 2.2 schließt Demos aus, Unlisted Distribution ebenfalls – ein Demo-Profilteil plus Lexikon genügt daher nicht. Entscheidungen (keine Konten, Kontakt per Mail-Weiterleitung, Moderation vorab, Privatperson als Betreiber, nur Ostfriesland, Lexikon später) in ROADMAP. ROADMAP und TODO neu geschrieben, README/KI-LEITFADEN/SERVER-TEST angepasst. Alte Aufgaben L01–L05/F01–F05b entfallen (Historie in `1f5ad60`).
-- **Nächster kleiner Schritt:** K01 – Mindestalter (Empfehlung 18), Laufzeit (Test: 30 Tage), Felder eines Gesuchs und Mail-Absender entscheiden.
-- **Git:** Änderungen an `OnlineTestView.swift`, ARBEITSLOG, SERVER-TEST, TODO, ROADMAP, README und KI-LEITFADEN uncommitted; Commit/Push durch Nutzer.
+- **D02 abgeschlossen:** Nutzer pushte `556d63c`; `git fetch` bestätigt `origin/main` = `556d63c`.
+- **K01 abgeschlossen (Nutzer, 20.11.):** Mindestalter 18; Laufzeit 30 Tage; Pflichtfelder Anzeigename, Ort, Tanzstile, Rolle, optional Erfahrung, Ziel, Tanzorte, Zeiten, Freitext; Absender vorerst `kontakt@tanzpartner-ostfriesland.de`. Feldlängen gehen in K02 auf.
+- **Nächster kleiner Schritt:** K02 – Datenmodell und API-Vertrag als Text mit JSON-Beispielen (kein Code).
+- **Git:** Neuausrichtung in `556d63c` (gepusht). Danach K01/D02-Einträge in ROADMAP, TODO und ARBEITSLOG uncommitted.
 
 ## Stand 16.11.2026 – Online-Testansicht implementiert, Geräteabnahme offen
 
