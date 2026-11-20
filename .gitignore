@@ -31,3 +31,6 @@ db-config.php
 .env.*
 !.env.example
 mail-config.php
+
+# macOS Finder
+.DS_Store
