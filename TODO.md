@@ -13,8 +13,8 @@ Am 20.11.2026 neu ausgerichtet: Ziel ist eine echte Tanzpartner-Börse statt ein
 ## P0 – Konzept
 
 - [x] **K01 – Offene Entscheidungen festlegen.** Nachweis 20.11.2026: Nutzer entschied Mindestalter 18, Laufzeit 30 Tage, Pflicht-/Optionalfelder und vorläufigen Absender; in ROADMAP eingetragen. Feldlängen nach K02 verschoben.
-- [ ] **K02 – Datenmodell und API-Vertrag beschreiben.** Abhängigkeit: K01. Akzeptanz: Feldlängen und erlaubte Werte; Tabellen (Gesuche, Bestätigungs-/Verwaltungstoken, Meldungen, Sperrliste, ggf. Protokoll für Spamschutz) mit Feldern und Status; Endpunkte mit Anfrage, Antwort und Fehlercodes als JSON-Beispiele; Statusübergänge (unbestätigt → wartet auf Freigabe → sichtbar → abgelaufen/gelöscht/abgelehnt). Kein Code.
-- [ ] **K03 – Abläufe und Texte festlegen.** Abhängigkeit: K02. Akzeptanz: Ablauf für Aufgeben/Bestätigen/Freigabe/Erinnerung/Verlängern/Löschen, Kontaktweiterleitung, Meldung und Sperre beschrieben; Entwürfe aller Mails und App-Hinweise; Fristen und was gespeichert/gelöscht wird.
+- [x] **K02 – Datenmodell und API-Vertrag beschreiben.** Nachweis 20.11.2026: [docs/K02-DATENMODELL-API.md](docs/K02-DATENMODELL-API.md); Nutzer bestätigte alle Vorschläge aus Abschnitt 6. Fristen werden in K03 nur noch in die Abläufe übernommen. Abhängigkeit: K01. Akzeptanz: Feldlängen und erlaubte Werte; Tabellen (Gesuche, Bestätigungs-/Verwaltungstoken, Meldungen, Sperrliste, ggf. Protokoll für Spamschutz) mit Feldern und Status; Endpunkte mit Anfrage, Antwort und Fehlercodes als JSON-Beispiele; Statusübergänge (unbestätigt → wartet auf Freigabe → sichtbar → abgelaufen/gelöscht/abgelehnt). Kein Code.
+- [ ] **K03 – Abläufe und Texte festlegen.** Teilstand 20.11.: Entwurf in [docs/K03-ABLAEUFE-TEXTE.md](docs/K03-ABLAEUFE-TEXTE.md); offen nur die Bestätigung der Vorschläge durch den Nutzer (Abschnitt 7). Abhängigkeit: K02. Akzeptanz: Ablauf für Aufgeben/Bestätigen/Freigabe/Erinnerung/Verlängern/Löschen, Kontaktweiterleitung, Meldung und Sperre beschrieben; Entwürfe aller Mails und App-Hinweise; Fristen und was gespeichert/gelöscht wird.
 
 ## P1 – Server
 

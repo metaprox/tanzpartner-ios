@@ -25,7 +25,7 @@ Die Store-Version muss eine **echte, vollständige App** sein. Eine Demo mit fik
 
 ## Offene Punkte
 
-- **Feldlängen** und erlaubte Werte: in K02 festlegen.
+- **Feldlängen, erlaubte Werte, Fristen, Begrenzungen:** in K02 festgelegt (20.11.), siehe [docs/K02-DATENMODELL-API.md](docs/K02-DATENMODELL-API.md).
 - **Betrieb:** MariaDB-Version, Backup/Restore und Cronjobs beim Hoster (Rest von S04).
 
 ## Erste Store-Version – Umfang
