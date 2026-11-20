@@ -21,7 +21,7 @@ Die Store-Version muss eine **echte, vollständige App** sein. Eine Demo mit fik
 | Mindestalter (K01) | 18 Jahre für Gesuche und Kontaktaufnahme, per Bestätigung beim Absenden. |
 | Laufzeit (K01) | 30 Tage; danach Verlängerung per Mail-Link. |
 | Felder eines Gesuchs (K01) | Pflicht: Anzeigename, Ort, Tanzstile, Rolle. Optional: Erfahrung, Ziel, mögliche Tanzorte, Zeiten, Freitext. Kein Foto, keine Kontaktdaten im sichtbaren Text. Die E-Mail-Adresse wird erfasst, aber nie angezeigt. |
-| Absender (K01) | Antwortadresse `kontakt@tanzpartner-ostfriesland.de` (Alias); Versand über ein eigenes Postfach per SMTP (SSL, Port 465, mit Anmeldung) – im Test 20.11. zugestellt, `mail()` landete im Spam. Höchstens 100 Mails/Stunde. |
+| Absender (K01) | `kontakt@tanzpartner-ostfriesland.de` (eigenes Postfach, Stand 20.11.); Versand per SMTP (SSL, Port 465, mit Anmeldung) – im Test 20.11. zugestellt, `mail()` landete im Spam. Höchstens 100 Mails/Stunde. |
 
 ## Offene Punkte
 

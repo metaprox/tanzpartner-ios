@@ -10,7 +10,7 @@ Spätere Partnersuche als digitales schwarzes Brett: eigene Gesuche erstellen, b
 
 ## Umgebung und Pfade
 
-- manitu Webhosting M, PHP 8.4 laut Verwaltungsansicht; MariaDB, genaue Version offen. Kein zusätzlicher Server bestellt.
+- manitu Webhosting M, PHP 8.4 laut Verwaltungsansicht; MariaDB **11.8.9** (`SELECT VERSION()` in phpMyAdmin, Nutzer 20.11.2026). Cronjobs im Kundenmenü vorhanden, stündlicher Takt wählbar (Nutzer 20.11.). Kein zusätzlicher Server bestellt.
 - Testadresse: `https://ios-test.tanzpartner-ostfriesland.de`; Zielordner `/htdocs/ios-test/`. Nach anfänglicher Deaktivierung für die Tests aktiviert; Zugang über HTTP Basic Auth geschützt.
 - Hauptwebsite blieb nach Nutzerangabe separat deaktiviert; spätere Hauptwebsite-Konfiguration nicht erneut geprüft. Nicht ungefragt aktivieren oder ändern.
 - SSL: Let's Encrypt und automatische HTTPS-Umleitung eingestellt. Nutzer konnte den HTTPS-Endpunkt aufrufen; Zertifikatslaufzeit und Erneuerung nicht separat geprüft.
@@ -19,6 +19,19 @@ Spätere Partnersuche als digitales schwarzes Brett: eigene Gesuche erstellen, b
 - Datenbank: `db138017`, MariaDB auf `mysql14.manitu.net`, Port 3306; Benutzer `u138017`. Bestehende ältere Datenbank nicht verändern. Nur PHP greift intern auf MariaDB zu, kein direkter Datenbankzugriff aus der App.
 - Konfiguration: `/private/db-config.php` außerhalb von `htdocs`; PHP lädt `/home/sites/site100047965/web/private/db-config.php`. Gibt ein Array mit `host`, `database`, `username`, `password` zurück. Die echte Datei und Passwörter niemals ins Repository übernehmen.
 - Passwortdatei: `/.htpasswd` außerhalb von `htdocs`. `.htaccess` in `/htdocs/ios-test/` nutzt `AuthType Basic`, `AuthName "Tanzpartner"`, `AuthUserFile /home/sites/site100047965/web/.htpasswd`, `Require valid-user`. Der Schutz wurde aus dem getrennten Website-Ordner kopiert; Geschwisterordner erben ihn nicht.
+
+## Betrieb (S04, Stand 20.11.2026)
+
+| Thema | Stand |
+|---|---|
+| Datenbank | MariaDB 11.8.9 (`SELECT VERSION()`, Nutzer) |
+| Cronjobs | im Kundenmenü „Cronjobs“, stündlich wählbar (Nutzer); Typ „PHP-Skript ausführen“. Benötigt laut K03: stündlich unbestätigte Gesuche löschen; täglich Erinnerung, Ablauf, Löschfristen, Protokoll bereinigen |
+| Mail | Postfach `kontakt@` (eigenes Postfach), Versand per SMTP (SSL, Port 465); max. 100 Mails/Stunde; SPF und DKIM bestehen, DMARC fehlt (später); keine Kopien unter „Gesendet“. Catch-all der Domain → `info@` |
+| Hoster-Backup | laut manitu Webspace, Datenbanken, Mails, Einstellungen; Aufbewahrung 1–2 Wochen (Angaben widersprüchlich); Wiederherstellung durch manitu kostenpflichtig nach Aufwand. Gelöschte Daten können so lange in Backups stehen (für P01/P02) |
+| Eigene Sicherung (Nutzerentscheidung) | phpMyAdmin → Exportieren (Schnell, SQL) **vor jeder Schemaänderung und vor der Store-Einreichung**. Exporte nur auf dem eigenen Mac, nie ins Repository (enthalten E-Mail-Adressen), nach 30 Tagen löschen. Wiederherstellung über phpMyAdmin → Importieren; erster Probeimport in B01 |
+| Verantwortlich | Nutzer als privater Betreiber: Server, Postfächer, Moderation, Sicherungen |
+
+Quellen (gelesen 20.11.2026, ohne Gewähr): manitu-FAQ [1156](https://www.manitu.de/service/faq/entry/1156/Sind-bei-Ihnen-Cronjobs-moeglich/), [1211](https://www.manitu.de/service/faq/entry/1211/Fuehren-Sie-eine-umfassende-Datensicherung-durch/), [1256](https://www.manitu.de/service/faq/entry/1256/Kann-ich-eine-Wiederherstellung-von-Daten-aus-einer-Sicherung-erhalten/), [1320](https://www.manitu.de/service/faq/entry/1320/Wie-kann-ich-ein-Backup-fuer-meinen-Webspace-und-meine-Datenbanken-anlegen/), [1341](https://www.manitu.de/service/faq/entry/1341/).
 
 ## Daten und Schnittstelle
 
