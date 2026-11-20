@@ -18,7 +18,7 @@ Am 20.11.2026 neu ausgerichtet: Ziel ist eine echte Tanzpartner-Börse statt ein
 
 ## P1 – Server
 
-- [ ] **S04 – Betriebsvoraussetzungen klären.** Akzeptanz: MariaDB-Version, Backup/Restore, Mail-Limits und Absender (SPF/DKIM) beim Hoster, Cronjobs, Verantwortlichkeit dokumentiert. Vorgezogen, da Mailversand zentral ist. Teilstand 20.11.: Alias `kontakt@` und echtes Versandpostfach eingerichtet, Limit 100 Mails/Stunde, DKIM laut manitu-FAQ aktiv; Mailtest erfolgreich, Versand per SMTP festgelegt (`mail()` landete im Spam). Offen: MariaDB-Version, Backup/Restore, Cronjobs.
+- [ ] **S04 – Betriebsvoraussetzungen klären.** Akzeptanz: MariaDB-Version, Backup/Restore, Mail-Limits und Absender (SPF/DKIM) beim Hoster, Cronjobs, Verantwortlichkeit dokumentiert. Vorgezogen, da Mailversand zentral ist. Teilstand 20.11.: Alias `kontakt@` und echtes Versandpostfach eingerichtet, Limit 100 Mails/Stunde, DKIM laut manitu-FAQ aktiv; Mailtest erfolgreich, Versand per SMTP festgelegt (`mail()` landete im Spam). SPF und DKIM bestehen, DMARC-Eintrag fehlt noch (DNS). Offen: DMARC, MariaDB-Version, Backup/Restore, Cronjobs.
 - [ ] **B01 – Schema anlegen.** Abhängigkeit: K02. Akzeptanz: neue Tabellen in der Testdatenbank; `demo_gesuche` unverändert; Schema-Datei ohne Geheimnisse im Repository.
 - [ ] **B02 – Öffentliche Leseschnittstelle.** Abhängigkeit: B01. Akzeptanz: liefert nur freigegebene, nicht abgelaufene Gesuche ohne E-Mail-Adressen; Leer- und Fehlerfall wie im API-Vertrag; vorerst weiter hinter dem Testzugangsschutz.
 - [ ] **B03 – Gesuch annehmen und bestätigen.** Abhängigkeit: B01, K03, S04. Akzeptanz: Eingaben serverseitig geprüft; Bestätigungsmail mit Link; unbestätigte Gesuche verfallen; Schutz gegen Massenanfragen; gesperrte Adressen abgewiesen.
