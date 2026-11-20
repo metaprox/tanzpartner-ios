@@ -1,8 +1,10 @@
 # Server-Test – Übergabe 16.11.2026
 
-Separater technischer Versuch für eine spätere Erweiterung; kein Bestandteil der Offline-V1 und iOS-Leseansicht seit 16.11. als Debug-Tab implementiert, erfolgreicher Demo-Abruf auf iPhone 16 Pro Max mit iOS 27.2.1 vom Nutzer bestätigt; weitere Abnahmefälle offen. Nachweise: Screenshots und Rückmeldungen des Nutzers in der gemeinsamen Einrichtung. Keine unabhängige Serverinspektion oder vollständige Sicherheitsprüfung durch Codex.
+**Neuausrichtung 20.11.2026:** Die Tanzpartner-Börse ist jetzt das Ziel der ersten Store-Version (siehe [ROADMAP.md](ROADMAP.md)); dieser Test ist ihre technische Grundlage. Die Produktentscheidungen unten sind durch die ROADMAP ersetzt (u. a. Kontakt per E-Mail-Weiterleitung statt sichtbarer Kontaktdaten); Umgebung, Pfade und Prüfergebnisse gelten weiter.
 
-## Produktentscheidung
+Ursprünglich separater technischer Versuch; iOS-Leseansicht seit 16.11. als Debug-Tab implementiert, erfolgreicher Demo-Abruf auf iPhone 16 Pro Max mit iOS 27.2.1 vom Nutzer bestätigt; weitere Abnahmefälle offen. Nachweise: Screenshots und Rückmeldungen des Nutzers in der gemeinsamen Einrichtung. Keine unabhängige Serverinspektion oder vollständige Sicherheitsprüfung durch Codex.
+
+## Produktentscheidung (Stand 16.11., überholt – siehe ROADMAP)
 
 Spätere Partnersuche als digitales schwarzes Brett: eigene Gesuche erstellen, bearbeiten, pausieren/löschen, Gesuche suchen/filtern, melden und administrativ entfernen. **Kein Chat, kein internes Kontaktanfrage-System.** Kontakt außerhalb der App über bewusst freigegebene Kontaktdaten. Sichtbarkeit dieser Daten noch festzulegen (nur angemeldete Nutzer war ein Vorschlag, keine finale Entscheidung). Gesuche sollen ablaufen und eine erneute Bestätigung benötigen; genaue Frist offen. Der Test verwendet 30 Tage.
 
@@ -49,6 +51,9 @@ Beispiel gekürzt auf einen Eintrag. IDs werden als Zahlen ausgegeben. Ohne akti
 | `db-test.php` | Verbindung erfolgreich, drei Demo-Gesuche |
 | HTTPS-Aufruf `gesuche.php` mit Anmeldung | Drei Gesuche samt Umlauten und Ablaufdatum geliefert |
 | Privater Browseraufruf, Anmeldung abgebrochen | HTTP 401 Unauthorized, keine Gesuche |
+| `curl -u` mit Anmeldung, zweimal hintereinander (20.11.2026) | Beide HTTP 200 |
+
+Zusätzlich am 20.11.2026 durch Claude ohne Zugangsdaten geprüft: ohne Anmeldung HTTP 401, `http://` leitet per 301 auf HTTPS um, Let's-Encrypt-Zertifikat gültig bis 14.02.2027.
 
 Entfernung von `test.php` und `db-test.php` am 16.11.2026 ausdrücklich vom Nutzer bestätigt. Am selben Tag Zugriffstest wiederholt und vom Nutzer bestätigt: ohne Anmeldung 401, mit Anmeldung drei Demo-Gesuche. `index.html`, `gesuche.php` und `.htaccess` sollen im Testordner verbleiben. Die am 16.11.2026 vom Nutzer heruntergeladene `gesuche.php` ist jetzt unverändert unter [server-test/](server-test/README.md) gesichert, zusammen mit einer Konfigurationsvorlage ohne Geheimnisse und dem Schema aus dem Chat. Kein erneuter Upload oder unabhängiger Live-Test durch Codex; lokale Syntaxprüfung beider PHP-Dateien mit Homebrew PHP 8.4.27 am 16.11.2026 erfolgreich, keine Laufzeitprüfung.
 
@@ -58,9 +63,13 @@ Aufgaben S01–S04 in [TODO.md](TODO.md). Vor App-Anbindung: aktuelle Serverdate
 
 Offen vor öffentlichem Betrieb: Backups inklusive Wiederherstellung, Ressourcen-/Mail-Limits, Konten/Berechtigungen, Moderation, Löschung, Kontaktdatensichtbarkeit, Datenschutz und Betriebsverantwortung. Der bisherige Test ist keine öffentliche Freigabe.
 
-## Geräteabnahme der Online-Testansicht (S03 teilweise offen)
+## Geräteabnahme der Online-Testansicht (S03 zurückgestellt)
+
+**Stand 20.11.2026 (Nutzerentscheidung):** Zweck des Server-Tests erreicht – die iOS-App lädt über HTTPS/PHP Daten aus der MariaDB. Die folgenden Restfälle werden erst mit der echten Partnersuche (I02) wieder aufgenommen.
 
 Nutzerbericht vom 16.11.2026: Tab sichtbar, Demo-Daten erfolgreich auf dem iPhone geladen. Positiver Abrufpfad bestätigt; folgende übrige Fälle bleiben zu prüfen.
+
+20.11.2026: Doppelte Passworteingabe behoben (Passwortfeld ohne automatische Großschreibung, Einblenden-Schalter); Nutzer bestätigt Abruf beim ersten Versuch. Leerfall ab 16.12.2026 ohne Serveränderung prüfbar, da die Demo-Gesuche am 15.12. ablaufen. Der Nutzer verwaltet den Server und kann bei Bedarf neue Demo-Gesuche anlegen; dabei Duplikate vermeiden.
 
 Aus Xcode als Debug-Build starten → Tab „Online-Test“. Benutzername/Passwort des Website-Schutzes eingeben, nicht Datenbankzugang. Keine Geheimnisse in Screenshots/Chat teilen.
 

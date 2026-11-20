@@ -34,6 +34,7 @@ struct OnlineTestView: View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var username = ""
     @State private var password = ""
+    @State private var showPassword = false
     @State private var gesuche: [OnlineGesuch] = []
     @State private var message: String?
     @State private var loading = false
@@ -54,8 +55,27 @@ struct OnlineTestView: View {
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                         .disabled(loading)
-                    SecureField("Passwort des Website-Schutzes", text: $password)
+                    HStack {
+                        Group {
+                            if showPassword {
+                                TextField("Passwort des Website-Schutzes", text: $password)
+                            } else {
+                                SecureField("Passwort des Website-Schutzes", text: $password)
+                            }
+                        }
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
                         .disabled(loading)
+
+                        Button {
+                            showPassword.toggle()
+                        } label: {
+                            Image(systemName: showPassword ? "eye.slash" : "eye")
+                                .foregroundStyle(.secondary)
+                        }
+                        .buttonStyle(.borderless)
+                        .accessibilityLabel(showPassword ? "Passwort verbergen" : "Passwort anzeigen")
+                    }
                     Button("Demo-Gesuche laden") { startLoading() }
                         .disabled(loading || username.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || password.isEmpty)
                     Button("Zugang und Ergebnisse löschen", role: .destructive) { clearSession() }
@@ -93,6 +113,7 @@ struct OnlineTestView: View {
         requestTask = nil
         username = ""
         password = ""
+        showPassword = false
         gesuche = []
         message = nil
         loaded = false
@@ -150,7 +171,7 @@ struct OnlineTestView: View {
                 guard !Task.isCancelled, requestID == id else { return }
                 if let error = error as? URLError {
                     switch error.code {
-                    case .notConnectedToInternet, .networkConnectionLost:
+                    case .notConnectedToInternet, .networkConnectionLost, .dataNotAllowed:
                         message = "Keine Internetverbindung. Bitte die Verbindung prüfen und erneut laden."
                     case .timedOut:
                         message = "Der Server antwortet nicht rechtzeitig. Bitte erneut versuchen."

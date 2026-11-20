@@ -1,5 +1,18 @@
 # Arbeitslog – aktuelle Übergabe
 
+## Stand 20.11.2026 – Neuausrichtung auf Tanzpartner-Börse, nächster Schritt K01
+
+- **Bearbeiter:** Claude Code. Branch `main`, Basis `1f5ad60`; Arbeitsverzeichnis anfangs sauber, lokal gleichauf mit `origin/main` (ohne frischen Abruf von GitHub). Der Git-Hinweis „uncommitted“ im Abschnitt vom 16.11. ist damit überholt.
+- **Serverprüfung ohne Zugangsdaten (Claude, 20.11.):** `gesuche.php` ohne Anmeldung → HTTP 401; `http://` → 301 auf HTTPS; Let's-Encrypt-Zertifikat gültig bis 14.02.2027. Keine Anmeldung, keine Serveränderung.
+- **Befund S03:** Am iPhone mussten die Zugangsdaten zweimal eingegeben werden; erster Versuch abgelehnt, Passwortfeld geleert (401-Pfad). `curl -u` des Nutzers am Mac zweimal hintereinander → beide HTTP 200, Server damit entlastet. Ursache sehr wahrscheinlich automatische Großschreibung im Passwortfeld.
+- **Korrektur `OnlineTestView.swift`:** Passwortfeld ohne automatische Großschreibung/Autokorrektur; Augen-Schalter zum Einblenden (wird beim Löschen/Verlassen/Hintergrund zurückgesetzt); `URLError.dataNotAllowed` wird als fehlende Internetverbindung gemeldet. Bewusst kein `textContentType(.password)`, damit iOS kein dauerhaftes Speichern im Schlüsselbund anbietet.
+- **Prüfung:** Debug- und Release-Build für generischen iOS-Simulator erfolgreich (nur AppIntents-Hinweis). Nutzer bestätigt am 20.11. am iPhone: Abruf klappt jetzt beim ersten Versuch (T1). T2–T7 (falsches Passwort, Flugmodus, Tab-Wechsel, Hintergrund, Abbruch beim Laden, Löschen-Button) noch nicht gemeldet.
+- **Entscheidung (Nutzer, 20.11.):** Push-/Sync-Schalter und Hintergrundmodi bleiben vorerst unverändert, da die App-Store-Prüfung noch fern ist. Aufgabe dafür jetzt F14 (vorher F02), vor A01 zu erledigen.
+- **Entscheidung Server-Test (Nutzer, 20.11.):** Zweck erreicht – iOS-App lädt über HTTPS/PHP Daten aus der MariaDB. S03-Restfälle (T2–T7, Leerfall, 500) und S04 bis zur echten Partnersuche (I02) zurückgestellt. Server bleibt passwortgeschützt online und wird vom Nutzer verwaltet; Demo-Gesuche bei Bedarf erneuerbar (aktuelle laufen am 15.12.2026 ab). HTTP 500 bisher nur per Code-Durchsicht geprüft.
+- **Neuausrichtung (Nutzer, 20.11.):** Eigentliches Ziel ist eine echte Tanzpartner-Börse für Ostfriesland im öffentlichen App Store (Präsentation bei Tanzschulen ohne TestFlight); das Lexikon war nur als Hilfe für die Zulassung gedacht. Apple-Richtlinien am 20.11. gelesen: 2.2 schließt Demos aus, Unlisted Distribution ebenfalls – ein Demo-Profilteil plus Lexikon genügt daher nicht. Entscheidungen (keine Konten, Kontakt per Mail-Weiterleitung, Moderation vorab, Privatperson als Betreiber, nur Ostfriesland, Lexikon später) in ROADMAP. ROADMAP und TODO neu geschrieben, README/KI-LEITFADEN/SERVER-TEST angepasst. Alte Aufgaben L01–L05/F01–F05b entfallen (Historie in `1f5ad60`).
+- **Nächster kleiner Schritt:** K01 – Mindestalter (Empfehlung 18), Laufzeit (Test: 30 Tage), Felder eines Gesuchs und Mail-Absender entscheiden.
+- **Git:** Änderungen an `OnlineTestView.swift`, ARBEITSLOG, SERVER-TEST, TODO, ROADMAP, README und KI-LEITFADEN uncommitted; Commit/Push durch Nutzer.
+
 ## Stand 16.11.2026 – Online-Testansicht implementiert, Geräteabnahme offen
 
 - **Arbeitsordner:** `/Users/svenschley/Documents/GitHub/tanzpartner-ios`; Branch `main`.

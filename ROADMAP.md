@@ -1,42 +1,80 @@
-# Roadmap V1
+# Roadmap – erste Store-Version
 
 ## Ziel
 
-Native SwiftUI-App mit **offline Tanzlexikon (15–20 geprüfte Einträge), Suche und lokalen Lexikon-Favoriten**. Der vorhandene Profilbereich bleibt eine eindeutig bezeichnete lokale Demo ohne echte Vermittlung, Konten oder Nachrichtenversand.
+Eine **unabhängige, regionale Tanzpartner-Börse für Ostfriesland** im öffentlichen App Store. Anlass: Tanzwillige finden in Ostfriesland schwer einen Tanzpartner, und Tanzschulen bieten selbst keine Vermittlung an. Hobbyprojekt ohne finanzielle Interessen. Ein öffentlicher Store-Eintrag ist nötig, weil Laien eine Zusatz-App wie TestFlight kaum installieren. Bis dahin wird die App auf dem eigenen iPhone/iPad vorgeführt.
 
-Außerhalb V1: Backend/Mehrbenutzerbetrieb, Cloud-Sync, Push, Fotos, Biometrie und öffentlich bearbeitbare Inhalte. Spätere Ideen erst bewerten, nicht nebenbei implementieren.
+Die Store-Version muss eine **echte, vollständige App** sein. Eine Demo mit fiktiven Profilen reicht nicht (siehe Apple-Anforderungen).
 
-## Geprüfter Stand – 15.11.2026
+## Entscheidungen (Nutzer, 20.11.2026)
 
-Quellcodebasis: `fbb950b77b6fdd453161e3983f937c037e1c9dd7`. Quellcodeprüfung vom 15.11.; zusätzlich am 16.11.2026 erfolgreicher Simulator-Debug-Build von Commit `85cfb5e8a2c5914b75fd8d812d52e41c80ab053c` mit Xcode 27.2. Kein App-Start durch Codex. Ergänzender Nutzerbericht vom 16.11.: bisheriger Stand auf iPhone 16 Pro Max mit iOS 27.2.1 grundsätzlich funktionsfähig; installierter Build und Testfälle nicht erfasst, keine vollständige Abnahme.
-
-| Befund | Beleg (unter `TanzpartnerOstfrieslandiOS/`, sofern nicht anders angegeben) |
+| Thema | Entscheidung |
 |---|---|
-| Drei native Tabs; gemeinsamer Store | `App.swift`, `ContentView.swift` |
-| Acht Beispielprofile, lokale JSON-Persistenz, CRUD und Reset | `ProfileStore.swift` |
-| Profilsuche/Filter, Detail, fiktive Beispiele und Kontakt-Simulation | `ProfileListView.swift`, `ProfileDetailView.swift` |
-| Theme, Push-/Sync-Schalter nur lokal gespeichert; rechtliche Texte vorhanden, ungeprüft | `SettingsView.swift` |
-| Hintergrundmodi `fetch`/`remote-notification`; Bedarf offen | `Info.plist` |
-| Effektives Mindest-iOS im geprüften Debug-Simulator-Build: 17.0; Projektwert 16.0, Target nutzt empfohlene Variable. Release-Einstellungen separat prüfen. | `TanzpartnerOstfrieslandiOS.xcodeproj/project.pbxproj` |
-| Kein Lexikonmodell, Lexikon-Datensatz oder Favoritenspeicher gefunden | Native Swift-Dateien und Projekt-Dateiliste |
+| Zielgruppe | Tanzwillige direkt; Tanzschulen haben kein Interesse an Vermittlung. Kontakte zu zwei Tanzschulen bestehen (z. B. für Bekanntmachung). |
+| Region | Nur Ostfriesland. Orte als Daten pflegen, nicht fest im Code. |
+| Konten | **Keine Benutzerkonten.** Ein Gesuch wird per E-Mail-Link bestätigt und lässt sich darüber verlängern oder löschen. |
+| Kontakt | Kontaktformular in der App; der Server leitet die Nachricht per E-Mail weiter, die Adresse des Gesuchs bleibt verborgen. **Kein Chat.** Die weitere Kommunikation läuft direkt per E-Mail außerhalb der App. Ersetzt die frühere Formulierung „kein internes Kontaktanfrage-System, Kontakt über freigegebene Kontaktdaten“. |
+| Moderation | Gesuche erscheinen erst nach Freigabe durch den Betreiber. Moderation über eine geschützte Admin-Webseite, nicht in der öffentlichen App. |
+| Betreiber | Nutzer als Privatperson; nicht gewerblich. |
+| Lexikon | Später als zusätzlicher Mehrwert, nicht Teil der ersten Store-Version. |
+| Präsentation bis zum Store | Eigenes iPhone/iPad (Notlösung). |
 
-Quellcode vorhanden bedeutet nicht Laufzeit geprüft. Insbesondere Neustart/Persistenz, Fehlerfälle, vollständige Demo-Kennzeichnung und Datenschutz sind offen.
+## Offene Entscheidungen
 
-## Reihenfolge und Abschlusskriterien
+- **Mindestalter** für Gesuche und Kontaktaufnahme. Empfehlung: 18 Jahre, per Bestätigung beim Absenden.
+- **Laufzeit** eines Gesuchs bis zur Erneuerung. Der Server-Test nutzt 30 Tage.
+- **Felder eines Gesuchs:** Vorschlag auf Basis der bisherigen Profile (Anzeigename, Ort, mögliche Tanzorte, Stile, Rolle, Erfahrung, Ziel, Zeiten, Freitext). Kein Foto, keine Kontaktdaten im sichtbaren Text.
+- **Mail-Versand:** Limits und Absenderadresse beim Hoster (S04).
 
-1. **Grundlage:** Änderungen übernehmen und Ausgangsbuild/Mindest-iOS dokumentieren (D02, V01).
-2. **Inhalte:** 15–20 eigenständig formulierte, fachlich geprüfte Einträge mit Quellen und geklärten Rechten (L01–L05).
-3. **Funktionen:** Texte ab Erststart offline lesbar, Suche nutzbar, Favoriten nach Neustart erhalten, Demo konsequent bezeichnet (F01–F05b).
-4. **Test:** Simulator und echtes Gerät, Offline-/Neustartfälle, Bedienbarkeit und Fehlernachtests; keine blockierenden Fehler (Q01–Q03).
-5. **Datenschutz/Release:** Reale Datenflüsse und Texte abgleichen, aktuelle Apple-Vorgaben prüfen, Store-Unterlagen/Release freigeben (P01–P03, A01–A02).
-6. **Einreichung:** Build/Datum/Review-Status protokollieren (A03). Einreichung ist keine zugesagte Zulassung.
+## Erste Store-Version – Umfang
 
-## Inhaltsstandard
+**App:** Freigegebene Gesuche laden, suchen, filtern, Details ansehen; Gesuch aufgeben (mit Altersbestätigung und Datenschutzhinweis); Kontaktformular; Gesuch melden; Datenschutz/Impressum; verständliche Lade-, Leer- und Fehlerzustände.
 
-Pro Eintrag: stabile ID, Titel, Kategorie, Suchbegriffe, Kurzbeschreibung, Fachtext, Quellen mit Herausgeber/Titel/URL/Abrufdatum, Prüfstatus/-datum und Prüfer. Quellen tatsächlich lesen; ungeklärte oder regionale Varianten kennzeichnen. Keine ungeprüften KI-Texte oder fremden Medien ohne geklärte Rechte veröffentlichen. Nur Quellenlinks dürfen Internet benötigen, alle Kerntexte müssen offline vorliegen.
+**Server:** Öffentliche Leseschnittstelle nur für freigegebene, nicht abgelaufene Gesuche; Annahme von Gesuchen, Kontaktanfragen und Meldungen mit Prüfung der Eingaben und Schutz gegen Spam und Massenanfragen; Mails für Bestätigung, Weiterleitung und Erinnerung vor dem Ablauf; Verlängern/Löschen per Link; Sperrliste für E-Mail-Adressen; geschützte Admin-Webseite (freigeben, ablehnen, Meldungen bearbeiten, sperren).
 
-Aufgaben und Akzeptanzkriterien ausschließlich in [TODO.md](TODO.md); aktuelle Übergabe in [ARBEITSLOG.md](ARBEITSLOG.md).
+**Entfällt in der Store-Version:** fiktive Beispielprofile, lokale Profilspeicherung, Kontakt-Simulation, Moderations-Tab, Push-/Sync-Schalter, Hintergrundmodi, Debug-Tab „Online-Test“.
 
-## Separater Serverversuch / spätere Erweiterung
+**Ausdrücklich nicht in der ersten Version:** Konten, Chat, Fotos, Push, Bezahlung, andere Regionen, Lexikon.
 
-Seit 16.11.2026 ist ein geschützter PHP-/MariaDB-Lesetest mit drei fiktiven Gesuchen durch Nutzerberichte bestätigt; Debug-Leseansicht seit 16.11. implementiert und gebaut, echter App-Login noch nicht abgenommen. Späteres Ziel: digitales schwarzes Brett, ausdrücklich ohne Chat und internes Kontaktanfrage-System; externe Kontaktaufnahme, Ablauf/Bestätigung von Gesuchen. Details und offene Entscheidungen: [SERVER-TEST.md](SERVER-TEST.md). Offline-V1 bleibt unverändert.
+## Apple-Anforderungen (gelesen am 20.11.2026)
+
+Quellen: [App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/) und [Unlisted App Distribution](https://developer.apple.com/support/unlisted-app-distribution/). Die Abschnitte 1.2, 2.1 und 2.2 wurden im Wortlaut gelesen; 4.2, 4.3(b) und 5.1.1(v) nur als Zusammenfassung. Vor der Einreichung erneut prüfen (P03, A02).
+
+- **2.2:** Demos, Betas und Probeversionen gehören nicht in den App Store, dafür ist TestFlight vorgesehen.
+- **2.1:** Keine Platzhalter oder vorläufigen Inhalte. Server muss während der Prüfung laufen; Apple braucht nötige Testhinweise.
+- **1.2 (Inhalte von Nutzern):** Filter gegen anstößige Inhalte, Meldefunktion mit zeitnaher Reaktion, Sperren missbräuchlicher Nutzer, veröffentlichte Kontaktmöglichkeit.
+- **4.3(b), laut Zusammenfassung:** Neue Dating-Apps nur mit deutlichem Unterschied. Deshalb klar als regionale Tanzpartner-Börse für Kurse und Übung auftreten, nicht als Dating.
+- **5.1.1(v):** Wer Konten anbietet, muss Kontolöschung in der App ermöglichen. Entfällt bei der Entscheidung ohne Konten, Löschen eines Gesuchs per Link bleibt nötig.
+- **Unlisted Distribution:** Ebenfalls mit Prüfung und ohne Beta/Vorabstand; für dieses Ziel nicht nötig.
+
+Das ist keine Rechtsberatung. Impressum und Datenschutz gelten auch für ein Hobbyprojekt, sobald fremde Personen Daten eingeben.
+
+## Reihenfolge
+
+1. **Konzept (K01–K03):** offene Entscheidungen, Datenmodell und API-Vertrag, Abläufe und Texte.
+2. **Server (S04, B01–B08):** Betriebsvoraussetzungen, Schema, Schnittstellen, Mails, Admin-Webseite, Sicherheitsprüfung. Der Server-Test (S01–S03) ist die technische Grundlage.
+3. **App (F10–F15):** Anbindung, Formulare, Altlasten entfernen.
+4. **Test (Q01–Q03):** Simulator und echtes Gerät, Fehlerfälle, Bedienbarkeit.
+5. **Datenschutz/Recht (P01–P03):** reale Datenflüsse, Texte, Apple-Angaben.
+6. **Store (A01–A03):** Unterlagen, Release-Kandidat, Einreichung. Einreichung ist keine zugesagte Zulassung.
+
+Aufgaben und Akzeptanzkriterien ausschließlich in [TODO.md](TODO.md); aktuelle Übergabe in [ARBEITSLOG.md](ARBEITSLOG.md); Serverumgebung in [SERVER-TEST.md](SERVER-TEST.md).
+
+## Geprüfter Stand – 20.11.2026
+
+Basis-Commit `1f5ad60`. Simulator-Build Debug und Release mit Xcode 27.2 erfolgreich (Claude, 20.11.). Am iPhone (iOS 27.2.1) vom Nutzer bestätigt: App läuft, Online-Test lädt Daten aus der MariaDB.
+
+| Befund | Beleg (unter `TanzpartnerOstfrieslandiOS/`) |
+|---|---|
+| Lokale Profile mit acht fiktiven Beispielen, JSON-Speicherung, Suche/Filter, Detail, Kontakt-Simulation, Moderation | `ProfileStore.swift`, `ProfileListView.swift`, `ProfileDetailView.swift`, `ModerationView.swift` |
+| Push-/Sync-Schalter ohne Funktion; Hintergrundmodi `fetch`/`remote-notification` ungenutzt | `SettingsView.swift`, `Info.plist` |
+| `UIRequiredDeviceCapabilities = armv7` veraltet; Projektwert Mindest-iOS 16.0, Code benötigt iOS 17 | `Info.plist`, `project.pbxproj` |
+| Online-Abruf über HTTPS mit flüchtigem Zugang, nur im Debug-Build | `OnlineTestView.swift` |
+| Kein Testziel (Unit-Tests) vorhanden | Projektdatei |
+
+Wiederverwendbar für die Store-Version: Listen-, Filter- und Detailansichten sowie Auswahlwerte (`Models.swift`). Die lokale Profildatenhaltung wird durch die Server-Anbindung ersetzt.
+
+## Später
+
+- **I01 – Mehrwert für Nutzer:** Tanzlexikon oder eine Übersicht „Wo kann ich in Ostfriesland tanzen?“ (Tanzschulen, Tanzabende, Kurstermine mit Links). Nutzen und Aufwand vergleichen.
+- **Inhaltsstandard für ein Lexikon:** pro Eintrag stabile ID, Titel, Kategorie, Suchbegriffe, Kurzbeschreibung, Fachtext, Quellen mit Herausgeber/Titel/URL/Abrufdatum, Prüfstatus/-datum und Prüfer. Quellen tatsächlich lesen; keine ungeprüften KI-Texte oder fremden Medien ohne geklärte Rechte.

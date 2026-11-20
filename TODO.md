@@ -1,51 +1,63 @@
-# TODO – Kleine Aufgaben für V1
+# TODO – Kleine Aufgaben bis zur ersten Store-Version
 
-Stand: 16.11.2026. Reihenfolge: P0 vor P1 vor P2; Abhängigkeiten beachten. Je Sitzung möglichst **eine** Aufgabe, meist 15–45 Minuten. Wird sie größer, vor Umsetzung in Teilaufgaben mit eigener ID zerlegen. `[ ]` = offen, auch bei Teilergebnis; `[x]` nur mit erfüllten Kriterien und Nachweis im [Arbeitslog](ARBEITSLOG.md). Blockaden und „in Arbeit“ im Log festhalten. Keine parallelen konkurrierenden Änderungen derselben Aufgabe.
+Stand: 20.11.2026. Ziel und Entscheidungen: [ROADMAP.md](ROADMAP.md). Reihenfolge: P0 vor P1 vor P2; Abhängigkeiten beachten. Je Sitzung möglichst **eine** Aufgabe, meist 15–45 Minuten. Wird sie größer, vor Umsetzung in Teilaufgaben mit eigener ID zerlegen. `[ ]` = offen, auch bei Teilergebnis; `[x]` nur mit erfüllten Kriterien und Nachweis im [Arbeitslog](ARBEITSLOG.md). Blockaden und „in Arbeit“ im Log festhalten.
 
-## P0 – Grundlage und ehrlicher Umfang
+Am 20.11.2026 neu ausgerichtet: Ziel ist eine echte Tanzpartner-Börse statt eines Offline-Lexikons. Frühere Aufgaben F01–F05b und L01–L05 sind entfallen bzw. in I01 zusammengefasst; der alte Stand liegt in der Git-Historie (Commit `1f5ad60`).
 
-- [x] **D01 – Dokumentationsgrundlage erstellen.** Akzeptanz: ROADMAP, TODO, ARBEITSLOG und Verweise in README/KI-Leitfaden vorhanden; historische Aussagen abgegrenzt; keine App-Codeänderung. Nachweis: aktueller Stand im ARBEITSLOG; Dokumentation im lokalen Commit `1c40043` vorhanden; Remote-Stand nicht frisch geprüft.
-- [ ] **D02 – Dokumentation nach GitHub übertragen/verifizieren.** Abhängigkeit: D01. Bisherige Dokumentation lokal auf `main` in `1c40043` committed. Akzeptanz: aktuelle Ergänzungen committed/gepusht; Remote-Commit und Branch im Log bestätigt.
-- [x] **V01 – Ausgangsbuild und Mindest-iOS prüfen.** Nachweis 16.11.2026: Simulator-Debug-Build erfolgreich, Xcode 27.2 (27B52), SDK 27.2, effektives Mindest-iOS 17.0; Details in ARBEITSLOG. Akzeptanz: effektive Build-Einstellungen, Xcode-Version, Zielgerät/OS, vollständiges Build-Ergebnis und Abweichungen dokumentiert; ältere Build-Meldung nicht als neuen Test verwenden.
-- [ ] **F01 – Profil-Prototyp durchgehend kennzeichnen.** Akzeptanz: Liste, Detail, Editor, Moderation und Einstieg erklären lokale Demo/fiktive Beispiele; kein Eindruck echter Nutzer, Vermittlung oder Nachrichten; selbst eingegebene Daten nicht pauschal als fiktiv ausgeben. Sichtprüfung dokumentiert.
-- [ ] **F02 – Irreführende Einstellungen bereinigen.** Akzeptanz: Push/Sync nicht als verfügbare Funktionen bedienbar; Hintergrundmodi auf Notwendigkeit geprüft; lokale Speicherung verständlich erklärt. Entscheidung und Test dokumentiert.
+## P0 – Grundlage
 
-## P1 – Offline-Lexikon in kleinen Schritten
+- [x] **D01 – Dokumentationsgrundlage erstellen.** Nachweis: ARBEITSLOG; Commit `1c40043`.
+- [ ] **D02 – Dokumentation nach GitHub übertragen/verifizieren.** Stand 20.11.: `1f5ad60` lokal gleichauf mit `origin/main` (ohne frischen Abruf); Neuausrichtung vom 20.11. noch uncommitted. Akzeptanz: aktuelle Ergänzungen committed/gepusht; Remote-Commit im Log bestätigt.
+- [x] **V01 – Ausgangsbuild und Mindest-iOS prüfen.** Nachweis 16.11.2026 im ARBEITSLOG (Xcode 27.2, effektives Mindest-iOS 17.0).
 
-- [ ] **L01 – Eintragsschema und Themenliste festlegen.** Akzeptanz: Schema nach ROADMAP, genau 15–20 geplante Titel und stabile IDs; Favoriten beziehen sich auf Lexikon-Einträge. Noch keine fachliche Freigabe behaupten.
-- [ ] **L02 – Erste fünf Einträge recherchieren und prüfen.** Abhängigkeit: L01. Akzeptanz: fünf selbst formulierte Texte mit belastbaren, tatsächlich geöffneten Quellen, Abruf-/Prüfdatum, Prüfer und geklärten Nutzungsrechten; widersprüchliche Angaben aufgelöst oder benannt. Bei Zeitbedarf je Eintrag unterteilen.
-- [ ] **L03 – Einträge 6–10 recherchieren und prüfen.** Abhängigkeit: L02. Akzeptanz: dieselben Kriterien wie L02, zehn geprüfte Einträge insgesamt.
-- [ ] **L04 – Einträge 11–15 recherchieren und prüfen.** Abhängigkeit: L03. Akzeptanz: dieselben Kriterien wie L02, mindestens 15 geprüfte Einträge insgesamt.
-- [ ] **L05 – Inhaltsfreigabe für 15–20 Einträge.** Abhängigkeit: L04. Akzeptanz: Endzahl festgehalten; optional 16–20 nach gleichen Kriterien; alle IDs eindeutig, alle Pflichtfelder vollständig, keine ungeprüften Platzhalter; fachliche und sprachliche Schlussprüfung mit Nachweis.
-- [ ] **F03a – Lokales Lexikonmodell und Bundle-Daten einbinden.** Abhängigkeit: L01, V01. Akzeptanz: stabile IDs und Quellenfelder ladbar, Fehlerfall definiert; kein Download zum ersten Start nötig. Entwicklungsdaten klar als ungeprüft markieren.
-- [ ] **F03b – Native Liste und Detailansicht ergänzen.** Abhängigkeit: F03a. Akzeptanz: sämtliche Einträge, vollständige Texte und Quellen offline lesbar; Lexikon gut erreichbar; Darstellungsfehler dokumentiert/behebbar.
-- [ ] **F04 – Lexikonsuche ergänzen.** Abhängigkeit: F03b. Akzeptanz: Titel und Suchbegriffe durchsuchbar, Groß-/Kleinschreibung und Umlaute sinnvoll behandelt; leere Suche zeigt alle, kein Treffer verständlichen Hinweis; konkrete Suchfälle im Log.
-- [ ] **F05a – Lokale Favoriten speichern.** Abhängigkeit: F03a. Akzeptanz: IDs lokal gespeichert; Hinzufügen/Entfernen ohne Duplikate; Zustand bleibt nach App-Neustart; unbekannte IDs führen nicht zum Absturz.
-- [ ] **F05b – Favoritenansicht ergänzen.** Abhängigkeit: F05a, F03b. Akzeptanz: Merken/Entmerken aus Details, Liste aktualisiert sofort, leerer Zustand verständlich; Profil-Reset löscht Lexikon-Favoriten nicht unbeabsichtigt.
+## P0 – Konzept
 
-## P1 – Test und Datenschutzprüfung nach Umsetzung
+- [ ] **K01 – Offene Entscheidungen festlegen.** Akzeptanz: Mindestalter, Laufzeit eines Gesuchs, Felder eines Gesuchs (Pflicht/optional, Längen) und Absenderadresse für Mails entschieden und in ROADMAP eingetragen.
+- [ ] **K02 – Datenmodell und API-Vertrag beschreiben.** Abhängigkeit: K01. Akzeptanz: Tabellen (Gesuche, Bestätigungs-/Verwaltungstoken, Meldungen, Sperrliste, ggf. Protokoll für Spamschutz) mit Feldern und Status; Endpunkte mit Anfrage, Antwort und Fehlercodes als JSON-Beispiele; Statusübergänge (unbestätigt → wartet auf Freigabe → sichtbar → abgelaufen/gelöscht/abgelehnt). Kein Code.
+- [ ] **K03 – Abläufe und Texte festlegen.** Abhängigkeit: K02. Akzeptanz: Ablauf für Aufgeben/Bestätigen/Freigabe/Erinnerung/Verlängern/Löschen, Kontaktweiterleitung, Meldung und Sperre beschrieben; Entwürfe aller Mails und App-Hinweise; Fristen und was gespeichert/gelöscht wird.
 
-- [ ] **Q01 – Reproduzierbare Testmatrix anlegen.** Abhängigkeit: V01, F01–F05b, L05. Akzeptanz: Fälle für Erststart im Flugmodus, 15–20 Einträge, Quellenanzeige, Suche (leer/Treffer/kein Treffer/Umlaute), Favoriten + Neustart, Demo/Reset und vorhandene Profilfunktionen; Soll-Ergebnis pro Fall. Eigenen nativen Testplan erstellen.
-- [ ] **Q02 – Matrix auf Simulator und echtem Gerät durchführen.** Abhängigkeit: Q01. Akzeptanz: Build-Commit, Geräte/OS, Ist-Ergebnisse und Fehler erfasst; Offline-Funktionen auch nach Neustart geprüft. Fehlendes Gerät als Blockade dokumentieren.
-- [ ] **Q03 – Bedienbarkeit und Fehlernachtest.** Abhängigkeit: Q02. Akzeptanz: große Schrift, VoiceOver, Hell/Dunkel und unterstützte Größen/Orientierungen geprüft; Abstürze, Datenverlust und irreführende Funktionsversprechen behoben und nachgetestet; Restrisiken ausdrücklich erfasst.
-- [ ] **P01 – Tatsächliche Datenflüsse prüfen.** Abhängigkeit: Q03. Akzeptanz: lokale Profile, Favoriten, Einstellungen, Backups, externe Links, Berechtigungen, eingebundene SDKs und beobachteter Netzwerkverkehr inventarisiert; Abweichungen vom Offline-Ziel geklärt. „Kein Server“ allein gilt nicht als abgeschlossene Datenschutzprüfung.
-- [ ] **P02 – Datenschutzhinweise und Anbieterangaben abgleichen.** Abhängigkeit: P01. Akzeptanz: Texte decken reale Speicherung, Löschung/Reset, Backup-Verhalten und Links ab; Verantwortlicher/Kontakt bestätigt; öffentliche Datenschutzadresse und In-App-Text stimmen überein; offene rechtliche Fragen vor Release geklärt.
-- [ ] **P03 – Apple-Datenschutzangaben prüfen.** Abhängigkeit: P01, P02. Akzeptanz: aktuell geltende offizielle Apple-Vorgaben zum Prüfdatum recherchiert; App-Privacy-Angaben sowie gegebenenfalls Privacy Manifest/Required Reason APIs anhand realer App geprüft; Quellen/Datum/Ergebnis dokumentiert, keine pauschale „keine Daten“-Annahme.
+## P1 – Server
 
-## P2 – Store-Vorbereitung und Einreichung
+- [ ] **S04 – Betriebsvoraussetzungen klären.** Akzeptanz: MariaDB-Version, Backup/Restore, Mail-Limits und Absender (SPF/DKIM) beim Hoster, Cronjobs, Verantwortlichkeit dokumentiert. Vorgezogen, da Mailversand zentral ist.
+- [ ] **B01 – Schema anlegen.** Abhängigkeit: K02. Akzeptanz: neue Tabellen in der Testdatenbank; `demo_gesuche` unverändert; Schema-Datei ohne Geheimnisse im Repository.
+- [ ] **B02 – Öffentliche Leseschnittstelle.** Abhängigkeit: B01. Akzeptanz: liefert nur freigegebene, nicht abgelaufene Gesuche ohne E-Mail-Adressen; Leer- und Fehlerfall wie im API-Vertrag; vorerst weiter hinter dem Testzugangsschutz.
+- [ ] **B03 – Gesuch annehmen und bestätigen.** Abhängigkeit: B01, K03, S04. Akzeptanz: Eingaben serverseitig geprüft; Bestätigungsmail mit Link; unbestätigte Gesuche verfallen; Schutz gegen Massenanfragen; gesperrte Adressen abgewiesen.
+- [ ] **B04 – Kontaktweiterleitung.** Abhängigkeit: B03. Akzeptanz: Nachricht wird per Mail weitergeleitet, Adresse des Gesuchs bleibt verborgen; Absender bestätigt Alter/Hinweis; Begrenzung pro Absender/Zeitraum; Sperrliste wirkt.
+- [ ] **B05 – Meldungen.** Abhängigkeit: B01. Akzeptanz: Meldung mit Grund gespeichert; Betreiber wird benachrichtigt; Gesuch bleibt sichtbar bis zur Entscheidung oder wird ab Schwelle ausgeblendet (Entscheidung in K03).
+- [ ] **B06 – Ablauf, Erinnerung, Verlängern/Löschen.** Abhängigkeit: B03, S04. Akzeptanz: Erinnerungsmail vor Ablauf; Verlängern und endgültiges Löschen per Link; abgelaufene Daten nach festgelegter Frist gelöscht.
+- [ ] **B07 – Admin-Webseite.** Abhängigkeit: B03, B05. Akzeptanz: geschützt; freigeben/ablehnen, Meldungen bearbeiten, Adressen sperren, Gesuche löschen; nicht in der App.
+- [ ] **B08 – Sicherheitsprüfung Server.** Abhängigkeit: B02–B07. Akzeptanz: Eingaben/SQL, Header, Fehlermeldungen ohne Interna, Geheimnisse außerhalb von Git und Webverzeichnis, Protokollierung und Löschfristen geprüft; Befunde behoben.
 
-- [ ] **A01 – Store-Unterlagen vorbereiten.** Abhängigkeit: Q03, P02, P03. Akzeptanz: Name/Beschreibung/Screenshots zeigen Lexikon-Nutzen und Demo ehrlich; Support-/Datenschutz-URLs erreichbar; Altersfreigabe, Inhaltsrechte und Review-Hinweise geprüft; keine echte Partnersuche versprochen.
-- [ ] **A02 – Release-Kandidat freigeben.** Abhängigkeit: A01. Akzeptanz: Developer-Zugang, Signierung, Bundle-ID, Version/Build, Archive/Validierung und Gerätetest geprüft; aktuelle Review-Vorgaben nachgeschlagen; keine blockierenden Fehler; Release-Entscheidung des Verantwortlichen protokolliert. Zulassung nicht als sicher darstellen.
-- [ ] **A03 – App-Store-Einreichung und Rückmeldung dokumentieren.** Abhängigkeit: A02. Akzeptanz: freigegebenen Build eingereicht; Datum/Build/Status erfasst; Rückfragen als neue Aufgaben. „Eingereicht“ bedeutet nicht „zugelassen“; Zulassung/Veröffentlichung erst nach Bestätigung vermerken.
+## P1 – App
 
-## Später, ausdrücklich außerhalb V1
+- [ ] **F10 – Gesuche vom Server anzeigen.** Abhängigkeit: B02. Akzeptanz: Liste, Suche/Filter und Detail auf Basis der bisherigen Ansichten; Laden, leeres Ergebnis, Serverfehler und fehlendes Netz verständlich (übernimmt die offenen Fälle aus S03).
+- [ ] **F11 – Gesuch aufgeben.** Abhängigkeit: B03, F10. Akzeptanz: Formular mit Pflichtfeldern, Altersbestätigung und Datenschutzhinweis; Hinweis auf Bestätigungsmail und Freigabe; Fehler verständlich.
+- [ ] **F12 – Kontaktformular.** Abhängigkeit: B04, F10. Akzeptanz: Nachricht und eigene E-Mail-Adresse; Hinweis, dass kein Chat stattfindet und die Antwort per Mail kommt.
+- [ ] **F13 – Gesuch melden.** Abhängigkeit: B05, F10. Akzeptanz: aus der Detailansicht erreichbar; Rückmeldung nach dem Absenden.
+- [ ] **F14 – Altlasten entfernen.** Abhängigkeit: F10. Akzeptanz: fiktive Profile, lokale Profilspeicherung, Kontakt-Simulation, Moderations-Tab, Push-/Sync-Schalter und Debug-Tab aus der Store-Version entfernt; Hintergrundmodi und `armv7` aus `Info.plist`; Mindest-iOS einheitlich 17.0. (Ersetzt F02; Nutzerentscheidung 20.11.: Push-Schalter bis dahin unverändert.)
+- [ ] **F15 – Datenschutz und Impressum in der App.** Abhängigkeit: K03, P02. Akzeptanz: Texte entsprechen der tatsächlichen Verarbeitung; Kontaktmöglichkeit für Meldungen sichtbar; Verweis auf die öffentliche Datenschutzerklärung.
 
-- [ ] **I01 – Erweiterungsideen bewerten:** Lernkarten, Querverweise, Übungsnotizen; Nutzen/Aufwand prüfen, keine implizite Zusage.
-- [ ] **I02 – Echte Partnersuche separat planen:** Digitales schwarzes Brett ohne Chat/interne Kontaktanfragen; Konten, externe Kontaktdaten, Ablauf/Bestätigung, Moderation und Betrieb planen. Details: SERVER-TEST.md.
+## P1 – Test und Datenschutz
 
-## Separater Server-Test – außerhalb Offline-V1
+- [ ] **Q01 – Testmatrix anlegen.** Abhängigkeit: F10–F15, B02–B07. Akzeptanz: Fälle für Lesen, Aufgeben, Bestätigen, Freigabe, Kontakt, Meldung, Sperre, Ablauf/Verlängern/Löschen, Offline und Serverfehler; Soll-Ergebnis pro Fall.
+- [ ] **Q02 – Matrix auf Simulator und echtem Gerät durchführen.** Abhängigkeit: Q01. Akzeptanz: Build-Commit, Geräte/OS, Ist-Ergebnisse und Fehler erfasst.
+- [ ] **Q03 – Bedienbarkeit und Fehlernachtest.** Abhängigkeit: Q02. Akzeptanz: große Schrift, VoiceOver, Hell/Dunkel geprüft; blockierende Fehler behoben und nachgetestet.
+- [ ] **P01 – Tatsächliche Datenflüsse prüfen.** Abhängigkeit: Q02. Akzeptanz: welche Daten App, Server, Mails und Protokolle speichern, wie lange und wer sie sieht; Hoster als Auftragsverarbeiter berücksichtigt.
+- [ ] **P02 – Datenschutzerklärung und Impressum abgleichen.** Abhängigkeit: P01. Akzeptanz: Texte decken reale Verarbeitung, Löschung und Kontakt ab; öffentliche Webadresse und In-App-Text stimmen überein; Gegenlesen durch eine fachkundige Person empfohlen.
+- [ ] **P03 – Apple-Datenschutzangaben prüfen.** Abhängigkeit: P01, P02. Akzeptanz: aktuelle Apple-Vorgaben zum Prüfdatum nachgelesen; App-Privacy-Angaben und ggf. Privacy Manifest anhand der realen App; Quellen/Datum/Ergebnis dokumentiert.
 
-- [x] **S01 – Geschützten Lesetest einrichten.** Akzeptanz erfüllt laut Nutzerberichten vom 16.11.2026: drei fiktive Gesuche über HTTPS/PHP/MariaDB abrufbar; ohne Anmeldung HTTP 401. Belege/Grenzen in [SERVER-TEST.md](SERVER-TEST.md).
-- [x] **S02 – Server-Test reproduzierbar sichern.** Abgeschlossen 16.11.: heruntergeladene PHP-Datei unverändert, Schema-Referenz und Konfigurationsvorlage unter `server-test/` gesichert; Ausschlussregeln für Geheimnisse ergänzt. PHP-Lint beider Dateien mit PHP 8.4.27 erfolgreich; FTP-SSL vom Nutzer bestätigt. Nutzer bestätigte erneut: Testdateien entfernt, ohne Anmeldung 401, mit Anmeldung drei Demo-Gesuche. Nachweis: ARBEITSLOG. Aktuelle `gesuche.php` ohne Zugangsdaten versionieren; Schema und Konfigurationsvorlage ohne Geheimnisse sichern; entfernte Testdateien, verschlüsselten Dateitransfer und GET mit/ohne Anmeldung prüfen. Akzeptanz: reproduzierbare Dateien und Prüfergebnisse vorhanden; keine Secrets im Diff.
-- [ ] **S03 – Kleine native Leseansicht anbinden.** Teilstand 16.11.: Debug-Tab implementiert; Debug-/Release-Simulator-Build und lokale JSON-Prüfungen erfolgreich. Nutzer bestätigt Demo-Abruf auf iPhone 16 Pro Max (iOS 27.2.1). Fehler-/Leerfälle und Löschen des Zugangs auf dem Gerät noch abzunehmen; bleibt offen. Abhängigkeit: S02, V01. Zugang zur Laufzeit eingeben (keine fest eingebauten Passwörter; dauerhafte Speicherung nur Keychain). Akzeptanz: drei Demo-Gesuche sichtbar; Laden, leeres Ergebnis, 401, 500 und fehlendes Netz verständlich behandelt; bestehende Offline-Funktionen unverändert.
-- [ ] **S04 – Betriebsvoraussetzungen klären.** Akzeptanz: Datenbankversion, Backup/Restore, Hosting-/Mail-Limits und Verantwortlichkeit dokumentiert; keine öffentliche Freigabe vor separater Datenschutz-/Sicherheitsprüfung.
+## P2 – Store
+
+- [ ] **A01 – Store-Unterlagen vorbereiten.** Abhängigkeit: Q03, P02, P03. Akzeptanz: Name/Beschreibung/Screenshots als regionale Tanzpartner-Börse (kein Dating); Support- und Datenschutz-URL erreichbar; Altersfreigabe passend zum Mindestalter; Hinweise für die Prüfung (Server läuft, Testablauf); Händlerstatus als nicht gewerblich.
+- [ ] **A02 – Release-Kandidat freigeben.** Abhängigkeit: A01. Akzeptanz: Signierung, Bundle-ID, Version/Build, Archiv/Validierung und Gerätetest geprüft; aktuelle Prüfrichtlinien nachgelesen; Testzugangsschutz des Servers für den Betrieb ersetzt; Release-Entscheidung protokolliert.
+- [ ] **A03 – Einreichung und Rückmeldung dokumentieren.** Abhängigkeit: A02. Akzeptanz: Datum/Build/Status erfasst; Rückfragen als neue Aufgaben. „Eingereicht“ bedeutet nicht „zugelassen“.
+
+## Später
+
+- [ ] **I01 – Mehrwert für Nutzer bewerten:** Tanzlexikon oder „Wo kann ich in Ostfriesland tanzen?“; Nutzen und Aufwand vergleichen, keine implizite Zusage. Inhaltsstandard für ein Lexikon in ROADMAP.
+
+## Server-Test (Grundlage, abgeschlossen bzw. aufgegangen)
+
+- [x] **S01 – Geschützten Lesetest einrichten.** Nutzerberichte 16.11.2026; Belege in [SERVER-TEST.md](SERVER-TEST.md).
+- [x] **S02 – Server-Test reproduzierbar sichern.** Abgeschlossen 16.11.2026; Nachweis im ARBEITSLOG.
+- [ ] **S03 – Kleine native Leseansicht anbinden.** Zweck erreicht: iOS-App lädt über HTTPS/PHP Daten aus der MariaDB (Gerät bestätigt; doppelte Passworteingabe am 20.11. behoben). Restfälle gehen in F10 auf; Aufgabe wird damit nicht weiterverfolgt.
