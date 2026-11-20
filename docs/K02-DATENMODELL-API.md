@@ -175,7 +175,7 @@ sichtbar / abgelaufen ──Verlängern──▶ sichtbar (sichtbar_bis = heute 
 jeder Status ──Löschen per Link oder durch Betreiber──▶ (gelöscht)
 ```
 
-„Gelöscht“ ist kein Status: Die Zeile wird mit allen Zuordnungen, Tokens und Meldungen physisch gelöscht. Verlängern ist nur aus `sichtbar` und `abgelaufen` möglich; ein inhaltlich geändertes Gesuch gibt es in Version 1 nicht (stattdessen löschen und neu aufgeben). Fristen (24 h, 7 und 14 Tage) sind **Vorschlag** und werden in K03 bestätigt.
+„Gelöscht“ ist kein Status: Die Zeile wird mit allen Zuordnungen, Tokens und Meldungen physisch gelöscht. Verlängern ist nur aus `sichtbar` und `abgelaufen` möglich; ein inhaltlich geändertes Gesuch gibt es in Version 1 nicht (stattdessen löschen und neu aufgeben). Fristen (24 h, 7 und 14 Tage) bestätigt am 20.11.; Abläufe dazu in [K03-ABLAEUFE-TEXTE.md](K03-ABLAEUFE-TEXTE.md).
 
 ## 5. Schnittstelle (API)
 

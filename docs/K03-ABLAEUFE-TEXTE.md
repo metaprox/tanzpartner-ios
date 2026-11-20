@@ -1,6 +1,6 @@
 # K03 – Abläufe, Fristen und Texte
 
-Stand: 20.11.2026, **Entwurf** (Claude). Grundlage: [K02-DATENMODELL-API.md](K02-DATENMODELL-API.md) (bestätigt) und [ROADMAP.md](../ROADMAP.md). Kein Code. Mit „**Vorschlag**“ markierte Punkte sind noch vom Nutzer zu bestätigen (Liste am Ende). Alle Texte sind Entwürfe. Sie werden in P02 mit der Datenschutzerklärung abgeglichen.
+Stand: 20.11.2026, **vom Nutzer bestätigt** (Entwurf Claude). Grundlage: [K02-DATENMODELL-API.md](K02-DATENMODELL-API.md) (bestätigt) und [ROADMAP.md](../ROADMAP.md). Kein Code. Die Punkte aus Abschnitt 7 wurden am 20.11. bestätigt; einzig die Aufbewahrung der Betreiber-Mails (Abschnitt 3) bleibt Vorschlag bis P01. Alle Texte sind Entwürfe. Sie werden in P02 mit der Datenschutzerklärung abgeglichen.
 
 Platzhalter in Texten: `{anzeigename}`, `{gesuch_id}`, `{sichtbar_bis}`, `{bestaetigungslink}`, `{verwaltungslink}`, `{grund}`, `{name}` (Absender einer Kontaktnachricht).
 
@@ -298,7 +298,7 @@ Entscheiden: https://tanzpartner-ostfriesland.de/admin/
 
 Die Datenschutzhinweise selbst (Link in T7) entstehen in P02.
 
-## 7. Noch zu bestätigen (Nutzer)
+## 7. Vom Nutzer bestätigt (20.11.2026)
 
 1. **Ansprache „du“** in App und Mails.
 2. **Reaktionszeit** „meist innerhalb von 2 Tagen“ für Freigabe und Meldungen. Das ist eine Zusage, die du als Betreiber einhalten musst.
